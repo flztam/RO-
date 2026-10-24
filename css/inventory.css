@@ -181,7 +181,7 @@
   padding: 10px 14px;
   min-width: 240px;
   max-width: 320px;
-  pointer-events: none;
+  pointer-events: auto;
   font-size: 0.82rem;
   line-height: 1.5;
   display: none;
@@ -329,4 +329,147 @@
   .tooltip-close-btn {
     display: flex !important;
   }
+}
+
+/* ============================================================
+   TREASURE BOX UNBOXING MODAL (OBB / OVB)
+   ============================================================ */
+.unbox-window {
+  max-width: 440px;
+  text-align: center;
+}
+
+.unbox-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px;
+}
+
+.unbox-celebration {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.unbox-aura {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.45) 0%, rgba(255, 165, 0, 0.2) 50%, transparent 75%);
+  animation: unbox-spin 4s linear infinite;
+}
+
+@keyframes unbox-spin {
+  0%   { transform: rotate(0deg) scale(0.95); opacity: 0.7; }
+  50%  { transform: rotate(180deg) scale(1.1); opacity: 1; }
+  100% { transform: rotate(360deg) scale(0.95); opacity: 0.7; }
+}
+
+.unbox-item-img-wrap {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  background: #ffffff;
+  border: 2px solid #f7b500;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(247, 181, 0, 0.4);
+}
+
+.unbox-item-img {
+  width: 42px;
+  height: 42px;
+  image-rendering: pixelated;
+  animation: unbox-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes unbox-pop {
+  0%   { transform: scale(0.2) rotate(-15deg); }
+  70%  { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.unbox-item-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a3da8;
+}
+
+.unbox-item-badges {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.unbox-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+}
+.unbox-badge-stat {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.unbox-item-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #b45309;
+}
+
+.unbox-item-desc {
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.5;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.unbox-footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Tooltip Action Buttons */
+.tooltip-action-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+.btn-tooltip-action {
+  font-family: var(--font-ro);
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border: 1px solid #1e40af;
+  transition: all 0.15s;
+}
+.btn-tooltip-action:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
 }

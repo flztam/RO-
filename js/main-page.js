@@ -71,13 +71,13 @@ const MainPage = (() => {
     // Menu buttons
     document.getElementById('btn-refine').addEventListener('click', () => Router.go('page-refine'));
     document.getElementById('btn-inventory').addEventListener('click', () => Router.go('page-inventory'));
-    document.getElementById('btn-shop').addEventListener('click', () => Router.go('page-shop'));
+    document.getElementById('btn-shop').addEventListener('click', () => Shop.promptService());
     document.getElementById('btn-achievements').addEventListener('click', () => Router.go('page-achievements'));
 
     // NPC Dialogue Options
     document.getElementById('dialog-opt-refine')?.addEventListener('click', () => Router.go('page-refine'));
     document.getElementById('dialog-opt-inventory')?.addEventListener('click', () => Router.go('page-inventory'));
-    document.getElementById('dialog-opt-shop')?.addEventListener('click', () => Router.go('page-shop'));
+    document.getElementById('dialog-opt-shop')?.addEventListener('click', () => Shop.promptService());
     document.getElementById('dialog-opt-achievements')?.addEventListener('click', () => Router.go('page-achievements'));
     document.getElementById('btn-talk-npc')?.addEventListener('click', () => {
       randomNpcSpeech();

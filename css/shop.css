@@ -351,3 +351,99 @@
     padding: 2px;
   }
 }
+
+/* ============================================================
+   SHOP SERVICE SELECTION POPUP MODAL
+   ============================================================ */
+.shop-service-window {
+  max-width: 500px;
+}
+
+.service-intro {
+  font-size: 0.9rem;
+  color: #334155;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.shop-services-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service-choice-card {
+  font-family: var(--font-ro);
+  background: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+}
+
+.service-choice-card:hover {
+  border-color: var(--ro-blue-primary);
+  background: #f0f6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(39, 95, 249, 0.2);
+}
+
+.service-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.buy-icon {
+  background: #e0f2fe;
+  border: 1px solid #7dd3fc;
+}
+.sell-icon {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+}
+.refinery-icon {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.service-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.service-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a3da8;
+}
+
+.service-desc {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.service-arrow {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.service-choice-card:hover .service-arrow {
+  color: var(--ro-blue-primary);
+  transform: translateX(4px);
+}

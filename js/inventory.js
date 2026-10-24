@@ -132,14 +132,87 @@ const Inventory = (() => {
 
   function openTreasureBox(boxId) {
     const boxDef = MATERIALS.find(m => m.id === boxId);
-    Audio.play('buy');
-    const reward = State.openBox(boxId);
-    if (!reward) return;
+    if (!boxDef) return;
+    
+    if (State.getMaterial(boxId) < 1) {
+      showNotification(`❌ ท่านไม่มี ${boxDef.name} ในตัว!`);
+      return;
+    }
 
+    const reward = State.openBox(boxId);
+    if (!reward) {
+      showNotification(`❌ ไม่สามารถเปิด ${boxDef.name} ได้!`);
+      return;
+    }
+
+    hideTooltip();
     Audio.play('level-up');
-    showNotification(`🎁 เปิด ${boxDef?.name}! ได้รับ [${reward.name}]!`);
+    try {
+      Particles.successBurst(window.innerWidth / 2, window.innerHeight / 2);
+    } catch (e) {}
+
+    showUnboxModal(reward, boxId);
     render();
     MainPage.refresh();
+    if (typeof Achievements !== 'undefined' && Achievements.check) {
+      Achievements.check();
+    }
+  }
+
+  function showUnboxModal(reward, boxId) {
+    const modal = document.getElementById('unbox-modal');
+    if (!modal) return;
+
+    const img = document.getElementById('unbox-item-img');
+    const name = document.getElementById('unbox-item-name');
+    const badgeType = document.getElementById('unbox-badge-type');
+    const badgeStat = document.getElementById('unbox-badge-stat');
+    const price = document.getElementById('unbox-item-price');
+    const desc = document.getElementById('unbox-item-desc');
+    const remCount = document.getElementById('unbox-rem-count');
+    const btnAgain = document.getElementById('btn-unbox-again');
+
+    if (img) {
+      img.src = reward.icon;
+      img.onerror = () => { img.src = `https://file5s.ratemyserver.net/items/small/${reward.itemId}.gif`; };
+    }
+    if (name) name.textContent = reward.name;
+    if (badgeType) badgeType.textContent = reward.type === 'Weapon' ? `Weapon Lv.${reward.weaponLevel}` : 'Armor';
+    if (badgeStat) badgeStat.textContent = reward.type === 'Weapon' ? `ATK: ${reward.baseAtk}` : `DEF: ${reward.baseDef}`;
+    const sellVal = reward.sellPrice || Math.round((reward.price || 100) * 0.5);
+    if (price) price.textContent = `💰 ราคาขายเริ่มต้น: ${sellVal.toLocaleString()} z`;
+    if (desc) desc.textContent = reward.desc || '';
+
+    const remaining = State.getMaterial(boxId);
+    if (remCount) remCount.textContent = remaining;
+    if (btnAgain) {
+      btnAgain.disabled = remaining < 1;
+      btnAgain.style.opacity = remaining < 1 ? '0.5' : '1';
+    }
+
+    modal.classList.remove('hidden');
+
+    const closeBtn = document.getElementById('btn-close-unbox');
+    const doneBtn = document.getElementById('btn-unbox-done');
+    const invBtn = document.getElementById('btn-unbox-inventory');
+
+    const closeModal = () => modal.classList.add('hidden');
+    if (closeBtn) closeBtn.onclick = closeModal;
+    if (doneBtn) doneBtn.onclick = closeModal;
+    if (invBtn) {
+      invBtn.onclick = () => {
+        closeModal();
+        const eqTab = document.querySelector('.ro-tab-btn[data-inv-tab="equipment"]');
+        if (eqTab) eqTab.click();
+      };
+    }
+    if (btnAgain) {
+      btnAgain.onclick = () => {
+        if (State.getMaterial(boxId) >= 1) {
+          openTreasureBox(boxId);
+        }
+      };
+    }
   }
 
   function combineRough(roughId) {
@@ -210,6 +283,21 @@ const Inventory = (() => {
   }
 
   function showMatTooltip(e, def, qty) {
+    let actionBtnHtml = '';
+    if (def.isUsable) {
+      actionBtnHtml = `
+        <div class="tooltip-action-row">
+          <button type="button" class="btn-tooltip-action" id="btn-tooltip-open-box">🎁 เปิดกล่องนี้ (Open Box)</button>
+        </div>
+      `;
+    } else if ((def.id === 'rough_oridecon' || def.id === 'rough_elunium') && qty >= 5) {
+      actionBtnHtml = `
+        <div class="tooltip-action-row">
+          <button type="button" class="btn-tooltip-action" style="background:linear-gradient(180deg,#10b981 0%,#047857 100%);border-color:#065f46;" id="btn-tooltip-combine-ore">✨ หลอมแร่บริสุทธิ์ (Refine 5 to 1)</button>
+        </div>
+      `;
+    }
+
     $tooltip.innerHTML = `
       <button type="button" class="tooltip-close-btn" id="btn-close-mat-tooltip" title="ปิด">✕</button>
       <div class="tooltip-header">
@@ -226,13 +314,26 @@ const Inventory = (() => {
           <strong style="color:#1a3da8;">${qty} ชิ้น</strong>
         </div>
         <div class="tooltip-desc">${def.desc}</div>
+        ${actionBtnHtml}
       </div>
     `;
     $tooltip.classList.add('visible');
+
     $tooltip.querySelector('#btn-close-mat-tooltip')?.addEventListener('click', (ev) => {
       ev.stopPropagation();
       hideTooltip();
     });
+
+    $tooltip.querySelector('#btn-tooltip-open-box')?.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      openTreasureBox(def.id);
+    });
+
+    $tooltip.querySelector('#btn-tooltip-combine-ore')?.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      combineRough(def.id);
+    });
+
     moveTooltip(e);
   }
 
@@ -249,10 +350,11 @@ const Inventory = (() => {
 
   function showNotification(msg) {
     const toast = document.getElementById('hunt-toast');
+    if (!toast) return;
     toast.textContent = msg;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
-  return { open, render };
+  return { open, render, openTreasureBox, showUnboxModal };
 })();

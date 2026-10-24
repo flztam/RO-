@@ -199,90 +199,147 @@
       <div class="zeny-pill">💰 <span id="refine-zeny">0</span> z</div>
     </header>
 
-    <div class="refine-content">
-      <!-- Left: Equipment Selection Column -->
-      <div class="ro-window-panel equip-panel">
-        <div class="panel-header">
-          <span class="panel-title">เลือกอุปกรณ์ (Equipment)</span>
+    <div class="refine-layout-container">
+      <!-- Equipment Selection Drawer (Collapsible & Mobile Responsive) -->
+      <aside class="refine-equip-drawer" id="refine-equip-drawer">
+        <div class="drawer-header">
+          <span class="drawer-title">🎒 เลือกอุปกรณ์ในตัว (Bag)</span>
+          <button type="button" class="btn-drawer-close" id="btn-close-drawer" title="ปิด">✕</button>
         </div>
-        <div class="panel-body">
-          <div id="equip-slot" class="equip-slot empty">
-            <span class="equip-slot-icon">➕</span>
-            <span class="equip-slot-label">คลิกเพื่อเลือกอุปกรณ์ที่ต้องการตีบวก</span>
-          </div>
-          <div id="equip-picker" class="equip-picker hidden"></div>
+        <div class="drawer-filter-bar">
+          <button type="button" class="drawer-filter-btn active" data-filter="all">ทั้งหมด</button>
+          <button type="button" class="drawer-filter-btn" data-filter="Weapon">อาวุธ</button>
+          <button type="button" class="drawer-filter-btn" data-filter="Armor">ชุดเกราะ</button>
         </div>
-      </div>
+        <div class="drawer-list" id="equip-picker"></div>
+      </aside>
 
-      <!-- Center: Refinement Chamber (Matches official guide UI) -->
-      <div class="ro-window-panel refine-center-panel">
-        <div class="panel-header">
-          <span class="panel-title">แท่นตีบวก (Upgrade Anvil)</span>
-        </div>
-        <div class="panel-body center-body">
-          <!-- Item Visual Display -->
-          <div class="refine-display" id="refine-display">
-            <div class="anvil-sparkle-bg"></div>
-            <div class="refine-item-visual" id="refine-item-visual">
-              <span class="refine-item-icon">❓</span>
-              <span class="refine-item-level">+0</span>
-            </div>
-            <div class="refine-chance-info" id="refine-chance-info">
-              <span>กรุณาเลือกอุปกรณ์จากรายการด้านซ้าย</span>
-            </div>
+      <!-- Center: Equipment Refining Window (Faithful to photo reference) -->
+      <div class="refine-card-wrapper">
+        <div class="refine-modal-card">
+          <!-- Orange/Red Ribbon Bookmark Close Button at top-right -->
+          <button type="button" class="ribbon-close-btn" id="refine-close-ribbon" title="ปิดหน้าต่าง">
+            <span class="ribbon-close-x">✕</span>
+          </button>
+
+          <!-- Window Header Title -->
+          <div class="refine-modal-header">
+            <h2 class="refine-modal-title">Equipment Refining</h2>
           </div>
 
-          <!-- Refine Mode Selection -->
-          <div class="refine-mode-select">
-            <button class="refine-mode-btn active" id="mode-npc">
-              <span class="mode-icon">🧙</span>
-              <div class="mode-text">
-                <strong>ให้ช่างตีบวก (NPC Luck)</strong>
-                <small>ขึ้นอยู่กับดวงชะตาตามตาราง RO</small>
+          <!-- Magic Seal & Anvil Area -->
+          <div class="refine-magic-seal-area">
+            <div class="magic-circle-bg">
+              <div class="magic-rays"></div>
+              <div class="magic-ring-outer"></div>
+              <div class="magic-star-geometry"></div>
+              <div class="magic-ring-inner"></div>
+            </div>
+
+            <!-- Central Item Slot Box (Clickable to pick equipment) -->
+            <div class="refine-item-slot-box" id="equip-slot" title="คลิกเพื่อเลือกหรือเปลี่ยนอุปกรณ์">
+              <div class="item-slot-inner" id="refine-item-visual">
+                <span class="empty-plus">➕</span>
+                <span class="empty-text">เลือกอุปกรณ์</span>
               </div>
-            </button>
-            <button class="refine-mode-btn" id="mode-manual">
-              <span class="mode-icon">🎯</span>
-              <div class="mode-text">
-                <strong>ตีด้วยตนเอง (Manual Timing)</strong>
-                <small>กดหยุดเข็มในแถบเกจแบบ Pangya</small>
+            </div>
+
+            <!-- Curved Blue Ribbon Banner with Item Name -->
+            <div class="refine-ribbon-banner" id="btn-open-picker-ribbon" title="คลิกเพื่อเลือกหรือเปลี่ยนอุปกรณ์">
+              <div class="ribbon-tail left"></div>
+              <div class="ribbon-body">
+                <span id="refine-ribbon-item-name">กรุณาเลือกอุปกรณ์ที่จะตีบวก</span>
               </div>
-            </button>
-          </div>
-
-          <!-- Materials & Cost -->
-          <div class="refine-materials" id="refine-materials">
-            <div class="material-row">
-              <span class="mat-icon">⚙️</span>
-              <span class="mat-name">วัตถุดิบ (Oridecon / Elunium)</span>
-              <span class="mat-count" id="mat-count">0</span>
-            </div>
-            <div class="material-row">
-              <span class="mat-icon">💰</span>
-              <span class="mat-name">ค่าบริการ (Zeny Fee)</span>
-              <span class="mat-count" id="zeny-cost">0 z</span>
+              <div class="ribbon-tail right"></div>
             </div>
           </div>
-          <!-- Enriched Stone Toggle -->
-          <div class="enriched-toggle-row">
-            <button type="button" class="btn-enriched-toggle" id="btn-toggle-enriched">
-              <span class="enriched-dot"></span>
-              <span id="enriched-btn-text">✨ ใช้หิน Enriched (เพิ่มโอกาสสำเร็จ): ปิด (OFF)</span>
-            </button>
+
+          <!-- Stat Comparison Row: Current vs Next Level -->
+          <div class="refine-stat-row">
+            <div class="stat-col stat-current">
+              <div class="stat-line">
+                <span class="stat-lbl">Current:</span>
+                <span class="stat-val" id="stat-current-lvl">+0</span>
+              </div>
+              <div class="stat-line">
+                <span class="stat-lbl" id="stat-lbl-curr-atk">Refine Atk :</span>
+                <span class="stat-val" id="stat-current-bonus">+0</span>
+              </div>
+            </div>
+
+            <div class="stat-arrow-divider">▶</div>
+
+            <div class="stat-col stat-next">
+              <div class="stat-line">
+                <span class="stat-lbl">Next level:</span>
+                <span class="stat-val" id="stat-next-lvl">+1 <small id="stat-success-rate">(100%)</small></span>
+              </div>
+              <div class="stat-line">
+                <span class="stat-lbl" id="stat-lbl-next-atk">Refine Atk :</span>
+                <span class="stat-val" id="stat-next-bonus">+12</span>
+              </div>
+            </div>
           </div>
 
-          <button class="ro-btn-refine-action" id="btn-do-refine" disabled>
-            <span class="btn-refine-text">⚒️ เริ่มการตีบวก (Refine!)</span>
+          <!-- Three Status / Requirement Pill Boxes -->
+          <div class="refine-pills-row">
+            <!-- Pill 1: Normal / Safe (Enriched) Toggle -->
+            <div class="refine-pill pill-mode" id="pill-mode-toggle" title="คลิกเพื่อสลับ Normal / Enriched">
+              <div class="pill-mode-tab active" id="tab-mode-normal">
+                <span class="pill-icon-star">✡</span> Normal
+              </div>
+              <div class="pill-mode-tab" id="tab-mode-safe">
+                Safe
+              </div>
+            </div>
+
+            <!-- Pill 2: Material Stone Requirement -->
+            <div class="refine-pill pill-material" id="pill-material-box">
+              <img src="images/items/984.gif" class="pill-mat-icon" id="pill-mat-icon" alt="stone" />
+              <span class="pill-mat-text" id="mat-count">0/1</span>
+            </div>
+
+            <!-- Pill 3: Zeny Fee -->
+            <div class="refine-pill pill-zeny-box" id="pill-zeny-box">
+              <div class="pill-zeny-symbol">Ⓩ</div>
+              <span class="pill-zeny-amount" id="zeny-cost">10000</span>
+            </div>
+          </div>
+
+          <!-- Info / Safe Rate Tip Bar -->
+          <div class="refine-info-bar" id="refine-info-bar">
+            <span class="info-circle-icon">ⓘ</span>
+            <span id="refine-info-text">100% success for Refine +1 to +4</span>
+          </div>
+
+          <!-- Bottom Action Buttons Row -->
+          <div class="refine-bottom-actions">
+            <button type="button" class="btn-refine-secondary" id="btn-toggle-manual">
+              <span class="btn-sec-icon">🎯</span>
+              <span id="manual-btn-label">Manual</span>
+            </button>
+            <button type="button" class="btn-refine-primary" id="btn-do-refine" disabled>
+              Refine
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub Controls: History Log & Equipment Switcher -->
+        <div class="refine-sub-bar">
+          <button type="button" class="btn-toggle-drawer" id="btn-trigger-picker">
+            🗡️ เปลี่ยนอุปกรณ์ (Equipment)
+          </button>
+          <button type="button" class="btn-toggle-log" id="btn-toggle-log">
+            📜 ประวัติการตีบวก (Log)
           </button>
         </div>
-      </div>
 
-      <!-- Right: Refine History Log Column -->
-      <div class="ro-window-panel log-panel">
-        <div class="panel-header">
-          <span class="panel-title">ประวัติการตีบวก (Refine Log)</span>
-        </div>
-        <div class="panel-body">
+        <!-- Collapsible Refine History Log Panel -->
+        <div class="refine-log-box hidden" id="refine-log-box">
+          <div class="log-box-header">
+            <span>📜 บันทึกประวัติการตีบวก (Refine Log)</span>
+            <button type="button" class="btn-close-log" id="btn-close-log">✕</button>
+          </div>
           <div id="refine-log" class="refine-log"></div>
         </div>
       </div>
@@ -522,6 +579,80 @@
           <p style="font-size:0.85rem; color:#888; margin-bottom:10px;">ลบข้อมูลตัวละครและสถิติทั้งหมดในเบราว์เซอร์นี้</p>
           <button class="ro-btn ro-btn-danger" id="btn-delete-account">ลบข้อมูลตัวละครนี้ (Delete Account)</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop Service Selection Modal (Buy / Sell / Refinery) -->
+  <div id="shop-service-modal" class="ro-modal-overlay hidden">
+    <div class="ro-modal-window shop-service-window">
+      <div class="ro-modal-header">
+        <span class="ro-modal-title">🏪 ร้านค้ามิดการ์ด (Midgard Blacksmith)</span>
+        <button type="button" class="ro-modal-close" id="btn-close-shop-service" title="ปิด">✕</button>
+      </div>
+      <div class="ro-modal-body">
+        <p class="service-intro">ยินดีต้อนรับสู่ร้านค้ามิดการ์ด ท่านต้องการให้ข้าช่วยเหลือสิ่งใด?</p>
+        <div class="shop-services-grid">
+          <button type="button" class="service-choice-card" id="srv-opt-buy">
+            <div class="service-icon-wrap buy-icon">🛒</div>
+            <div class="service-info">
+              <div class="service-title">ซื้อไอเทม &amp; วัตถุดิบ (Buy Items)</div>
+              <div class="service-desc">ซื้อหินตีบวก, อาวุธ Lv.1 - 4, ชุดเกราะ และกล่องสุ่ม OBB / OVB</div>
+            </div>
+            <span class="service-arrow">➔</span>
+          </button>
+
+          <button type="button" class="service-choice-card" id="srv-opt-sell">
+            <div class="service-icon-wrap sell-icon">💰</div>
+            <div class="service-info">
+              <div class="service-title">ขายอุปกรณ์ (Sell Equipment)</div>
+              <div class="service-desc">ขายอุปกรณ์ที่ไม่ใช้ หรือขายไอเทมบวกสูงเพื่อรับเงิน Zeny จำนวนมหาศาล</div>
+            </div>
+            <span class="service-arrow">➔</span>
+          </button>
+
+          <button type="button" class="service-choice-card" id="srv-opt-refinery">
+            <div class="service-icon-wrap refinery-icon">⚒️</div>
+            <div class="service-info">
+              <div class="service-title">โรงหลอมแร่ (Ore Refinery)</div>
+              <div class="service-desc">หลอมเศษแร่ Rough 5 ก้อน เป็นแร่บริสุทธิ์ Oridecon / Elunium 1 ก้อน</div>
+            </div>
+            <span class="service-arrow">➔</span>
+          </button>
+        </div>
+      </div>
+      <div class="ro-modal-footer">
+        <button type="button" class="ro-btn ro-btn-secondary" id="btn-cancel-shop-service">ยกเลิก (Cancel)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Treasure Box Unboxing Modal (OBB / OVB) -->
+  <div id="unbox-modal" class="ro-modal-overlay hidden">
+    <div class="ro-modal-window unbox-window">
+      <div class="ro-modal-header unbox-header">
+        <span class="ro-modal-title">🎁 ยินดีด้วย! เปิดกล่องสมบัติสำเร็จ</span>
+        <button type="button" class="ro-modal-close" id="btn-close-unbox" title="ปิด">✕</button>
+      </div>
+      <div class="ro-modal-body unbox-body">
+        <div class="unbox-celebration">
+          <div class="unbox-aura"></div>
+          <div class="unbox-item-img-wrap">
+            <img id="unbox-item-img" src="" alt="Reward Item" class="unbox-item-img" />
+          </div>
+        </div>
+        <h3 class="unbox-item-name" id="unbox-item-name">Item Name</h3>
+        <div class="unbox-item-badges" id="unbox-item-badges">
+          <span class="unbox-badge" id="unbox-badge-type">Weapon Lv.3</span>
+          <span class="unbox-badge unbox-badge-stat" id="unbox-badge-stat">ATK: 120</span>
+        </div>
+        <div class="unbox-item-price" id="unbox-item-price">💰 ราคาขาย: 25,000 z</div>
+        <p class="unbox-item-desc" id="unbox-item-desc">คำอธิบายไอเทม</p>
+      </div>
+      <div class="ro-modal-footer unbox-footer">
+        <button type="button" class="ro-btn ro-btn-primary" id="btn-unbox-again">🎁 เปิดอีกกล่อง (<span id="unbox-rem-count">0</span>)</button>
+        <button type="button" class="ro-btn ro-btn-secondary" id="btn-unbox-inventory">🎒 ดูในกระเป๋า</button>
+        <button type="button" class="ro-btn ro-btn-outline" id="btn-unbox-done">ตกลง (OK)</button>
       </div>
     </div>
   </div>

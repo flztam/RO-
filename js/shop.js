@@ -6,28 +6,93 @@
 const Shop = (() => {
   let activeTab = 'mats';
 
-  function open() {
+  function open(targetTab) {
     try {
-      render();
       bindTabs();
+      bindServiceModal();
+      if (targetTab) {
+        switchTab(targetTab);
+      } else {
+        render();
+      }
     } catch (err) {
       console.error('Shop open error:', err);
     }
   }
 
+  function switchTab(tabId) {
+    activeTab = tabId;
+    document.querySelectorAll('.ro-tab-btn[data-shop-tab]').forEach(t => {
+      t.classList.toggle('active', t.dataset.shopTab === tabId);
+    });
+    document.querySelectorAll('.shop-panel').forEach(p => {
+      p.classList.toggle('active', p.id === 'shop-' + tabId);
+    });
+    updateZenyDisplay();
+    renderActivePanel();
+  }
+
   function bindTabs() {
     document.querySelectorAll('.ro-tab-btn[data-shop-tab]').forEach(tab => {
       tab.onclick = () => {
-        document.querySelectorAll('.ro-tab-btn[data-shop-tab]').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        activeTab = tab.dataset.shopTab;
-        document.querySelectorAll('.shop-panel').forEach(p => p.classList.remove('active'));
-        const panel = document.getElementById('shop-' + activeTab);
-        if (panel) panel.classList.add('active');
-        renderActivePanel();
+        switchTab(tab.dataset.shopTab);
         Audio.play('click');
       };
     });
+  }
+
+  function promptService() {
+    bindServiceModal();
+    const modal = document.getElementById('shop-service-modal');
+    if (modal) modal.classList.remove('hidden');
+  }
+
+  function closeServiceModal() {
+    const modal = document.getElementById('shop-service-modal');
+    if (modal) modal.classList.add('hidden');
+  }
+
+  let serviceModalBound = false;
+  function bindServiceModal() {
+    if (serviceModalBound) return;
+    serviceModalBound = true;
+
+    const modal = document.getElementById('shop-service-modal');
+    const closeBtn = document.getElementById('btn-close-shop-service');
+    const cancelBtn = document.getElementById('btn-cancel-shop-service');
+    const optBuy = document.getElementById('srv-opt-buy');
+    const optSell = document.getElementById('srv-opt-sell');
+    const optRefinery = document.getElementById('srv-opt-refinery');
+
+    if (closeBtn) closeBtn.onclick = closeServiceModal;
+    if (cancelBtn) cancelBtn.onclick = closeServiceModal;
+
+    if (optBuy) {
+      optBuy.onclick = () => {
+        closeServiceModal();
+        Router.go('page-shop');
+        switchTab('mats');
+        Audio.play('click');
+      };
+    }
+
+    if (optSell) {
+      optSell.onclick = () => {
+        closeServiceModal();
+        Router.go('page-shop');
+        switchTab('sell');
+        Audio.play('click');
+      };
+    }
+
+    if (optRefinery) {
+      optRefinery.onclick = () => {
+        closeServiceModal();
+        Router.go('page-shop');
+        switchTab('refinery');
+        Audio.play('click');
+      };
+    }
   }
 
   function render() {
@@ -343,5 +408,5 @@ const Shop = (() => {
     setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
-  return { open, render };
+  return { open, render, switchTab, promptService };
 })();

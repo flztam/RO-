@@ -220,20 +220,20 @@ const State = (() => {
     if (getMaterial(boxId) < 1) return null;
     if (!removeMaterial(boxId, 1)) return null;
 
-    data.stats.boxesOpened++;
+    data.stats.boxesOpened = (data.stats.boxesOpened || 0) + 1;
     let pool = [];
 
     if (boxId === 'obb') {
-      // Tier 1 - 3 weapons and armors
-      pool = EQUIPMENT.filter(e => e.weaponLevel <= 3 || e.type === 'Armor');
+      // Tier 1 - 3 weapons and all armors
+      pool = EQUIPMENT.filter(e => (e.type === 'Weapon' && e.weaponLevel <= 3) || e.type === 'Armor');
     } else if (boxId === 'ovb') {
       // Rare Lv 3 - 4 weapons and high-tier armors
-      pool = EQUIPMENT.filter(e => e.weaponLevel >= 3 || (e.type === 'Armor' && e.price >= 30000));
+      pool = EQUIPMENT.filter(e => (e.type === 'Weapon' && e.weaponLevel >= 3) || (e.type === 'Armor' && (e.price || 0) >= 20000));
     } else {
       pool = EQUIPMENT;
     }
 
-    if (pool.length === 0) pool = EQUIPMENT;
+    if (!pool || pool.length === 0) pool = EQUIPMENT;
     const rewardItem = pool[Math.floor(Math.random() * pool.length)];
     addEquipment(rewardItem.id);
     save();
