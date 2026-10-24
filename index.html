@@ -46,6 +46,7 @@
           <div class="auth-tabs">
             <button class="auth-tab active" data-tab="signin">เข้าสู่ระบบ (Sign In)</button>
             <button class="auth-tab" data-tab="register">สมัครสมาชิก (Register)</button>
+            <button class="auth-tab" data-tab="transfer">ย้ายเครื่อง (Save Code)</button>
           </div>
           <div id="tab-signin" class="auth-form active">
             <div class="input-group">
@@ -74,6 +75,14 @@
             </div>
             <button class="ro-btn ro-btn-primary" id="btn-register">สร้างตัวละคร &amp; เริ่มเล่น</button>
             <p class="auth-error" id="reg-error"></p>
+          </div>
+          <div id="tab-transfer" class="auth-form">
+            <div class="input-group">
+              <label for="transfer-code-input">วางรหัสเซฟของคุณ (Paste Save Code):</label>
+              <textarea id="transfer-code-input" class="ro-textarea" placeholder="วางรหัสเซฟที่คัดลอกมาจากเครื่องเดิมที่นี่ (ROREFINE-...)" rows="3"></textarea>
+            </div>
+            <button class="ro-btn ro-btn-primary" id="btn-load-transfer">🚀 โหลดข้อมูลและเข้าเล่นทันที</button>
+            <p class="auth-error" id="transfer-error"></p>
           </div>
         </div>
         <div class="ro-win-statusbar">
@@ -472,6 +481,35 @@
           <p>
             All rights reserved to Gravity Co., Ltd. This is a non-profit fan-made spinoff tribute.
           </p>
+        </div>
+      </div>
+
+      <!-- Save Code & Device Transfer Section -->
+      <div class="ro-window transfer-window">
+        <div class="ro-win-header">
+          <span class="ro-win-icon">💾</span>
+          <span class="ro-win-title">สำรองและย้ายข้อมูล (Save Code Transfer)</span>
+        </div>
+        <div class="ro-win-body">
+          <div class="transfer-box">
+            <h4 class="transfer-title">📤 สร้างรหัสเซฟเพื่อย้ายไปเล่นเครื่องใหม่:</h4>
+            <p class="transfer-sub">แปลงข้อมูลตัวละคร เงิน Zeny, อุปกรณ์ตีบวก และสถิติทั้งหมดเป็นรหัส เพื่อนำไปเปิดในโทรศัพท์หรือคอมพิวเตอร์เครื่องอื่น</p>
+            <div class="transfer-action-row">
+              <button type="button" class="ro-btn ro-btn-primary" id="btn-export-code">📋 สร้าง &amp; คัดลอกรหัสเซฟ (Copy Save Code)</button>
+            </div>
+            <textarea id="export-code-output" class="ro-textarea" readonly placeholder="คลิกปุ่มด้านบนเพื่อสร้างรหัสเซฟ..." rows="3"></textarea>
+          </div>
+
+          <div class="transfer-divider"></div>
+
+          <div class="transfer-box">
+            <h4 class="transfer-title">📥 โหลดข้อมูลจากรหัสเซฟเครื่องอื่น:</h4>
+            <textarea id="import-code-input" class="ro-textarea" placeholder="วางรหัสเซฟที่คัดลอกมาจากเครื่องเดิมที่นี่ (ROREFINE-...)" rows="3"></textarea>
+            <div class="transfer-action-row">
+              <button type="button" class="ro-btn ro-btn-secondary" id="btn-import-code">📥 โหลดข้อมูลเข้าสู่เครื่องนี้ (Import)</button>
+            </div>
+            <p class="transfer-msg" id="transfer-msg"></p>
+          </div>
         </div>
       </div>
 

@@ -255,6 +255,26 @@ html, body {
   border-color: var(--ro-blue-primary);
 }
 
+/* RO Standard Textarea */
+.ro-textarea {
+  font-family: var(--font-ro);
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid #8e9cb5;
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  color: #1e293b;
+  outline: none;
+  resize: vertical;
+  word-break: break-all;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.ro-textarea:focus {
+  border-color: var(--ro-blue-primary);
+  box-shadow: 0 0 0 2px rgba(39,95,249,0.25);
+}
+
 /* ============================================================
    SUB-PAGE HEADER
    ============================================================ */

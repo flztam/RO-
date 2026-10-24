@@ -318,6 +318,72 @@ const State = (() => {
     return `${s}s`;
   }
 
+  // ---- Save Code Export & Import ----
+  function exportSaveCode() {
+    if (!currentUser || !data) return null;
+    const accounts = getAccounts();
+    const acc = accounts[currentUser] || {};
+    const payload = {
+      v: 1,
+      createdAt: Date.now(),
+      username: acc.username || data.username || currentUser,
+      password: acc.password || '1234',
+      data: data
+    };
+    try {
+      const json = JSON.stringify(payload);
+      const encoded = btoa(encodeURIComponent(json));
+      return 'ROREFINE-' + encoded;
+    } catch (e) {
+      console.error('Export save code error:', e);
+      return null;
+    }
+  }
+
+  function importSaveCode(codeStr) {
+    if (!codeStr || typeof codeStr !== 'string') {
+      return { ok: false, msg: 'กรุณากรอกรหัสเซฟ (Please enter save code)' };
+    }
+    let clean = codeStr.trim();
+    try {
+      let payload;
+      if (clean.startsWith('{')) {
+        payload = JSON.parse(clean);
+      } else {
+        if (clean.startsWith('ROREFINE-')) clean = clean.slice(9);
+        const json = decodeURIComponent(atob(clean));
+        payload = JSON.parse(json);
+      }
+
+      if (!payload || !payload.data || !payload.data.inventory) {
+        return { ok: false, msg: 'รหัสเซฟไม่ถูกต้อง โครงสร้างข้อมูลไม่สมบูรณ์' };
+      }
+
+      const username = payload.username || payload.data.username || 'Novice';
+      const password = payload.password || '1234';
+      const uKey = username.toLowerCase();
+
+      const accounts = getAccounts();
+      accounts[uKey] = {
+        username: username,
+        password: password,
+        data: payload.data
+      };
+      saveAccounts(accounts);
+
+      currentUser = uKey;
+      data = payload.data;
+      _migrate();
+      save();
+      localStorage.setItem(CURRENT_KEY, currentUser);
+
+      return { ok: true, username: username };
+    } catch (err) {
+      console.error('Import save code error:', err);
+      return { ok: false, msg: 'รหัสเซฟผิดพลาดหรือเสียหาย ไม่สามารถอ่านข้อมูลได้' };
+    }
+  }
+
   return {
     register, signIn, autoLogin, logout, deleteAccount,
     get, getUser, isLoggedIn, save,
@@ -327,6 +393,7 @@ const State = (() => {
     addRefineLog,
     openBox, combineRoughStone,
     canHunt, huntCooldownRemaining, doHunt, formatCooldown,
+    exportSaveCode, importSaveCode,
     HUNT_COOLDOWN_MS,
   };
 })();

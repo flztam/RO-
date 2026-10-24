@@ -203,7 +203,8 @@
     padding: 9px 12px;
   }
   .auth-tab {
-    font-size: 0.78rem;
-    padding: 8px 10px;
+    font-size: 0.72rem;
+    padding: 7px 4px;
+    line-height: 1.2;
   }
 }

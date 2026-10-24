@@ -61,6 +61,27 @@ const Landing = (() => {
         if (e.key === 'Enter') document.getElementById('btn-register').click();
       });
     });
+
+    // Transfer save code import
+    document.getElementById('btn-load-transfer')?.addEventListener('click', () => {
+      const codeInput = document.getElementById('transfer-code-input');
+      const err = document.getElementById('transfer-error');
+      err.textContent = '';
+      if (!codeInput || !codeInput.value.trim()) {
+        err.textContent = 'กรุณาวางรหัสเซฟที่ต้องการโหลด';
+        Audio.play('fail');
+        return;
+      }
+      const res = State.importSaveCode(codeInput.value.trim());
+      if (res.ok) {
+        Audio.play('level-up');
+        MainPage.refresh();
+        Router.go('page-main');
+      } else {
+        err.textContent = res.msg;
+        Audio.play('fail');
+      }
+    });
   }
 
   return { init };

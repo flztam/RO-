@@ -56,6 +56,44 @@
   color: #1a3da8;
 }
 
+/* ============================================================
+   SAVE CODE TRANSFER WINDOW
+   ============================================================ */
+.transfer-window {
+  border-color: #3b82f6;
+}
+.transfer-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0;
+}
+.transfer-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+.transfer-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+.transfer-action-row {
+  display: flex;
+  gap: 8px;
+}
+.transfer-divider {
+  height: 1px;
+  background: #cbd5e1;
+  margin: 10px 0;
+}
+.transfer-msg {
+  font-size: 0.78rem;
+  color: #dc2626;
+  font-weight: 600;
+  min-height: 16px;
+}
+
 /* Danger Window */
 .danger-window {
   border-color: #f87171;

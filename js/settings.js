@@ -45,6 +45,52 @@ const Settings = (() => {
       State.deleteAccount();
       Router.go('page-landing');
     });
+
+    // Export save code
+    document.getElementById('btn-export-code')?.addEventListener('click', async () => {
+      const code = State.exportSaveCode();
+      const output = document.getElementById('export-code-output');
+      if (code && output) {
+        output.value = code;
+        try {
+          await navigator.clipboard.writeText(code);
+          showToast('📋 คัดลอกรหัสเซฟลงคลิปบอร์ดแล้ว! นำไปโหลดในเครื่องใหม่ได้ทันที');
+        } catch {
+          showToast('📋 สร้างรหัสเซฟสำเร็จ! กรุณาคัดลอกรหัสจากกล่องข้อความ');
+        }
+        Audio.play('buy');
+      }
+    });
+
+    // Import save code in settings
+    document.getElementById('btn-import-code')?.addEventListener('click', () => {
+      const input = document.getElementById('import-code-input');
+      const msg = document.getElementById('transfer-msg');
+      if (msg) msg.textContent = '';
+      if (!input || !input.value.trim()) {
+        if (msg) msg.textContent = 'กรุณาวางรหัสเซฟก่อนกดโหลด';
+        Audio.play('fail');
+        return;
+      }
+      const res = State.importSaveCode(input.value.trim());
+      if (res.ok) {
+        Audio.play('level-up');
+        showToast(`🎉 กู้คืนข้อมูลสำเร็จ! ยินดีต้อนรับกลับ [${res.username}]`);
+        MainPage.refresh();
+        Router.go('page-main');
+      } else {
+        if (msg) msg.textContent = res.msg;
+        Audio.play('fail');
+      }
+    });
+  }
+
+  function showToast(text) {
+    const toast = document.getElementById('hunt-toast');
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
   return { init, open };
