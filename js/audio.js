@@ -6,12 +6,17 @@ const Audio = (() => {
   let ctx = null;
   let enabled = true;
   let refineAudio = null;
+  let failAudio = null;
 
   function initAudio() {
     try {
       if (!refineAudio) {
         refineAudio = new window.Audio('Data/Sound/blacksmith_refine.mp3');
         refineAudio.preload = 'auto';
+      }
+      if (!failAudio) {
+        failAudio = new window.Audio('Data/Sound/ro-refine-failed.mp3');
+        failAudio.preload = 'auto';
       }
     } catch (e) {
       console.warn('Audio preloading error:', e);
@@ -82,6 +87,28 @@ const Audio = (() => {
     } catch (e) {}
   }
 
+  function playFail() {
+    if (!enabled) return;
+    initAudio();
+    try {
+      if (failAudio) {
+        failAudio.pause();
+        failAudio.currentTime = 0;
+        const p = failAudio.play();
+        if (p && p.catch) {
+          p.catch(err => {
+            console.warn('HTML5 fail audio failed, using procedural fallback', err);
+            _break(getCtx());
+          });
+        }
+      } else {
+        _break(getCtx());
+      }
+    } catch (err) {
+      _break(getCtx());
+    }
+  }
+
   function play(type) {
     if (!enabled) return;
     try {
@@ -89,8 +116,8 @@ const Audio = (() => {
       switch (type) {
         case 'click':    _beep(c, 880, 0.08, 'sine', 0, 0.06); break;
         case 'success':  _success(c); break;
-        case 'fail':     _fail(c); break;
-        case 'break':    _break(c); break;
+        case 'fail':     playFail(); break;
+        case 'break':    playFail(); break;
         case 'hit':      _beep(c, 660, 0.15, 'square', 0, 0.08); break;
         case 'miss':     _beep(c, 220, 0.1, 'sawtooth', 0, 0.1); break;
         case 'buy':      _beep(c, 1047, 0.1, 'sine', 0, 0.1); break;
@@ -155,10 +182,12 @@ const Audio = (() => {
   return {
     play,
     playRefine,
+    playFail,
     setEnabled(v) {
       enabled = v;
-      if (!v && refineAudio) {
-        refineAudio.pause();
+      if (!v) {
+        if (refineAudio) refineAudio.pause();
+        if (failAudio) failAudio.pause();
       }
     },
     isEnabled() { return enabled; },
