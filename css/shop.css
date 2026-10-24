@@ -1,0 +1,353 @@
+/* ============================================================
+   SHOP.CSS – Ragnarok Online Style Merchant Shop
+   ============================================================ */
+
+.shop-bg {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 20%, rgba(70, 123, 214, 0.25) 0%, transparent 70%),
+    linear-gradient(180deg, #131c31 0%, #0c1220 100%);
+}
+
+.shop-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  overflow: hidden;
+  max-width: 1040px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.shop-tab-bar {
+  flex-wrap: wrap;
+}
+
+.shop-panel {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  background: rgba(240, 244, 252, 0.95);
+  border: 2px solid #6b82a6;
+  border-radius: var(--radius-ro);
+  padding: 14px;
+}
+.shop-panel.active {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shop-hint {
+  font-size: 0.85rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* ============================================================
+   SHOP GRID & CARDS
+   ============================================================ */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+  align-content: start;
+}
+
+.shop-card {
+  background: #ffffff;
+  border: 1.5px solid #a8b8ce;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.shop-card:hover {
+  border-color: var(--ro-blue-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(39,95,249,0.2);
+}
+
+.shop-card-icon-wrap {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-card-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1a3da8;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.shop-card-badge-row {
+  display: flex;
+  gap: 4px;
+}
+.badge-item-class {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.badge-item-stat {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.shop-card-desc {
+  font-size: 0.72rem;
+  color: #64748b;
+  text-align: center;
+  min-height: 30px;
+  line-height: 1.35;
+}
+
+.shop-card-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #b45309;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.shop-card-stock {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.shop-card-actions {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.shop-card-actions button {
+  font-family: var(--font-ro);
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-buy-1 {
+  background: linear-gradient(180deg, #467bd6 0%, #275ff9 100%);
+  color: #ffffff;
+  border: 1px solid #143794;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+.btn-buy-1:hover:not(:disabled) {
+  background: linear-gradient(180deg, #5a8fee 0%, #3a71ff 100%);
+}
+
+.btn-buy-10 {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  color: #1e3a8a;
+  border: 1px solid #94a3b8;
+}
+.btn-buy-10:hover {
+  background: #e0ecfd;
+  border-color: #275ff9;
+}
+
+.btn-disabled {
+  background: #cbd5e1 !important;
+  border-color: #94a3b8 !important;
+  color: #64748b !important;
+  cursor: not-allowed !important;
+}
+
+.btn-sell-item {
+  width: 100%;
+  padding: 7px;
+  border-radius: 4px;
+  border: 1px solid #f87171;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-sell-item:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+/* ============================================================
+   ORE REFINERY CARDS
+   ============================================================ */
+.refinery-card {
+  border-color: #60a5fa;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+}
+
+.refinery-icon-flow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px;
+}
+
+.refinery-arrow {
+  color: #275ff9;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.refinery-req-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.75rem;
+  color: #334155;
+  margin-top: 4px;
+  padding: 4px 6px;
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   EXPONENTIAL SELL BADGES & JACKPOT EFFECTS
+   ============================================================ */
+.sell-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge-saferefined {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.badge-overrefine {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #c2410c;
+  background: #ffedd5;
+  border: 1px solid #fdba74;
+  padding: 2px 7px;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.2);
+}
+
+.badge-jackpot {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  border: 1px solid #f87171;
+  padding: 2px 8px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  animation: ro-pulse-jackpot 1.5s infinite;
+}
+
+@keyframes ro-pulse-jackpot {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+.card-high-value {
+  border-color: #f59e0b;
+  background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+}
+
+.price-jackpot {
+  color: #b91c1c !important;
+  font-size: 1.05rem !important;
+  font-weight: 900 !important;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+/* ============================================================
+   MOBILE RESPONSIVENESS FOR SHOP
+   ============================================================ */
+@media (max-width: 640px) {
+  .shop-content {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  .shop-tab-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    gap: 6px;
+    padding-bottom: 6px;
+  }
+  .shop-tab-bar .ro-tab-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    padding: 6px 12px;
+  }
+  .shop-panel {
+    padding: 10px 8px;
+  }
+  .shop-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .shop-card {
+    padding: 8px 6px;
+    gap: 4px;
+  }
+  .shop-card-name {
+    font-size: 0.8rem;
+  }
+  .shop-card-desc {
+    font-size: 0.68rem;
+  }
+  .shop-card-price {
+    font-size: 0.82rem;
+  }
+  .shop-card-stock {
+    font-size: 0.68rem;
+  }
+  .shop-card-actions button {
+    font-size: 0.72rem;
+    padding: 5px 6px;
+  }
+  .refinery-icon-flow {
+    gap: 8px;
+    padding: 2px;
+  }
+}

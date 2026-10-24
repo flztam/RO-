@@ -1,0 +1,76 @@
+/* ============================================================
+   SETTINGS.CSS – Ragnarok Online Style Settings & Legal Notice
+   ============================================================ */
+
+.settings-bg {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 20%, rgba(70, 123, 214, 0.25) 0%, transparent 70%),
+    linear-gradient(180deg, #131c31 0%, #0c1220 100%);
+}
+
+.settings-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.setting-row:last-child {
+  border-bottom: none;
+}
+.setting-row label:first-child {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Legal Notice */
+.legal-window {
+  border-color: #8fa2bf;
+}
+.legal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.legal-text p {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.6;
+}
+.legal-text strong {
+  color: #1a3da8;
+}
+
+/* Danger Window */
+.danger-window {
+  border-color: #f87171;
+}
+.danger-header {
+  background: linear-gradient(180deg, #e53935 0%, #b71c1c 100%) !important;
+  border-bottom-color: #8e1515 !important;
+}
+
+@media (max-width: 640px) {
+  .settings-content {
+    padding: 12px 10px;
+    gap: 12px;
+  }
+  .setting-row label:first-child {
+    font-size: 0.82rem;
+  }
+}

@@ -1,0 +1,533 @@
+/* ============================================================
+   MAIN.CSS – Ragnarok Online Official Art Direction
+   Grounded in https://ro.gnjoy.in.th/roright/02/
+   ============================================================ */
+
+:root {
+  /* Ragnarok Online Theme Colors */
+  --ro-blue-primary:   #275ff9;
+  --ro-blue-dark:      #1a3da8;
+  --ro-blue-header:    #3e51bd;
+  --ro-blue-light:     #eef4ff;
+  --ro-blue-hover:     #3872ff;
+  --ro-navy:           #142242;
+  
+  --ro-win-bg:         rgba(240, 244, 252, 0.94);
+  --ro-win-dark:       rgba(20, 28, 48, 0.88);
+  --ro-win-border:     #6b82a6;
+  --ro-win-border-dark:#34435e;
+  --ro-win-shadow:     0 8px 30px rgba(8, 16, 36, 0.65), 0 2px 6px rgba(0,0,0,0.3);
+
+  --ro-gold:           #f7b500;
+  --ro-gold-light:     #ffe082;
+  --ro-zeny:           #ffb300;
+  
+  --ro-success:        #28a745;
+  --ro-danger:         #dc3545;
+  --ro-danger-dark:    #a71d2a;
+  --ro-warning:        #ff9800;
+  
+  --ro-text-dark:      #1c2536;
+  --ro-text-dim:       #5d6b82;
+  --ro-text-light:     #f4f7fc;
+
+  /* Typography */
+  --font-ro:           'Kanit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  
+  --radius-ro:         6px;
+  --radius-sm:         4px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-ro);
+  background: #0f172a;
+  color: var(--ro-text-dark);
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page transitions */
+.page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: all;
+  z-index: 2;
+}
+
+/* Generic Background */
+.page-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ============================================================
+   RAGNAROK ONLINE WINDOW SKIN (RO-WINDOW)
+   ============================================================ */
+.ro-window {
+  background: var(--ro-win-bg);
+  border: 2px solid var(--ro-win-border);
+  border-radius: var(--radius-ro);
+  box-shadow: var(--ro-win-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+
+.ro-win-header {
+  background: linear-gradient(180deg, #467bd6 0%, #2e59a8 100%);
+  color: #ffffff;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #1a3da8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.ro-win-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  flex: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.ro-win-icon {
+  font-size: 1rem;
+}
+
+.ro-win-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.ro-win-btn-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #c4d2e8 100%);
+  border: 1px solid #4a638b;
+  border-radius: 2px;
+  color: #223;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+.ro-win-btn-mini:hover {
+  background: linear-gradient(180deg, #eef4ff 0%, #9cb8e8 100%);
+}
+.ro-win-btn-mini.ro-close:hover {
+  background: linear-gradient(180deg, #ff8a8a 0%, #d32f2f 100%);
+  color: #fff;
+}
+
+.ro-win-body {
+  padding: 16px;
+  flex: 1;
+}
+
+.ro-win-statusbar {
+  background: #d8e2f0;
+  border-top: 1px solid #b4c4dc;
+  padding: 4px 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--ro-text-dim);
+}
+
+/* ============================================================
+   RAGNAROK ONLINE BUTTONS
+   ============================================================ */
+.ro-btn {
+  font-family: var(--font-ro);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  outline: none;
+  text-decoration: none;
+}
+
+/* Primary RO Blue Button */
+.ro-btn-primary {
+  background: linear-gradient(180deg, #467bd6 0%, #275ff9 60%, #1a4cd2 100%);
+  color: #ffffff;
+  border: 1px solid #143794;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 2px 4px rgba(26,61,168,0.3);
+}
+.ro-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #5c8eee 0%, #3a70ff 60%, #2055e8 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 3px 8px rgba(39,95,249,0.5);
+  transform: translateY(-1px);
+}
+.ro-btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+.ro-btn-primary:disabled {
+  background: #a4b4cc;
+  border-color: #8c9cb0;
+  color: #edf2f9;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Standard RO Light Button */
+.ro-btn-secondary {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f4 50%, #ccd7e9 100%);
+  color: #21334f;
+  border: 1px solid #7c90af;
+  box-shadow: inset 1px 1px 0 #fff, 0 1px 2px rgba(0,0,0,0.1);
+}
+.ro-btn-secondary:hover {
+  background: linear-gradient(180deg, #f5f9ff 0%, #d3e2fa 50%, #b2c9ee 100%);
+  border-color: #4a75b8;
+  color: #123472;
+}
+
+/* Danger Button */
+.ro-btn-danger {
+  background: linear-gradient(180deg, #e53935 0%, #c62828 100%);
+  color: #fff;
+  border: 1px solid #8e1515;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.ro-btn-danger:hover {
+  background: linear-gradient(180deg, #f44336 0%, #d32f2f 100%);
+  box-shadow: 0 2px 8px rgba(229,57,53,0.4);
+}
+
+/* Back Button */
+.ro-btn-back {
+  background: linear-gradient(180deg, #ffffff 0%, #dde5f2 100%);
+  color: #1a3da8;
+  border: 1px solid #7c91b2;
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+.ro-btn-back:hover {
+  background: #eef4ff;
+  border-color: var(--ro-blue-primary);
+}
+
+/* ============================================================
+   SUB-PAGE HEADER
+   ============================================================ */
+.ro-sub-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #2b437c 0%, #1b2a52 100%);
+  border-bottom: 2px solid #3e5cb0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  color: #ffffff;
+}
+
+.ro-sub-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title-main {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  letter-spacing: 0.5px;
+}
+
+.title-sub {
+  font-size: 0.75rem;
+  color: #9cb8e8;
+  font-weight: 400;
+}
+
+.zeny-pill {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid #f7b500;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffe082;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* ============================================================
+   RO TAB BAR
+   ============================================================ */
+.ro-tab-bar {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid #3e51bd;
+  padding-bottom: 2px;
+}
+
+.ro-tab-btn {
+  font-family: var(--font-ro);
+  padding: 8px 18px;
+  background: linear-gradient(180deg, #dde4f0 0%, #b8c8df 100%);
+  color: #344768;
+  border: 1px solid #7d91b0;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.ro-tab-btn.active {
+  background: linear-gradient(180deg, #467bd6 0%, #275ff9 100%);
+  color: #ffffff;
+  border-color: #275ff9;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.ro-tab-btn:hover:not(.active) {
+  background: #eef3fb;
+  color: #123472;
+}
+
+/* ============================================================
+   RO WINDOW PANEL
+   ============================================================ */
+.ro-window-panel {
+  background: var(--ro-win-bg);
+  border: 2px solid var(--ro-win-border);
+  border-radius: var(--radius-ro);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  background: linear-gradient(180deg, #467bd6 0%, #2c56a3 100%);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-bottom: 1px solid #1a3da8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.panel-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.panel-body {
+  padding: 14px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ============================================================
+   TOGGLE SWITCH (SETTINGS)
+   ============================================================ */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #9aa8bc;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.25s;
+  border: 1px solid #718298;
+}
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  left: 2px; bottom: 2px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.toggle input:checked + .toggle-slider {
+  background: var(--ro-blue-primary);
+  border-color: #143da8;
+}
+.toggle input:checked + .toggle-slider::before {
+  transform: translateX(24px);
+}
+
+/* ============================================================
+   TOAST NOTIFICATION (RO STYLE)
+   ============================================================ */
+.hunt-toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  background: linear-gradient(180deg, #1f366b 0%, #122144 100%);
+  border: 2px solid #f7b500;
+  border-radius: 30px;
+  padding: 10px 26px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffe082;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.25);
+  z-index: 1000;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+}
+.hunt-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Particles Layer */
+.particles-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: float-up 1.2s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100px) scale(0.2); opacity: 0; }
+}
+
+/* Screen Shake */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  15%      { transform: translateX(-10px) rotate(-1deg); }
+  30%      { transform: translateX(10px) rotate(1deg); }
+  45%      { transform: translateX(-7px); }
+  60%      { transform: translateX(7px); }
+  75%      { transform: translateX(-4px); }
+  90%      { transform: translateX(4px); }
+}
+.shake { animation: shake 0.5s ease-out; }
+
+/* Floating Result Text */
+@keyframes float-result {
+  0%   { transform: translateY(0) scale(0.8); opacity: 0; }
+  20%  { transform: translateY(-10px) scale(1.1); opacity: 1; }
+  80%  { transform: translateY(-40px) scale(1); opacity: 1; }
+  100% { transform: translateY(-70px) scale(0.9); opacity: 0; }
+}
+.float-result {
+  position: fixed;
+  font-size: 2rem;
+  font-weight: 900;
+  pointer-events: none;
+  animation: float-result 1.6s ease-out forwards;
+  z-index: 1000;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8), 0 0 12px currentColor;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: #e0e7f4; }
+::-webkit-scrollbar-thumb { background: #889bb7; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #5c7499; }
+
+/* ============================================================
+   MOBILE RESPONSIVENESS & TOUCH OPTIMIZATIONS
+   ============================================================ */
+button, input, select, .ro-btn, .ro-hud-btn, .ro-dialog-option, .ro-menu-button {
+  touch-action: manipulation;
+}
+
+@media (max-width: 640px) {
+  .ro-sub-header {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .ro-btn-back {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .title-main {
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+  .title-sub {
+    display: none;
+  }
+  .zeny-pill {
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .hunt-toast {
+    width: 90vw;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    top: 54px;
+  }
+  .float-result {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ragnarok ตีบวก+ (RO Refine Online)</title>
+  <link rel="icon" href="https://img.gnjoy.in.th/logo-rag.png" sizes="32x32" />
+  <!-- Google Fonts used by official RO Thailand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="css/main-page.css" />
+  <link rel="stylesheet" href="css/refine.css" />
+  <link rel="stylesheet" href="css/inventory.css" />
+  <link rel="stylesheet" href="css/shop.css" />
+  <link rel="stylesheet" href="css/achievements.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+</head>
+<body>
+
+  <!-- ===== PAGES ===== -->
+
+  <!-- Landing Page -->
+  <div id="page-landing" class="page active">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <div class="logo-wrap">
+        <img src="Data/Logo.jpeg" alt="Ragnarok ตีบวก+" class="ro-logo-img" />
+        <p class="logo-tagline">Morroc Refinement Simulator · จำลองระบบตีบวก</p>
+      </div>
+      
+      <!-- Classic Ragnarok Login Dialog Window -->
+      <div class="ro-window auth-window">
+        <div class="ro-win-header">
+          <span class="ro-win-icon">⚔️</span>
+          <span class="ro-win-title">Ragnarok Online - Service Login</span>
+          <div class="ro-win-controls">
+            <span class="ro-win-btn-mini">_</span>
+            <span class="ro-win-btn-mini ro-close">×</span>
+          </div>
+        </div>
+        <div class="ro-win-body">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="signin">เข้าสู่ระบบ (Sign In)</button>
+            <button class="auth-tab" data-tab="register">สมัครสมาชิก (Register)</button>
+          </div>
+          <div id="tab-signin" class="auth-form active">
+            <div class="input-group">
+              <label for="signin-name">ไอดีผู้เล่น (ID):</label>
+              <input type="text" id="signin-name" placeholder="Username" maxlength="20" autocomplete="username" />
+            </div>
+            <div class="input-group">
+              <label for="signin-pass">รหัสผ่าน (Password):</label>
+              <input type="password" id="signin-pass" placeholder="Password" maxlength="30" autocomplete="current-password" />
+            </div>
+            <button class="ro-btn ro-btn-primary" id="btn-signin">เข้าสู่เกม (Enter Game)</button>
+            <p class="auth-error" id="signin-error"></p>
+          </div>
+          <div id="tab-register" class="auth-form">
+            <div class="input-group">
+              <label for="reg-name">ตั้งชื่อไอดี (New ID):</label>
+              <input type="text" id="reg-name" placeholder="Choose Username" maxlength="20" />
+            </div>
+            <div class="input-group">
+              <label for="reg-pass">รหัสผ่าน (Password):</label>
+              <input type="password" id="reg-pass" placeholder="Choose Password" maxlength="30" />
+            </div>
+            <div class="input-group">
+              <label for="reg-pass2">ยืนยันรหัสผ่าน (Confirm):</label>
+              <input type="password" id="reg-pass2" placeholder="Confirm Password" maxlength="30" />
+            </div>
+            <button class="ro-btn ro-btn-primary" id="btn-register">สร้างตัวละคร &amp; เริ่มเล่น</button>
+            <p class="auth-error" id="reg-error"></p>
+          </div>
+        </div>
+        <div class="ro-win-statusbar">
+          <span>Server: Morroc Refine [Online]</span>
+          <span>Version 1.0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Page (Morroc Refinement Room) -->
+  <div id="page-main" class="page">
+    <div class="morroc-bg"></div>
+    
+    <!-- Top RO HUD Bar -->
+    <header class="ro-hud-header">
+      <div class="ro-char-info">
+        <div class="ro-char-avatar">🗡️</div>
+        <div class="ro-char-text">
+          <div class="ro-char-name" id="player-name-display">Novice Smith</div>
+          <div class="ro-char-zeny"><span class="zeny-icon">💰</span> <span id="zeny-count">0</span> Zeny</div>
+        </div>
+      </div>
+      
+      <div class="ro-hud-actions">
+        <!-- Hunt Monster button available every 2 hours -->
+        <button class="ro-hud-btn btn-hunt" id="btn-hunt" title="ล่ามอนสเตอร์เพื่อหาเงิน Zeny (คูลดาวน์ 2 ชม.)">
+          <span class="hud-btn-icon">🗡️</span>
+          <span class="hud-btn-text">ล่ามอนสเตอร์ (Hunt)</span>
+        </button>
+        <button class="ro-hud-btn" id="btn-settings-main" title="ตั้งค่าระบบ">
+          <span class="hud-btn-icon">⚙️</span>
+          <span class="hud-btn-text">ตั้งค่า</span>
+        </button>
+        <button class="ro-hud-btn ro-hud-btn-danger" id="btn-logout" title="ออกจากระบบ">
+          <span class="hud-btn-icon">🚪</span>
+          <span class="hud-btn-text">ออกเกม</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Room Interactive Scene -->
+    <main class="morroc-scene-area">
+      <!-- Authentic Ragnarok Online NPC Dialogue Box (as shown in official guide) -->
+      <div class="ro-npc-dialog">
+        <div class="ro-npc-header">
+          <span class="ro-npc-name">[Hollgrehenn]</span>
+        </div>
+        <div class="ro-npc-message" id="npc-speech">
+          ข้าเป็นช่างอาวุธ ข้าสามารถตีอุปกรณ์ให้ท่านได้ทุกชนิด บอกมาเลยว่าท่านต้องการให้ข้าจัดการกับอุปกรณ์ชิ้นใด
+        </div>
+        <div class="ro-npc-options">
+          <button class="ro-dialog-option" id="dialog-opt-refine">
+            <span class="opt-bullet">▶</span> ข้าต้องการตีบวกอุปกรณ์ (Item Refine)
+          </button>
+          <button class="ro-dialog-option" id="dialog-opt-inventory">
+            <span class="opt-bullet">▶</span> ตรวจสอบสัมภาระ (Inventory)
+          </button>
+          <button class="ro-dialog-option" id="dialog-opt-shop">
+            <span class="opt-bullet">▶</span> ซื้อ-ขายวัตถุดิบและอุปกรณ์ (Shop)
+          </button>
+          <button class="ro-dialog-option" id="dialog-opt-achievements">
+            <span class="opt-bullet">▶</span> ดูเกียรติยศและสถิติ (Achievements)
+          </button>
+        </div>
+        <div class="ro-npc-footer">
+          <button class="ro-btn-close-dialog" id="btn-talk-npc">คุยต่อ (Next)</button>
+        </div>
+      </div>
+
+      <!-- Quick Action Menu Grid (Classic RO Windows Style) -->
+      <div class="ro-action-menu">
+        <button class="ro-menu-button" id="btn-refine">
+          <span class="ro-menu-icon">🔨</span>
+          <div class="ro-menu-info">
+            <span class="ro-menu-title">ตีบวก (Refine)</span>
+            <span class="ro-menu-sub">อัพเกรดอาวุธและชุดเกราะ</span>
+          </div>
+        </button>
+        <button class="ro-menu-button" id="btn-inventory">
+          <span class="ro-menu-icon">🎒</span>
+          <div class="ro-menu-info">
+            <span class="ro-menu-title">กระเป๋า (Inventory)</span>
+            <span class="ro-menu-sub">ตรวจสอบไอเทม &amp; วัตถุดิบ</span>
+          </div>
+        </button>
+        <button class="ro-menu-button" id="btn-shop">
+          <span class="ro-menu-icon">🏪</span>
+          <div class="ro-menu-info">
+            <span class="ro-menu-title">ร้านค้า (Shop)</span>
+            <span class="ro-menu-sub">ซื้อหินตีบวก &amp; อุปกรณ์</span>
+          </div>
+        </button>
+        <button class="ro-menu-button" id="btn-achievements">
+          <span class="ro-menu-icon">🏆</span>
+          <div class="ro-menu-info">
+            <span class="ro-menu-title">สถิติ (Achievements)</span>
+            <span class="ro-menu-sub">ประวัติความสำเร็จ &amp; ล้มเหลว</span>
+          </div>
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Refine Page (Official New Upgrade Window Style) -->
+  <div id="page-refine" class="page">
+    <div class="page-bg refine-bg"></div>
+    <header class="ro-sub-header">
+      <button class="ro-btn-back" id="back-from-refine">◀ กลับ (Back)</button>
+      <div class="ro-sub-title">
+        <span class="title-main">🔨 New Upgrade · ระบบอัพเกรดอุปกรณ์</span>
+        <span class="title-sub">Ragnarok Online Refinement System</span>
+      </div>
+      <div class="zeny-pill">💰 <span id="refine-zeny">0</span> z</div>
+    </header>
+
+    <div class="refine-content">
+      <!-- Left: Equipment Selection Column -->
+      <div class="ro-window-panel equip-panel">
+        <div class="panel-header">
+          <span class="panel-title">เลือกอุปกรณ์ (Equipment)</span>
+        </div>
+        <div class="panel-body">
+          <div id="equip-slot" class="equip-slot empty">
+            <span class="equip-slot-icon">➕</span>
+            <span class="equip-slot-label">คลิกเพื่อเลือกอุปกรณ์ที่ต้องการตีบวก</span>
+          </div>
+          <div id="equip-picker" class="equip-picker hidden"></div>
+        </div>
+      </div>
+
+      <!-- Center: Refinement Chamber (Matches official guide UI) -->
+      <div class="ro-window-panel refine-center-panel">
+        <div class="panel-header">
+          <span class="panel-title">แท่นตีบวก (Upgrade Anvil)</span>
+        </div>
+        <div class="panel-body center-body">
+          <!-- Item Visual Display -->
+          <div class="refine-display" id="refine-display">
+            <div class="anvil-sparkle-bg"></div>
+            <div class="refine-item-visual" id="refine-item-visual">
+              <span class="refine-item-icon">❓</span>
+              <span class="refine-item-level">+0</span>
+            </div>
+            <div class="refine-chance-info" id="refine-chance-info">
+              <span>กรุณาเลือกอุปกรณ์จากรายการด้านซ้าย</span>
+            </div>
+          </div>
+
+          <!-- Refine Mode Selection -->
+          <div class="refine-mode-select">
+            <button class="refine-mode-btn active" id="mode-npc">
+              <span class="mode-icon">🧙</span>
+              <div class="mode-text">
+                <strong>ให้ช่างตีบวก (NPC Luck)</strong>
+                <small>ขึ้นอยู่กับดวงชะตาตามตาราง RO</small>
+              </div>
+            </button>
+            <button class="refine-mode-btn" id="mode-manual">
+              <span class="mode-icon">🎯</span>
+              <div class="mode-text">
+                <strong>ตีด้วยตนเอง (Manual Timing)</strong>
+                <small>กดหยุดเข็มในแถบเกจแบบ Pangya</small>
+              </div>
+            </button>
+          </div>
+
+          <!-- Materials & Cost -->
+          <div class="refine-materials" id="refine-materials">
+            <div class="material-row">
+              <span class="mat-icon">⚙️</span>
+              <span class="mat-name">วัตถุดิบ (Oridecon / Elunium)</span>
+              <span class="mat-count" id="mat-count">0</span>
+            </div>
+            <div class="material-row">
+              <span class="mat-icon">💰</span>
+              <span class="mat-name">ค่าบริการ (Zeny Fee)</span>
+              <span class="mat-count" id="zeny-cost">0 z</span>
+            </div>
+          </div>
+          <!-- Enriched Stone Toggle -->
+          <div class="enriched-toggle-row">
+            <button type="button" class="btn-enriched-toggle" id="btn-toggle-enriched">
+              <span class="enriched-dot"></span>
+              <span id="enriched-btn-text">✨ ใช้หิน Enriched (เพิ่มโอกาสสำเร็จ): ปิด (OFF)</span>
+            </button>
+          </div>
+
+          <button class="ro-btn-refine-action" id="btn-do-refine" disabled>
+            <span class="btn-refine-text">⚒️ เริ่มการตีบวก (Refine!)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Refine History Log Column -->
+      <div class="ro-window-panel log-panel">
+        <div class="panel-header">
+          <span class="panel-title">ประวัติการตีบวก (Refine Log)</span>
+        </div>
+        <div class="panel-body">
+          <div id="refine-log" class="refine-log"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hammer Strike Animation Overlay -->
+    <div id="refine-striking-overlay" class="striking-overlay hidden">
+      <div class="striking-content">
+        <div class="striking-hammer">🔨</div>
+        <div class="striking-anvil">
+          <span class="striking-item-icon" id="striking-item-icon">⚔️</span>
+        </div>
+        <div class="striking-sparks"></div>
+        <div class="striking-text">กำลังตีบวก... เคร้ง! เคร้ง! เคร้ง!</div>
+      </div>
+    </div>
+
+    <!-- Manual Refine Minigame Overlay (Pangya style timing gauge) -->
+    <div id="minigame-overlay" class="minigame-overlay hidden">
+      <div class="ro-window minigame-box">
+        <div class="ro-win-header">
+          <span class="ro-win-icon">🎯</span>
+          <span class="ro-win-title">Manual Refinement · กะจังหวะตีบวก</span>
+        </div>
+        <div class="ro-win-body minigame-body">
+          <p class="minigame-instruction">
+            กดปุ่ม <kbd>SPACEBAR</kbd> หรือคลิกปุ่ม <strong style="color:#28a745;">HIT!</strong> เมื่อเข็มวิ่งมาถึง <span class="success-zone-label">แถบสีเขียว</span>!
+          </p>
+          <div class="timing-bar-wrap">
+            <div class="timing-bar" id="timing-bar">
+              <div class="timing-zone danger" id="zone-danger-left"></div>
+              <div class="timing-zone success" id="zone-success"></div>
+              <div class="timing-zone danger" id="zone-danger-right"></div>
+              <div class="timing-needle" id="timing-needle"></div>
+            </div>
+          </div>
+          <button class="ro-btn ro-btn-primary btn-hit" id="btn-hit">💥 HIT! (กะจังหวะ)</button>
+          <p class="minigame-timer">เวลาที่เหลือ: <span id="minigame-timer-val">5</span> วินาที</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory Page -->
+  <div id="page-inventory" class="page">
+    <div class="page-bg inventory-bg"></div>
+    <header class="ro-sub-header">
+      <button class="ro-btn-back" id="back-from-inventory">◀ กลับ (Back)</button>
+      <div class="ro-sub-title">
+        <span class="title-main">🎒 กระเป๋าสัมภาระ (Item Inventory)</span>
+        <span class="title-sub">Ragnarok Online Item Bag</span>
+      </div>
+      <div class="zeny-pill">💰 <span id="inv-zeny">0</span> z</div>
+    </header>
+    <div class="inventory-content">
+      <div class="ro-tab-bar">
+        <button class="ro-tab-btn active" data-inv-tab="equipment">🗡️ อุปกรณ์ (Equipment)</button>
+        <button class="ro-tab-btn" data-inv-tab="materials">⚙️ หินตีบวก (Materials)</button>
+      </div>
+      <div id="inv-equipment" class="ro-item-grid active"></div>
+      <div id="inv-materials" class="ro-item-grid"></div>
+    </div>
+    <div class="item-tooltip" id="item-tooltip"></div>
+  </div>
+
+  <!-- Shop Page -->
+  <div id="page-shop" class="page">
+    <div class="page-bg shop-bg"></div>
+    <header class="ro-sub-header">
+      <button class="ro-btn-back" id="back-from-shop">◀ กลับ (Back)</button>
+      <div class="ro-sub-title">
+        <span class="title-main">🏪 ร้านค้ามิดการ์ด (Midgard Shop)</span>
+        <span class="title-sub">Blacksmith Supply &amp; Equipment</span>
+      </div>
+      <div class="zeny-pill">💰 <span id="shop-zeny">0</span> z</div>
+    </header>
+    <div class="shop-content">
+      <div class="ro-tab-bar shop-tab-bar">
+        <button class="ro-tab-btn active" data-shop-tab="mats">⚙️ หินตีบวก &amp; กล่องสมบัติ</button>
+        <button class="ro-tab-btn" data-shop-tab="wep-low">🗡️ อาวุธ Lv.1 - 2</button>
+        <button class="ro-tab-btn" data-shop-tab="wep-high">⚔️ อาวุธ Lv.3 - 4</button>
+        <button class="ro-tab-btn" data-shop-tab="armors">🛡️ ชุดเกราะ &amp; โล่</button>
+        <button class="ro-tab-btn" data-shop-tab="refinery">⚒️ โรงหลอมแร่</button>
+        <button class="ro-tab-btn" data-shop-tab="sell">💰 ขายไอเทม</button>
+      </div>
+      <!-- Panel 1: Materials & Boxes -->
+      <div id="shop-mats" class="shop-panel active">
+        <div class="shop-grid" id="mats-grid"></div>
+      </div>
+      <!-- Panel 2: Weapons Lv 1 - 2 -->
+      <div id="shop-wep-low" class="shop-panel">
+        <div class="shop-grid" id="wep-low-grid"></div>
+      </div>
+      <!-- Panel 3: Weapons Lv 3 - 4 -->
+      <div id="shop-wep-high" class="shop-panel">
+        <div class="shop-grid" id="wep-high-grid"></div>
+      </div>
+      <!-- Panel 4: Armors -->
+      <div id="shop-armors" class="shop-panel">
+        <div class="shop-grid" id="armors-grid"></div>
+      </div>
+      <!-- Panel 5: Ore Refinery -->
+      <div id="shop-refinery" class="shop-panel">
+        <p class="shop-hint">โรงหลอมแร่เมือง Morroc: นำเศษแร่ 5 ก้อนมาหลอมรวมเป็นแร่บริสุทธิ์ 1 ก้อน</p>
+        <div class="shop-grid" id="refinery-grid"></div>
+      </div>
+      <!-- Panel 6: Sell -->
+      <div id="shop-sell" class="shop-panel">
+        <p class="shop-hint">เลือกไอเทมที่คุณมีเพื่อนำมาขายแลกเปลี่ยนเป็น Zeny (ราคาขายตามอัตรามาตรฐาน RO):</p>
+        <div class="shop-grid" id="sell-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievements Page -->
+  <div id="page-achievements" class="page">
+    <div class="page-bg achieve-bg"></div>
+    <header class="ro-sub-header">
+      <button class="ro-btn-back" id="back-from-achievements">◀ กลับ (Back)</button>
+      <div class="ro-sub-title">
+        <span class="title-main">🏆 สถิติและเกียรติยศ (Achievements &amp; Stats)</span>
+        <span class="title-sub">Records of Smithing Legend</span>
+      </div>
+    </header>
+    <div class="achievements-content">
+      <div class="stats-grid" id="stats-grid"></div>
+      <h3 class="ro-section-title">เหรียญตราเกียรติยศ (Achievement Badges)</h3>
+      <div class="achieve-grid" id="achieve-grid"></div>
+    </div>
+  </div>
+
+  <!-- Settings Page -->
+  <div id="page-settings" class="page">
+    <div class="page-bg settings-bg"></div>
+    <header class="ro-sub-header">
+      <button class="ro-btn-back" id="back-from-settings">◀ กลับ (Back)</button>
+      <div class="ro-sub-title">
+        <span class="title-main">⚙️ ตั้งค่าระบบ (System Settings)</span>
+        <span class="title-sub">Audio &amp; Game Preferences</span>
+      </div>
+    </header>
+    <div class="settings-content">
+      <div class="ro-window setting-window">
+        <div class="ro-win-header">
+          <span class="ro-win-icon">🔊</span>
+          <span class="ro-win-title">Audio &amp; Display Options</span>
+        </div>
+        <div class="ro-win-body">
+          <div class="setting-row">
+            <label for="toggle-sfx">เสียงเอฟเฟกต์การตีบวก (Sound Effects)</label>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-sfx" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label for="toggle-music">ดนตรีประกอบ (Background Music)</label>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-music" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label for="toggle-shake">เอฟเฟกต์จอสะเทือนเวลาแตก (Screen Shake)</label>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-shake" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label for="toggle-particles">ละอองประกายไฟ (Particle Effects)</label>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-particles" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legal Notice per user requirement -->
+      <div class="ro-window legal-window">
+        <div class="ro-win-header">
+          <span class="ro-win-icon">📜</span>
+          <span class="ro-win-title">ประกาศทางกฎหมาย (Legal Notice &amp; Disclaimer)</span>
+        </div>
+        <div class="ro-win-body legal-text">
+          <p>
+            เกม <strong>RO+ Refine (Ragnarok ตีบวก+)</strong> นี้สร้างขึ้นเพื่อความบันเทิงและการศึกษาเท่านั้น 
+            <strong>ไม่มีวัตถุประสงค์เพื่อแสวงหาผลกำไรใด ๆ ทั้งสิ้น</strong>
+          </p>
+          <p>
+            ลิขสิทธิ์ทั้งหมดของชื่อ, ตัวละคร, ไอเทม, เครื่องหมายการค้า และภาพประกอบของ <strong>Ragnarok Online®</strong> 
+            เป็นกรรมสิทธิ์ของ <strong>Gravity Co., Ltd.</strong> และ/หรือ <strong>Lee MyoungJin (studio DTDS)</strong> 
+            และผู้ถือสิทธิ์แฟรนไชส์แต่เพียงผู้เดียว
+          </p>
+          <p>
+            All rights reserved to Gravity Co., Ltd. This is a non-profit fan-made spinoff tribute.
+          </p>
+        </div>
+      </div>
+
+      <div class="ro-window danger-window">
+        <div class="ro-win-header danger-header">
+          <span class="ro-win-icon">⚠️</span>
+          <span class="ro-win-title">การจัดการข้อมูลตัวละคร (Account Data)</span>
+        </div>
+        <div class="ro-win-body">
+          <p style="font-size:0.85rem; color:#888; margin-bottom:10px;">ลบข้อมูลตัวละครและสถิติทั้งหมดในเบราว์เซอร์นี้</p>
+          <button class="ro-btn ro-btn-danger" id="btn-delete-account">ลบข้อมูลตัวละครนี้ (Delete Account)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="hunt-toast" id="hunt-toast"></div>
+
+  <!-- Particle Container -->
+  <div id="particles" class="particles-layer"></div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/landing.js"></script>
+  <script src="js/main-page.js"></script>
+  <script src="js/refine.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
