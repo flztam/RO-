@@ -199,6 +199,25 @@
       <div class="zeny-pill">💰 <span id="refine-zeny">0</span> z</div>
     </header>
 
+    <!-- Quick Action Top Sub-Bar under header -->
+    <div class="refine-top-sub-bar">
+      <button type="button" class="btn-top-sub" id="btn-trigger-picker">
+        🗡️ เปลี่ยนอุปกรณ์ (Equipment)
+      </button>
+      <button type="button" class="btn-top-sub" id="btn-toggle-log">
+        📜 ประวัติการตีบวก (Log)
+      </button>
+    </div>
+
+    <!-- Collapsible Refine History Log Panel -->
+    <div class="refine-log-box hidden" id="refine-log-box">
+      <div class="log-box-header">
+        <span>📜 บันทึกประวัติการตีบวก (Refine Log)</span>
+        <button type="button" class="btn-close-log" id="btn-close-log">✕</button>
+      </div>
+      <div id="refine-log" class="refine-log"></div>
+    </div>
+
     <div class="refine-layout-container">
       <!-- Equipment Selection Drawer (Collapsible & Mobile Responsive) -->
       <aside class="refine-equip-drawer" id="refine-equip-drawer">
@@ -312,6 +331,22 @@
             <span id="refine-info-text">100% success for Refine +1 to +4</span>
           </div>
 
+          <!-- Embedded Timing Gauge for Manual Refinement -->
+          <div class="refine-gauge-container hidden" id="refine-gauge-container">
+            <div class="minigame-gauge-header">
+              <span class="minigame-stat-hint" id="minigame-stat-hint">🎯 โอกาสสำเร็จ: 100% · เป้าหมาย: 45.0%</span>
+              <span class="minigame-timer-badge" id="minigame-timer-badge">⏱️ <span id="minigame-timer-val">5</span>s</span>
+            </div>
+            <div class="timing-bar-wrap" id="timing-bar-wrap" title="คลิกหรือแตะเพื่อกะจังหวะ (HIT)">
+              <div class="timing-bar" id="timing-bar">
+                <div class="timing-zone danger" id="zone-danger-left"></div>
+                <div class="timing-zone success" id="zone-success"></div>
+                <div class="timing-zone danger" id="zone-danger-right"></div>
+                <div class="timing-needle" id="timing-needle"></div>
+              </div>
+            </div>
+          </div>
+
           <!-- Bottom Action Buttons Row -->
           <div class="refine-bottom-actions">
             <button type="button" class="btn-refine-secondary" id="btn-toggle-manual">
@@ -322,25 +357,6 @@
               Refine
             </button>
           </div>
-        </div>
-
-        <!-- Sub Controls: History Log & Equipment Switcher -->
-        <div class="refine-sub-bar">
-          <button type="button" class="btn-toggle-drawer" id="btn-trigger-picker">
-            🗡️ เปลี่ยนอุปกรณ์ (Equipment)
-          </button>
-          <button type="button" class="btn-toggle-log" id="btn-toggle-log">
-            📜 ประวัติการตีบวก (Log)
-          </button>
-        </div>
-
-        <!-- Collapsible Refine History Log Panel -->
-        <div class="refine-log-box hidden" id="refine-log-box">
-          <div class="log-box-header">
-            <span>📜 บันทึกประวัติการตีบวก (Refine Log)</span>
-            <button type="button" class="btn-close-log" id="btn-close-log">✕</button>
-          </div>
-          <div id="refine-log" class="refine-log"></div>
         </div>
       </div>
     </div>
@@ -354,32 +370,6 @@
         </div>
         <div class="striking-sparks"></div>
         <div class="striking-text">กำลังตีบวก... เคร้ง! เคร้ง! เคร้ง!</div>
-      </div>
-    </div>
-
-    <!-- Manual Refine Minigame Overlay (Pangya style timing gauge) -->
-    <div id="minigame-overlay" class="minigame-overlay hidden">
-      <div class="ro-window minigame-box">
-        <div class="ro-win-header">
-          <span class="ro-win-icon">🎯</span>
-          <span class="ro-win-title">Manual Refinement · กะจังหวะตีบวก</span>
-        </div>
-        <div class="ro-win-body minigame-body">
-          <p class="minigame-instruction" id="minigame-instruction">
-            กดปุ่ม <kbd>SPACEBAR</kbd> หรือคลิกปุ่ม <strong style="color:#28a745;">HIT!</strong> เมื่อเข็มวิ่งมาถึง <span class="success-zone-label">แถบสีเขียว</span>!
-          </p>
-          <div class="minigame-stat-hint" id="minigame-stat-hint">🎯 โอกาสสำเร็จ: 100% · แถบเป้าหมายกว้าง: 45.0%</div>
-          <div class="timing-bar-wrap">
-            <div class="timing-bar" id="timing-bar">
-              <div class="timing-zone danger" id="zone-danger-left"></div>
-              <div class="timing-zone success" id="zone-success"></div>
-              <div class="timing-zone danger" id="zone-danger-right"></div>
-              <div class="timing-needle" id="timing-needle"></div>
-            </div>
-          </div>
-          <button class="ro-btn ro-btn-primary btn-hit" id="btn-hit">💥 HIT! (กะจังหวะ)</button>
-          <p class="minigame-timer">เวลาที่เหลือ: <span id="minigame-timer-val">5</span> วินาที</p>
-        </div>
       </div>
     </div>
   </div>

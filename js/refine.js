@@ -27,12 +27,14 @@ const Refine = (() => {
   let lastTs = null;
 
   // DOM elements
-  const $overlay        = () => document.getElementById('minigame-overlay');
+  const $gaugeContainer = () => document.getElementById('refine-gauge-container');
   const $needle         = () => document.getElementById('timing-needle');
   const $zoneS          = () => document.getElementById('zone-success');
   const $zoneDL         = () => document.getElementById('zone-danger-left');
   const $zoneDR         = () => document.getElementById('zone-danger-right');
   const $timerVal       = () => document.getElementById('minigame-timer-val');
+  const $timerBadge     = () => document.getElementById('minigame-timer-badge');
+  const $manualBtn      = () => document.getElementById('btn-toggle-manual');
   const $refineZeny     = () => document.getElementById('refine-zeny');
   const $matCount       = () => document.getElementById('mat-count');
   const $zenyCost       = () => document.getElementById('zeny-cost');
@@ -56,6 +58,13 @@ const Refine = (() => {
   function open() {
     isEnriched = false;
     mode = 'npc';
+    const manualBtn = $manualBtn();
+    if (manualBtn) {
+      manualBtn.classList.remove('active');
+      const lbl = document.getElementById('manual-btn-label');
+      if (lbl) lbl.textContent = 'Manual';
+    }
+    closeMinigame();
     bindEvents();
     renderDrawer();
     updateDisplay();
@@ -129,59 +138,84 @@ const Refine = (() => {
     const manualBtn = document.getElementById('btn-toggle-manual');
     if (manualBtn) {
       manualBtn.addEventListener('click', () => {
+        if (minigameActive) return;
         mode = mode === 'npc' ? 'manual' : 'npc';
         manualBtn.classList.toggle('active', mode === 'manual');
         const lbl = document.getElementById('manual-btn-label');
-        if (lbl) lbl.textContent = mode === 'manual' ? 'Manual (ON)' : 'Manual (Pangya)';
+        if (lbl) lbl.textContent = mode === 'manual' ? 'Manual (ON)' : 'Manual';
         updateDisplay();
         Audio.play('click');
       });
     }
 
-    // Refine History Log Toggle
+    // Refine History Log Toggle (Top bar under header)
     const logBtn = document.getElementById('btn-toggle-log');
     const logBox = document.getElementById('refine-log-box');
     const closeLogBtn = document.getElementById('btn-close-log');
     if (logBtn && logBox) {
       logBtn.addEventListener('click', () => {
-        logBox.classList.toggle('hidden');
+        const isHidden = logBox.classList.toggle('hidden');
+        logBtn.classList.toggle('active', !isHidden);
         Audio.play('click');
       });
     }
     if (closeLogBtn && logBox) {
       closeLogBtn.addEventListener('click', () => {
         logBox.classList.add('hidden');
+        logBtn?.classList.remove('active');
         Audio.play('click');
       });
     }
 
-    // Main Refine Button
-    document.getElementById('btn-do-refine')?.addEventListener('click', () => {
+    // Main Refine Button (Exact same button morphs into HIT! during manual refine)
+    const doBtn = document.getElementById('btn-do-refine');
+    const handleDoRefine = () => {
+      if (minigameActive) {
+        onHit();
+        return;
+      }
       if (!selectedItem) return;
       if (mode === 'manual') {
         startMinigame();
       } else {
         doNpcRefine();
       }
-    });
+    };
 
-    // Minigame controls
-    const hitBtn = document.getElementById('btn-hit');
-    if (hitBtn) {
-      hitBtn.addEventListener('click', onHit);
-      hitBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        onHit();
+    if (doBtn) {
+      doBtn.addEventListener('click', handleDoRefine);
+      doBtn.addEventListener('touchstart', (e) => {
+        if (minigameActive) {
+          e.preventDefault();
+          onHit();
+        }
       }, { passive: false });
     }
-    document.getElementById('timing-bar')?.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      onHit();
-    }, { passive: false });
+
+    // Direct touch/click on timing bar as an alternative HIT target
+    const barWrap = document.getElementById('timing-bar-wrap');
+    if (barWrap) {
+      barWrap.addEventListener('click', () => {
+        if (minigameActive) onHit();
+      });
+      barWrap.addEventListener('touchstart', (e) => {
+        if (minigameActive) {
+          e.preventDefault();
+          onHit();
+        }
+      }, { passive: false });
+    }
+
+    // Spacebar control (starts manual refine or hits timing)
     document.addEventListener('keydown', e => {
-      if (e.code === 'Space' && minigameActive) {
-        e.preventDefault();
-        onHit();
+      if (e.code === 'Space') {
+        if (minigameActive) {
+          e.preventDefault();
+          onHit();
+        } else if (mode === 'manual' && selectedItem && !$doBtn()?.disabled) {
+          e.preventDefault();
+          startMinigame();
+        }
       }
     });
   }
@@ -285,7 +319,12 @@ const Refine = (() => {
       if ($zenyCost())      $zenyCost().textContent = '0';
       if ($infoText())      $infoText().textContent = 'คลิกเลือกอาวุธหรือชุดเกราะที่ต้องการตีบวก';
       if ($infoBar())       $infoBar().className = 'refine-info-bar';
-      if (doBtn) doBtn.disabled = true;
+      if ($gaugeContainer()) $gaugeContainer().classList.add('hidden');
+      if (doBtn) {
+        doBtn.disabled = true;
+        doBtn.innerHTML = 'Refine';
+        doBtn.classList.remove('is-hitting');
+      }
       return;
     }
 
@@ -338,7 +377,12 @@ const Refine = (() => {
       if ($zenyCost())      $zenyCost().textContent = '—';
       if ($infoText())      $infoText().textContent = '✨ บรรลุระดับการตีบวกสูงสุด (+10 MAX)!';
       if ($infoBar())       $infoBar().className = 'refine-info-bar';
-      if (doBtn) doBtn.disabled = true;
+      if ($gaugeContainer()) $gaugeContainer().classList.add('hidden');
+      if (doBtn) {
+        doBtn.disabled = true;
+        doBtn.innerHTML = 'Refine';
+        doBtn.classList.remove('is-hitting');
+      }
       return;
     }
 
@@ -376,9 +420,30 @@ const Refine = (() => {
       }
     }
 
-    // Button state
+    // Gauge preview (shows in manual mode)
+    const gaugeContainer = $gaugeContainer();
+    if (gaugeContainer) {
+      if (mode === 'manual' && lvl < 10) {
+        gaugeContainer.classList.remove('hidden');
+        renderGaugePreview(eqDef, lvl, isEnriched);
+      } else if (!minigameActive) {
+        gaugeContainer.classList.add('hidden');
+      }
+    }
+
+    // Button state (transforms into HIT! during manual refine)
     const canRefine = matHave >= 1 && d.zeny >= cost;
-    if (doBtn) doBtn.disabled = !canRefine;
+    if (doBtn) {
+      if (minigameActive) {
+        doBtn.disabled = false;
+        doBtn.innerHTML = '💥 HIT!';
+        doBtn.classList.add('is-hitting');
+      } else {
+        doBtn.disabled = !canRefine;
+        doBtn.innerHTML = 'Refine';
+        doBtn.classList.remove('is-hitting');
+      }
+    }
   }
 
   // ---- NPC Refine Execution ----
@@ -506,8 +571,46 @@ const Refine = (() => {
   }
 
   // ============================================================
-  // MANUAL REFINE MINIGAME (Pangya Style Gauge)
+  // MANUAL REFINE MINIGAME (Pangya Style Embedded Gauge)
   // ============================================================
+  function renderGaugePreview(eqDef, lvl, enriched) {
+    if (minigameActive) return; // do not override active game
+    const rate = getSuccessRate(eqDef, lvl, enriched);
+    const rawZone = 45 * Math.pow(rate, 2.4);
+    const zoneWidth = Math.max(1.8, Math.round(rawZone * 10) / 10);
+    const baseSpeed = 50;
+    const lvlBonus = lvl * 14;
+    const rateBonus = Math.pow(1 - rate, 1.8) * 85;
+    const spd = Math.round(baseSpeed + lvlBonus + rateBonus);
+
+    const previewStart = Math.round((50 - zoneWidth / 2) * 10) / 10;
+    const previewEnd = Math.round((previewStart + zoneWidth) * 10) / 10;
+
+    const zoneSEl = $zoneS();
+    if (zoneSEl && $zoneDL() && $zoneDR()) {
+      $zoneDL().style.left  = '0%';
+      $zoneDL().style.width = previewStart + '%';
+      zoneSEl.style.left    = previewStart + '%';
+      zoneSEl.style.width   = zoneWidth + '%';
+      $zoneDR().style.left  = previewEnd + '%';
+      $zoneDR().style.width = (100 - previewEnd) + '%';
+      if (zoneWidth <= 5) zoneSEl.classList.add('critical');
+      else zoneSEl.classList.remove('critical');
+    }
+
+    const statHint = document.getElementById('minigame-stat-hint');
+    if (statHint) {
+      let diffTag = 'NORMAL';
+      if (zoneWidth <= 3.5) diffTag = '★★★ EXTREME';
+      else if (zoneWidth <= 10) diffTag = '★★ HARD';
+      statHint.innerHTML = `🎯 โอกาสสำเร็จ: <strong>${Math.round(rate * 100)}%</strong> · เป้าหมาย: <strong>${zoneWidth.toFixed(1)}%</strong> · ความเร็ว: <strong>${spd}%/s</strong> <span style="color:#f59e0b;font-weight:700;">(${diffTag})</span>`;
+    }
+
+    if ($needle()) $needle().style.left = '0%';
+    if ($timerVal()) $timerVal().textContent = '5';
+    $timerBadge()?.classList.remove('danger');
+  }
+
   function startMinigame() {
     const d = State.get();
     if (!d || !selectedItem) return;
@@ -555,8 +658,6 @@ const Refine = (() => {
     }
 
     // Needle speed: scales exponentially with level and difficulty
-    // Safe refine: ~50-65 %/s (calm and easy)
-    // Over-refine (+7 to +10): ~190-250 %/s (fast, razor-sharp reflex required)
     const baseSpeed = 50;
     const lvlBonus = lvl * 14;
     const rateBonus = Math.pow(1 - rate, 1.8) * 85;
@@ -568,7 +669,7 @@ const Refine = (() => {
       let diffTag = '★ NORMAL';
       if (zoneWidth <= 3.5) diffTag = '★★★ EXTREME';
       else if (zoneWidth <= 10) diffTag = '★★ HARD';
-      statHint.innerHTML = `🎯 โอกาสสำเร็จ: <strong>${Math.round(rate * 100)}%</strong> · แถบเป้าหมาย: <strong>${zoneWidth.toFixed(1)}%</strong> · ความเร็ว: <strong>${needleSpeed}%/s</strong> <span style="color:#b45309;font-weight:700;">(${diffTag})</span>`;
+      statHint.innerHTML = `🎯 โอกาสสำเร็จ: <strong>${Math.round(rate * 100)}%</strong> · เป้าหมาย: <strong>${zoneWidth.toFixed(1)}%</strong> · ความเร็ว: <strong>${needleSpeed}%/s</strong> <span style="color:#f59e0b;font-weight:700;">(${diffTag})</span>`;
     }
 
     needlePos = 0;
@@ -576,14 +677,28 @@ const Refine = (() => {
     lastTs = null;
 
     timerSec = 5;
-    $timerVal().textContent = timerSec;
+    if ($timerVal()) $timerVal().textContent = timerSec;
+    $timerBadge()?.classList.remove('danger');
 
-    $overlay().classList.remove('hidden');
+    $gaugeContainer()?.classList.remove('hidden');
     minigameActive = true;
+
+    // Morph the Refine button into HIT! button at the EXACT SAME POSITION
+    const doBtn = $doBtn();
+    if (doBtn) {
+      doBtn.innerHTML = '💥 HIT!';
+      doBtn.classList.add('is-hitting');
+      doBtn.disabled = false;
+    }
+    const manBtn = $manualBtn();
+    if (manBtn) manBtn.disabled = true;
 
     countdownTimer = setInterval(() => {
       timerSec--;
-      $timerVal().textContent = timerSec;
+      if ($timerVal()) $timerVal().textContent = timerSec;
+      if (timerSec <= 2) {
+        $timerBadge()?.classList.add('danger');
+      }
       if (timerSec <= 0) {
         resolveMinigame(false);
       }
@@ -602,19 +717,21 @@ const Refine = (() => {
     if (needlePos >= 100) { needlePos = 100; needleDir = -1; }
     if (needlePos <= 0)   { needlePos = 0;   needleDir = 1; }
 
-    $needle().style.left = `calc(${needlePos}% - 2px)`;
+    if ($needle()) $needle().style.left = `calc(${needlePos}% - 2px)`;
     rafId = requestAnimationFrame(animateNeedle);
   }
 
   function onHit() {
     if (!minigameActive) return;
-    // Allow a small fair 0.3% sub-pixel tolerance
-    const hit = needlePos >= (successZoneStart - 0.3) && needlePos <= (successZoneEnd + 0.3);
+    // Allow a small fair 0.35% tolerance
+    const hit = needlePos >= (successZoneStart - 0.35) && needlePos <= (successZoneEnd + 0.35);
     resolveMinigame(hit);
   }
 
   async function resolveMinigame(hit) {
-    closeMinigame(true);
+    closeMinigame();
+    const doBtn = $doBtn();
+    if (doBtn) doBtn.disabled = true;
     await performRefinementAnimation(hit, true);
   }
 
@@ -622,7 +739,19 @@ const Refine = (() => {
     minigameActive = false;
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
     if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
-    $overlay().classList.add('hidden');
+
+    const doBtn = $doBtn();
+    if (doBtn) {
+      doBtn.classList.remove('is-hitting');
+      doBtn.innerHTML = 'Refine';
+    }
+    const manBtn = $manualBtn();
+    if (manBtn) manBtn.disabled = false;
+    $timerBadge()?.classList.remove('danger');
+
+    if (mode === 'npc') {
+      $gaugeContainer()?.classList.add('hidden');
+    }
   }
 
   function getBtnCenter(btn) {
