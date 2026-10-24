@@ -849,6 +849,27 @@
   background: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
   box-shadow: 0 0 12px rgba(76, 175, 80, 0.8);
 }
+.timing-zone.success.critical {
+  background: linear-gradient(180deg, #ffeb3b 0%, #f59e0b 100%);
+  box-shadow: 0 0 16px rgba(255, 235, 59, 1), 0 0 30px rgba(245, 158, 11, 0.9);
+  animation: critical-pulse 0.5s infinite alternate;
+}
+@keyframes critical-pulse {
+  0%   { filter: brightness(1) drop-shadow(0 0 4px #ffeb3b); }
+  100% { filter: brightness(1.35) drop-shadow(0 0 12px #ff9800); }
+}
+
+.minigame-stat-hint {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  padding: 5px 12px;
+  text-align: center;
+  width: 100%;
+}
 
 .timing-needle {
   position: absolute;

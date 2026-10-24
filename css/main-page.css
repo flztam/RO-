@@ -369,6 +369,11 @@
     font-size: 0.72rem;
   }
 
+  /* Center Hollgrehenn NPC in the middle of screen for mobile version */
+  .morroc-bg {
+    background-position: calc(100% - 16px) 38% !important;
+  }
+
   .morroc-scene-area {
     padding: 14px 12px;
     gap: 12px;

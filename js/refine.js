@@ -527,20 +527,50 @@ const Refine = (() => {
     updateZeny();
     MainPage.updateZeny();
 
+    // True exponential scaling based on success rate
     const rate = getSuccessRate(eqDef, lvl, isEnriched);
-    const zoneWidth = Math.max(12, Math.round(rate * 60));
-    successZoneStart = Math.round(30 + Math.random() * (40 - zoneWidth / 2));
-    successZoneStart = Math.max(10, Math.min(successZoneStart, 90 - zoneWidth));
-    successZoneEnd = successZoneStart + zoneWidth;
+    // Zone width: scales exponentially with rate^2.4 from 45% (100% safe) down to 1.8% (10% rate)
+    const rawZone = 45 * Math.pow(rate, 2.4);
+    const zoneWidth = Math.max(1.8, Math.round(rawZone * 10) / 10);
 
+    // Random placement across the timing bar (15% to 85%)
+    const minStart = 15;
+    const maxStart = Math.max(minStart, 85 - zoneWidth);
+    successZoneStart = Math.round((minStart + Math.random() * (maxStart - minStart)) * 10) / 10;
+    successZoneEnd = Math.round((successZoneStart + zoneWidth) * 10) / 10;
+
+    const zoneSEl = $zoneS();
     $zoneDL().style.left  = '0%';
     $zoneDL().style.width = successZoneStart + '%';
-    $zoneS().style.left   = successZoneStart + '%';
-    $zoneS().style.width  = (successZoneEnd - successZoneStart) + '%';
+    zoneSEl.style.left    = successZoneStart + '%';
+    zoneSEl.style.width   = zoneWidth + '%';
     $zoneDR().style.left  = successZoneEnd + '%';
     $zoneDR().style.width = (100 - successZoneEnd) + '%';
 
-    needleSpeed = 35 + (lvl * 9);
+    // Highlight critical zone if target is tight (<= 5%)
+    if (zoneWidth <= 5) {
+      zoneSEl.classList.add('critical');
+    } else {
+      zoneSEl.classList.remove('critical');
+    }
+
+    // Needle speed: scales exponentially with level and difficulty
+    // Safe refine: ~50-65 %/s (calm and easy)
+    // Over-refine (+7 to +10): ~190-250 %/s (fast, razor-sharp reflex required)
+    const baseSpeed = 50;
+    const lvlBonus = lvl * 14;
+    const rateBonus = Math.pow(1 - rate, 1.8) * 85;
+    needleSpeed = Math.round(baseSpeed + lvlBonus + rateBonus);
+
+    // Update real-time minigame difficulty hint
+    const statHint = document.getElementById('minigame-stat-hint');
+    if (statHint) {
+      let diffTag = '★ NORMAL';
+      if (zoneWidth <= 3.5) diffTag = '★★★ EXTREME';
+      else if (zoneWidth <= 10) diffTag = '★★ HARD';
+      statHint.innerHTML = `🎯 โอกาสสำเร็จ: <strong>${Math.round(rate * 100)}%</strong> · แถบเป้าหมาย: <strong>${zoneWidth.toFixed(1)}%</strong> · ความเร็ว: <strong>${needleSpeed}%/s</strong> <span style="color:#b45309;font-weight:700;">(${diffTag})</span>`;
+    }
+
     needlePos = 0;
     needleDir = 1;
     lastTs = null;
@@ -578,7 +608,8 @@ const Refine = (() => {
 
   function onHit() {
     if (!minigameActive) return;
-    const hit = needlePos >= successZoneStart && needlePos <= successZoneEnd;
+    // Allow a small fair 0.3% sub-pixel tolerance
+    const hit = needlePos >= (successZoneStart - 0.3) && needlePos <= (successZoneEnd + 0.3);
     resolveMinigame(hit);
   }
 
