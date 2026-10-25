@@ -44,15 +44,15 @@ const Achievements = (() => {
     if (!grid) return;
     const plus10Count = stats.plus10Items ? Object.keys(stats.plus10Items).length : 0;
     const defs = [
-      { icon: '⚒️', label: 'Total Refines',     value: stats.totalRefines || 0 },
-      { icon: '✅', label: 'Successes',          value: stats.successCount || 0 },
-      { icon: '❌', label: 'Failures',           value: stats.failCount || 0 },
-      { icon: '💔', label: 'Items Broken',       value: stats.breakCount || 0 },
-      { icon: '⭐', label: 'Best Refine',        value: '+' + (stats.maxRefineReached || 0) },
-      { icon: '👑', label: '+10 Items Reached',  value: `${plus10Count} / ${EQUIPMENT.length}` },
-      { icon: '🗡️', label: 'Hunts Done',         value: stats.huntCount || 0 },
-      { icon: '💰', label: 'Total Zeny Earned',  value: (stats.totalZenyEarned || 0).toLocaleString() },
-      { icon: '🎯', label: 'Manual Successes',   value: stats.manualSuccess || 0 },
+      { icon: '<img src="images/icons/hammer.gif" class="pixel-stat-icon" alt="" />', label: 'Total Refines',     value: stats.totalRefines || 0 },
+      { icon: '<img src="images/items/1101.gif" class="pixel-stat-icon" alt="" />', label: 'Successes',          value: stats.successCount || 0 },
+      { icon: '<span style="color:#ef4444;font-size:1.4rem;font-weight:900;">✕</span>', label: 'Failures',           value: stats.failCount || 0 },
+      { icon: '<img src="images/icons/anvil.gif" class="pixel-stat-icon" alt="" />', label: 'Items Broken',       value: stats.breakCount || 0 },
+      { icon: '<img src="images/icons/ore.gif" class="pixel-stat-icon" alt="" />', label: 'Best Refine',        value: '+' + (stats.maxRefineReached || 0) },
+      { icon: '<img src="images/icons/crown.gif" class="pixel-stat-icon" alt="" />', label: '+10 Items Reached',  value: `${plus10Count} / ${EQUIPMENT.length}` },
+      { icon: '<img src="images/icons/sword.gif" class="pixel-stat-icon" alt="" />', label: 'Hunts Done',         value: stats.huntCount || 0 },
+      { icon: '<img src="images/icons/zeny.gif" class="pixel-stat-icon" alt="" />', label: 'Total Zeny Earned',  value: (stats.totalZenyEarned || 0).toLocaleString() },
+      { icon: '<img src="images/icons/cross_sword.gif" class="pixel-stat-icon" alt="" />', label: 'Manual Successes',   value: stats.manualSuccess || 0 },
     ];
     grid.innerHTML = defs.map(s => `
       <div class="stat-card">
@@ -87,8 +87,12 @@ const Achievements = (() => {
 
       const card = document.createElement('div');
       card.className = `achieve-card ${unlocked ? 'unlocked' : 'locked'}`;
+      const iconHtml = (ach.icon && (ach.icon.includes('/') || ach.icon.includes('.gif')))
+        ? `<img src="${ach.icon}" class="pixel-achieve-icon" alt="" />`
+        : ach.icon;
+
       card.innerHTML = `
-        <div class="achieve-icon">${ach.icon}</div>
+        <div class="achieve-icon">${iconHtml}</div>
         <div class="achieve-info">
           <div class="achieve-name">${ach.name}</div>
           <div class="achieve-desc">${ach.desc}</div>
@@ -98,7 +102,7 @@ const Achievements = (() => {
             </div>
             <div class="achieve-progress-text">${Math.min(current, threshold)} / ${threshold}</div>
           </div>
-          <span class="achieve-badge ${unlocked ? 'done' : 'todo'}">${unlocked ? '✅ Unlocked' : '🔒 Locked'}</span>
+          <span class="achieve-badge ${unlocked ? 'done' : 'todo'}">${unlocked ? 'Unlocked' : 'Locked'}</span>
         </div>
       `;
       grid.appendChild(card);

@@ -132,7 +132,7 @@ const Shop = (() => {
         </div>
         <span class="shop-card-name">${mat.name}</span>
         <span class="shop-card-desc">${mat.desc}</span>
-        <span class="shop-card-price">💰 ${mat.buyPrice.toLocaleString()} z</span>
+        <span class="shop-card-price"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="" />${mat.buyPrice.toLocaleString()} z</span>
         <span class="shop-card-stock">มีในตัว: ${owned}</span>
         <div class="shop-card-actions">
           <button class="btn-buy-1" data-id="${mat.id}" data-qty="1">ซื้อ 1</button>
@@ -210,7 +210,7 @@ const Shop = (() => {
           <span class="badge-item-stat">${statLabel}</span>
         </div>
         <span class="shop-card-desc">ใช้ ${matDef ? matDef.name : matName} (ปลอดภัยถึง +${getSafeLevel(eq)})</span>
-        <span class="shop-card-price">💰 ${eq.price.toLocaleString()} z</span>
+        <span class="shop-card-price"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="" />${eq.price.toLocaleString()} z</span>
         <div class="shop-card-actions" style="width:100%;">
           <button class="btn-buy-1 btn-buy-equip" data-id="${eq.id}">ซื้ออุปกรณ์</button>
         </div>
@@ -337,7 +337,7 @@ const Shop = (() => {
           <span class="shop-card-desc">ระดับ +${item.level}</span>
           ${multBadge}
         </div>
-        <span class="shop-card-price ${item.level >= 7 ? 'price-jackpot' : ''}">💰 ${sellPrice.toLocaleString()} z</span>
+        <span class="shop-card-price ${item.level >= 7 ? 'price-jackpot' : ''}"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="" />${sellPrice.toLocaleString()} z</span>
         <div class="shop-card-actions" style="width:100%;">
           <button class="btn-sell-item">ขายไอเทมนี้</button>
         </div>
@@ -372,7 +372,7 @@ const Shop = (() => {
         </div>
         <span class="shop-card-name">${matDef.name}</span>
         <span class="shop-card-desc">มีในครอบครอง: ${qty} ชิ้น</span>
-        <span class="shop-card-price">💰 ชิ้นละ ${matDef.sellPrice.toLocaleString()} z</span>
+        <span class="shop-card-price"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="" />ชิ้นละ ${matDef.sellPrice.toLocaleString()} z</span>
         <div class="shop-card-actions">
           <button class="btn-sell-item" data-qty="1">ขาย 1 ชิ้น</button>
           ${qty >= 5 ? `<button class="btn-sell-item" data-qty="5">ขาย 5 ชิ้น</button>` : ''}

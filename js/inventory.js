@@ -83,10 +83,10 @@ const Inventory = (() => {
 
       let actionHtml = '';
       if (def.isUsable) {
-        actionHtml = `<button class="btn-use-box" data-box="${def.id}" title="เปิดกล่องเพื่อสุ่มไอเทม">🎁 เปิด</button>`;
+        actionHtml = `<button class="btn-use-box" data-box="${def.id}" title="เปิดกล่องเพื่อสุ่มไอเทม">เปิด</button>`;
       } else if (def.id === 'rough_oridecon' || def.id === 'rough_elunium') {
         if (qty >= 5) {
-          actionHtml = `<button class="btn-combine-ore" data-rough="${def.id}" title="หลอมเศษแร่ 5 ก้อนเป็น 1 ก้อนบริสุทธิ์">✨ หลอม</button>`;
+          actionHtml = `<button class="btn-combine-ore" data-rough="${def.id}" title="หลอมเศษแร่ 5 ก้อนเป็น 1 ก้อนบริสุทธิ์">หลอม</button>`;
         }
       }
 
@@ -364,13 +364,13 @@ const Inventory = (() => {
     if (def.isUsable) {
       actionBtnHtml = `
         <div class="tooltip-action-row">
-          <button type="button" class="btn-tooltip-action" id="btn-tooltip-open-box">🎁 เปิดกล่องนี้ (Open Box)</button>
+          <button type="button" class="btn-tooltip-action" id="btn-tooltip-open-box"><img src="images/icons/giftbox.gif" class="btn-sub-pixel-icon" alt="" />เปิดกล่องนี้ (Open Box)</button>
         </div>
       `;
     } else if ((def.id === 'rough_oridecon' || def.id === 'rough_elunium') && qty >= 5) {
       actionBtnHtml = `
         <div class="tooltip-action-row">
-          <button type="button" class="btn-tooltip-action" style="background:linear-gradient(180deg,#10b981 0%,#047857 100%);border-color:#065f46;" id="btn-tooltip-combine-ore">✨ หลอมแร่บริสุทธิ์ (Refine 5 to 1)</button>
+          <button type="button" class="btn-tooltip-action" style="background:linear-gradient(180deg,#10b981 0%,#047857 100%);border-color:#065f46;" id="btn-tooltip-combine-ore"><img src="images/icons/anvil.gif" class="btn-sub-pixel-icon" alt="" />หลอมแร่บริสุทธิ์ (Refine 5 to 1)</button>
         </div>
       `;
     }

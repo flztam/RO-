@@ -10,14 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="css/main.css?v=2.4" />
-  <link rel="stylesheet" href="css/landing.css?v=2.4" />
-  <link rel="stylesheet" href="css/main-page.css?v=2.4" />
-  <link rel="stylesheet" href="css/refine.css?v=2.4" />
-  <link rel="stylesheet" href="css/inventory.css?v=2.4" />
-  <link rel="stylesheet" href="css/shop.css?v=2.4" />
-  <link rel="stylesheet" href="css/achievements.css?v=2.4" />
-  <link rel="stylesheet" href="css/settings.css?v=2.4" />
+  <link rel="stylesheet" href="css/main.css?v=2.5" />
+  <link rel="stylesheet" href="css/landing.css?v=2.5" />
+  <link rel="stylesheet" href="css/main-page.css?v=2.5" />
+  <link rel="stylesheet" href="css/refine.css?v=2.5" />
+  <link rel="stylesheet" href="css/inventory.css?v=2.5" />
+  <link rel="stylesheet" href="css/shop.css?v=2.5" />
+  <link rel="stylesheet" href="css/achievements.css?v=2.5" />
+  <link rel="stylesheet" href="css/settings.css?v=2.5" />
 </head>
 <body>
 
@@ -35,7 +35,7 @@
       <!-- Classic Ragnarok Login Dialog Window -->
       <div class="ro-window auth-window">
         <div class="ro-win-header">
-          <span class="ro-win-icon">⚔️</span>
+          <span class="ro-win-icon"><img src="images/icons/cross_sword.gif" class="win-pixel-icon" alt="" /></span>
           <span class="ro-win-title">Ragnarok Online - Service Login</span>
           <div class="ro-win-controls">
             <span class="ro-win-btn-mini">_</span>
@@ -136,25 +136,25 @@
       <div class="ro-hud-actions">
         <!-- Inventory Button -->
         <button class="ro-hud-btn" id="btn-inventory" title="กระเป๋าสัมภาระ (Inventory) - ตรวจสอบไอเทมและอุปกรณ์">
-          <span class="hud-btn-icon">🎒</span>
+          <img src="images/icons/backpack.gif" class="hud-btn-pixel-icon" alt="Bag" />
           <span class="hud-btn-text">สัมภาระ</span>
         </button>
 
         <!-- Achievement Button -->
         <button class="ro-hud-btn" id="btn-achievements" title="เกียรติยศและความสำเร็จ (Achievements)">
-          <span class="hud-btn-icon">🏆</span>
+          <img src="images/icons/crown.gif" class="hud-btn-pixel-icon" alt="Achievements" />
           <span class="hud-btn-text">เกียรติยศ</span>
         </button>
 
         <!-- Hunt Monster button available every 2 hours -->
         <button class="ro-hud-btn btn-hunt" id="btn-hunt" title="ล่ามอนสเตอร์เพื่อหาเงิน Zeny (คูลดาวน์ 2 ชม.)">
-          <span class="hud-btn-icon">🗡️</span>
+          <img src="images/icons/sword.gif" class="hud-btn-pixel-icon" alt="Hunt" />
           <span class="hud-btn-text">ล่ามอน</span>
         </button>
 
         <!-- Settings Button -->
         <button class="ro-hud-btn" id="btn-settings-main" title="ตั้งค่าระบบ &amp; ออกจากระบบ">
-          <span class="hud-btn-icon">⚙️</span>
+          <img src="images/icons/settings_tool.gif" class="hud-btn-pixel-icon" alt="Settings" />
           <span class="hud-btn-text">ตั้งค่า</span>
         </button>
       </div>
@@ -192,7 +192,7 @@
       <!-- Quick Action Menu (Refine & Shop) -->
       <div class="ro-action-menu">
         <button class="ro-menu-button ro-menu-button-refine" id="btn-refine">
-          <span class="ro-menu-icon">🔨</span>
+          <img src="images/icons/golden_hammer.gif" class="ro-menu-pixel-icon" alt="Refine" />
           <div class="ro-menu-info">
             <span class="ro-menu-title">ตีบวก (Refine)</span>
             <span class="ro-menu-sub">อัพเกรดอาวุธ &amp; ชุดเกราะ</span>
@@ -200,7 +200,7 @@
           <span class="ro-menu-arrow">▶</span>
         </button>
         <button class="ro-menu-button ro-menu-button-shop" id="btn-shop">
-          <span class="ro-menu-icon">🏪</span>
+          <img src="images/icons/shop_cart.gif" class="ro-menu-pixel-icon" alt="Shop" />
           <div class="ro-menu-info">
             <span class="ro-menu-title">ร้านค้า (Shop)</span>
             <span class="ro-menu-sub">ซื้อแร่ &bull; ขายอุปกรณ์ &bull; หลอมแร่</span>
@@ -217,26 +217,26 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-refine">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main">🔨 New Upgrade · ระบบอัพเกรดอุปกรณ์</span>
+        <span class="title-main"><img src="images/icons/hammer.gif" class="title-pixel-icon" alt="" />New Upgrade · ระบบอัพเกรดอุปกรณ์</span>
         <span class="title-sub">Ragnarok Online Refinement System</span>
       </div>
-      <div class="zeny-pill">💰 <span id="refine-zeny">0</span> z</div>
+      <div class="zeny-pill"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" /><span id="refine-zeny">0</span> z</div>
     </header>
 
     <!-- Quick Action Top Sub-Bar under header -->
     <div class="refine-top-sub-bar">
       <button type="button" class="btn-top-sub" id="btn-trigger-picker">
-        🗡️ เปลี่ยนอุปกรณ์ (Equipment)
+        <img src="images/icons/sword.gif" class="btn-sub-pixel-icon" alt="" />เปลี่ยนอุปกรณ์ (Equipment)
       </button>
       <button type="button" class="btn-top-sub" id="btn-toggle-log">
-        📜 ประวัติการตีบวก (Log)
+        <img src="images/icons/scroll.gif" class="btn-sub-pixel-icon" alt="" />ประวัติการตีบวก (Log)
       </button>
     </div>
 
     <!-- Collapsible Refine History Log Panel -->
     <div class="refine-log-box hidden" id="refine-log-box">
       <div class="log-box-header">
-        <span>📜 บันทึกประวัติการตีบวก (Refine Log)</span>
+        <span><img src="images/icons/scroll.gif" class="btn-sub-pixel-icon" alt="" />บันทึกประวัติการตีบวก (Refine Log)</span>
         <button type="button" class="btn-close-log" id="btn-close-log">✕</button>
       </div>
       <div id="refine-log" class="refine-log"></div>
@@ -246,7 +246,7 @@
       <!-- Equipment Selection Drawer (Collapsible & Mobile Responsive) -->
       <aside class="refine-equip-drawer" id="refine-equip-drawer">
         <div class="drawer-header">
-          <span class="drawer-title">🎒 เลือกอุปกรณ์ในตัว (Bag)</span>
+          <span class="drawer-title"><img src="images/icons/backpack.gif" class="btn-sub-pixel-icon" alt="" />เลือกอุปกรณ์ในตัว (Bag)</span>
           <button type="button" class="btn-drawer-close" id="btn-close-drawer" title="ปิด">✕</button>
         </div>
         <div class="drawer-filter-bar">
@@ -388,7 +388,9 @@
     <!-- Hammer Strike Animation Overlay -->
     <div id="refine-striking-overlay" class="striking-overlay hidden">
       <div class="striking-content">
-        <div class="striking-hammer">🔨</div>
+        <div class="striking-hammer">
+          <img src="images/icons/golden_hammer.gif" class="striking-hammer-img" alt="Hammer" />
+        </div>
         <div class="striking-anvil">
           <span class="striking-item-icon" id="striking-item-icon">⚔️</span>
         </div>
@@ -404,15 +406,15 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-inventory">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main">🎒 กระเป๋าสัมภาระ (Item Inventory)</span>
+        <span class="title-main"><img src="images/icons/backpack.gif" class="title-pixel-icon" alt="" />กระเป๋าสัมภาระ (Item Inventory)</span>
         <span class="title-sub">Ragnarok Online Item Bag</span>
       </div>
-      <div class="zeny-pill">💰 <span id="inv-zeny">0</span> z</div>
+      <div class="zeny-pill"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" /><span id="inv-zeny">0</span> z</div>
     </header>
     <div class="inventory-content">
       <div class="ro-tab-bar">
-        <button class="ro-tab-btn active" data-inv-tab="equipment">🗡️ อุปกรณ์ (Equipment)</button>
-        <button class="ro-tab-btn" data-inv-tab="materials">⚙️ หินตีบวก (Materials)</button>
+        <button class="ro-tab-btn active" data-inv-tab="equipment"><img src="images/icons/sword.gif" class="tab-pixel-icon" alt="" />อุปกรณ์ (Equipment)</button>
+        <button class="ro-tab-btn" data-inv-tab="materials"><img src="images/icons/ore.gif" class="tab-pixel-icon" alt="" />หินตีบวก (Materials)</button>
       </div>
       <div id="inv-equipment" class="ro-item-grid active"></div>
       <div id="inv-materials" class="ro-item-grid"></div>
@@ -426,19 +428,19 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-shop">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main">🏪 ร้านค้ามิดการ์ด (Midgard Shop)</span>
+        <span class="title-main"><img src="images/icons/shop_cart.gif" class="title-pixel-icon" alt="" />ร้านค้ามิดการ์ด (Midgard Shop)</span>
         <span class="title-sub">Blacksmith Supply &amp; Equipment</span>
       </div>
-      <div class="zeny-pill">💰 <span id="shop-zeny">0</span> z</div>
+      <div class="zeny-pill"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" /><span id="shop-zeny">0</span> z</div>
     </header>
     <div class="shop-content">
       <div class="ro-tab-bar shop-tab-bar">
-        <button class="ro-tab-btn active" data-shop-tab="mats">⚙️ หินตีบวก &amp; กล่องสมบัติ</button>
-        <button class="ro-tab-btn" data-shop-tab="wep-low">🗡️ อาวุธ Lv.1 - 2</button>
-        <button class="ro-tab-btn" data-shop-tab="wep-high">⚔️ อาวุธ Lv.3 - 4</button>
-        <button class="ro-tab-btn" data-shop-tab="armors">🛡️ ชุดเกราะ &amp; โล่</button>
-        <button class="ro-tab-btn" data-shop-tab="refinery">⚒️ โรงหลอมแร่</button>
-        <button class="ro-tab-btn" data-shop-tab="sell">💰 ขายไอเทม</button>
+        <button class="ro-tab-btn active" data-shop-tab="mats"><img src="images/icons/ore.gif" class="tab-pixel-icon" alt="" />หินตีบวก &amp; กล่องสมบัติ</button>
+        <button class="ro-tab-btn" data-shop-tab="wep-low"><img src="images/icons/sword.gif" class="tab-pixel-icon" alt="" />อาวุธ Lv.1 - 2</button>
+        <button class="ro-tab-btn" data-shop-tab="wep-high"><img src="images/icons/cross_sword.gif" class="tab-pixel-icon" alt="" />อาวุธ Lv.3 - 4</button>
+        <button class="ro-tab-btn" data-shop-tab="armors"><img src="images/icons/shield.gif" class="tab-pixel-icon" alt="" />ชุดเกราะ &amp; โล่</button>
+        <button class="ro-tab-btn" data-shop-tab="refinery"><img src="images/icons/anvil.gif" class="tab-pixel-icon" alt="" />โรงหลอมแร่</button>
+        <button class="ro-tab-btn" data-shop-tab="sell"><img src="images/icons/zeny.gif" class="tab-pixel-icon" alt="" />ขายไอเทม</button>
       </div>
       <!-- Panel 1: Materials & Boxes -->
       <div id="shop-mats" class="shop-panel active">
@@ -475,7 +477,7 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-achievements">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main">🏆 สถิติและเกียรติยศ (Achievements &amp; Stats)</span>
+        <span class="title-main"><img src="images/icons/crown.gif" class="title-pixel-icon" alt="" />สถิติและเกียรติยศ (Achievements &amp; Stats)</span>
         <span class="title-sub">Records of Smithing Legend</span>
       </div>
     </header>
@@ -492,14 +494,14 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-settings">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main">⚙️ ตั้งค่าระบบ (System Settings)</span>
+        <span class="title-main"><img src="images/icons/settings_tool.gif" class="title-pixel-icon" alt="" />ตั้งค่าระบบ (System Settings)</span>
         <span class="title-sub">Audio &amp; Game Preferences</span>
       </div>
     </header>
     <div class="settings-content">
       <div class="ro-window setting-window">
         <div class="ro-win-header">
-          <span class="ro-win-icon">🔊</span>
+          <span class="ro-win-icon"><img src="images/icons/megaphone.gif" class="win-pixel-icon" alt="" /></span>
           <span class="ro-win-title">Audio &amp; Display Options</span>
         </div>
         <div class="ro-win-body">
@@ -537,7 +539,7 @@
       <!-- Legal Notice per user requirement -->
       <div class="ro-window legal-window">
         <div class="ro-win-header">
-          <span class="ro-win-icon">📜</span>
+          <span class="ro-win-icon"><img src="images/icons/scroll.gif" class="win-pixel-icon" alt="" /></span>
           <span class="ro-win-title">ประกาศทางกฎหมาย (Legal Notice &amp; Disclaimer)</span>
         </div>
         <div class="ro-win-body legal-text">
@@ -559,15 +561,15 @@
       <!-- Save Code & Device Transfer Section -->
       <div class="ro-window transfer-window">
         <div class="ro-win-header">
-          <span class="ro-win-icon">💾</span>
+          <span class="ro-win-icon"><img src="images/icons/backpack.gif" class="win-pixel-icon" alt="" /></span>
           <span class="ro-win-title">สำรองและย้ายข้อมูล (Save Code Transfer)</span>
         </div>
         <div class="ro-win-body">
           <div class="transfer-box">
-            <h4 class="transfer-title">📤 สร้างรหัสเซฟเพื่อย้ายไปเล่นเครื่องใหม่:</h4>
+            <h4 class="transfer-title">สร้างรหัสเซฟเพื่อย้ายไปเล่นเครื่องใหม่:</h4>
             <p class="transfer-sub">แปลงข้อมูลตัวละคร เงิน Zeny, อุปกรณ์ตีบวก และสถิติทั้งหมดเป็นรหัส เพื่อนำไปเปิดในโทรศัพท์หรือคอมพิวเตอร์เครื่องอื่น</p>
             <div class="transfer-action-row">
-              <button type="button" class="ro-btn ro-btn-primary" id="btn-export-code">📋 สร้าง &amp; คัดลอกรหัสเซฟ (Copy Save Code)</button>
+              <button type="button" class="ro-btn ro-btn-primary" id="btn-export-code">สร้าง &amp; คัดลอกรหัสเซฟ (Copy Save Code)</button>
             </div>
             <textarea id="export-code-output" class="ro-textarea" readonly placeholder="คลิกปุ่มด้านบนเพื่อสร้างรหัสเซฟ..." rows="3"></textarea>
           </div>
@@ -575,10 +577,10 @@
           <div class="transfer-divider"></div>
 
           <div class="transfer-box">
-            <h4 class="transfer-title">📥 โหลดข้อมูลจากรหัสเซฟเครื่องอื่น:</h4>
+            <h4 class="transfer-title">โหลดข้อมูลจากรหัสเซฟเครื่องอื่น:</h4>
             <textarea id="import-code-input" class="ro-textarea" placeholder="วางรหัสเซฟที่คัดลอกมาจากเครื่องเดิมที่นี่ (ROREFINE-...)" rows="3"></textarea>
             <div class="transfer-action-row">
-              <button type="button" class="ro-btn ro-btn-secondary" id="btn-import-code">📥 โหลดข้อมูลเข้าสู่เครื่องนี้ (Import)</button>
+              <button type="button" class="ro-btn ro-btn-secondary" id="btn-import-code">โหลดข้อมูลเข้าสู่เครื่องนี้ (Import)</button>
             </div>
             <p class="transfer-msg" id="transfer-msg"></p>
           </div>
@@ -587,19 +589,19 @@
 
       <div class="ro-window session-window">
         <div class="ro-win-header">
-          <span class="ro-win-icon">👤</span>
+          <span class="ro-win-icon"><img src="images/icons/crown.gif" class="win-pixel-icon" alt="" /></span>
           <span class="ro-win-title">จัดการเซสชันและบัญชี (Account &amp; Session)</span>
         </div>
         <div class="ro-win-body" style="display:flex; flex-direction:column; gap:12px;">
           <div>
             <p style="font-size:0.85rem; color:#475569; margin-bottom:8px;">ออกจากระบบเพื่อสลับไอดี หรือบันทึกสถานะ</p>
             <button type="button" class="ro-btn ro-btn-secondary" id="btn-logout" style="width:100%; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:9px 16px; font-weight:700;">
-              <span>🚪</span> ออกจากระบบ (Log Out)
+              ออกจากระบบ (Log Out)
             </button>
           </div>
           <div style="border-top:1px dashed #cbd5e1; padding-top:10px;">
             <p style="font-size:0.85rem; color:#b91c1c; margin-bottom:8px;">ลบข้อมูลตัวละครและสถิติทั้งหมดในเบราว์เซอร์นี้อย่างถาวร</p>
-            <button type="button" class="ro-btn ro-btn-danger" id="btn-delete-account" style="width:100%; justify-content:center;">⚠️ ลบข้อมูลตัวละครนี้ (Delete Account)</button>
+            <button type="button" class="ro-btn ro-btn-danger" id="btn-delete-account" style="width:100%; justify-content:center;">ลบข้อมูลตัวละครนี้ (Delete Account)</button>
           </div>
         </div>
       </div>
@@ -610,14 +612,14 @@
   <div id="shop-service-modal" class="ro-modal-overlay hidden">
     <div class="ro-modal-window shop-service-window">
       <div class="ro-modal-header">
-        <span class="ro-modal-title">🏪 ร้านค้ามิดการ์ด (Midgard Blacksmith)</span>
+        <span class="ro-modal-title"><img src="images/icons/shop_cart.gif" class="modal-pixel-icon" alt="" />ร้านค้ามิดการ์ด (Midgard Blacksmith)</span>
         <button type="button" class="ro-modal-close" id="btn-close-shop-service" title="ปิด">✕</button>
       </div>
       <div class="ro-modal-body">
         <p class="service-intro">ยินดีต้อนรับสู่ร้านค้ามิดการ์ด ท่านต้องการให้ข้าช่วยเหลือสิ่งใด?</p>
         <div class="shop-services-grid">
           <button type="button" class="service-choice-card" id="srv-opt-buy">
-            <div class="service-icon-wrap buy-icon">🛒</div>
+            <div class="service-icon-wrap buy-icon"><img src="images/icons/shop_cart.gif" class="service-pixel-icon" alt="Buy" /></div>
             <div class="service-info">
               <div class="service-title">ซื้อไอเทม &amp; วัตถุดิบ (Buy Items)</div>
               <div class="service-desc">ซื้อหินตีบวก, อาวุธ Lv.1 - 4, ชุดเกราะ และกล่องสุ่ม OBB / OVB</div>
@@ -626,7 +628,7 @@
           </button>
 
           <button type="button" class="service-choice-card" id="srv-opt-sell">
-            <div class="service-icon-wrap sell-icon">💰</div>
+            <div class="service-icon-wrap sell-icon"><img src="images/icons/zeny.gif" class="service-pixel-icon" alt="Sell" /></div>
             <div class="service-info">
               <div class="service-title">ขายอุปกรณ์ (Sell Equipment)</div>
               <div class="service-desc">ขายอุปกรณ์ที่ไม่ใช้ หรือขายไอเทมบวกสูงเพื่อรับเงิน Zeny จำนวนมหาศาล</div>
@@ -635,7 +637,7 @@
           </button>
 
           <button type="button" class="service-choice-card" id="srv-opt-refinery">
-            <div class="service-icon-wrap refinery-icon">⚒️</div>
+            <div class="service-icon-wrap refinery-icon"><img src="images/icons/anvil.gif" class="service-pixel-icon" alt="Refinery" /></div>
             <div class="service-info">
               <div class="service-title">โรงหลอมแร่ (Ore Refinery)</div>
               <div class="service-desc">หลอมเศษแร่ Rough 5 ก้อน เป็นแร่บริสุทธิ์ Oridecon / Elunium 1 ก้อน</div>
@@ -654,7 +656,7 @@
   <div id="fast-buy-ore-modal" class="ro-modal-overlay hidden">
     <div class="ro-modal-window fast-buy-window" style="max-width: 380px; width: 92vw;">
       <div class="ro-modal-header">
-        <span class="ro-modal-title">⚡ ซื้อแร่ด่วน (Fast Purchase)</span>
+        <span class="ro-modal-title"><img src="images/icons/ore.gif" class="modal-pixel-icon" alt="" />ซื้อแร่ด่วน (Fast Purchase)</span>
         <button type="button" class="ro-modal-close" id="btn-close-fast-buy" title="ปิด">✕</button>
       </div>
       <div class="ro-modal-body" style="padding: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px;">
@@ -675,11 +677,11 @@
         </div>
         <div style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
           <button type="button" class="ro-btn ro-btn-primary" id="btn-fast-buy-1" style="padding: 10px 4px; font-weight: 700; font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span>⚡ ซื้อ 1 ชิ้น</span>
+            <span>ซื้อ 1 ชิ้น</span>
             <small id="fast-buy-cost-1" style="font-size: 0.72rem; font-weight: 600; opacity: 0.9;">0 z</small>
           </button>
           <button type="button" class="ro-btn ro-btn-primary" id="btn-fast-buy-10" style="padding: 10px 4px; font-weight: 700; font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 2px; background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%); border-color: #b45309;">
-            <span>⚡ ซื้อ 10 ชิ้น</span>
+            <span>ซื้อ 10 ชิ้น</span>
             <small id="fast-buy-cost-10" style="font-size: 0.72rem; font-weight: 600; opacity: 0.9;">0 z</small>
           </button>
         </div>
@@ -694,7 +696,7 @@
   <div id="unbox-confirm-modal" class="ro-modal-overlay hidden">
     <div class="ro-modal-window unbox-confirm-window" style="max-width: 400px; width: 92vw;">
       <div class="ro-modal-header">
-        <span class="ro-modal-title">🎁 เปิดกล่องสมบัติ (Open Treasure Box)</span>
+        <span class="ro-modal-title"><img src="images/icons/giftbox.gif" class="modal-pixel-icon" alt="" />เปิดกล่องสมบัติ (Open Treasure Box)</span>
         <button type="button" class="ro-modal-close" id="btn-close-unbox-confirm" title="ปิด">✕</button>
       </div>
       <div class="ro-modal-body" style="text-align: center; padding: 20px 18px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
@@ -708,7 +710,7 @@
         </div>
       </div>
       <div class="ro-modal-footer" style="display: flex; gap: 10px; justify-content: center; padding: 12px 16px;">
-        <button type="button" class="ro-btn ro-btn-primary" id="btn-confirm-open-box" style="flex: 1; padding: 10px; font-weight: 700;">🎁 ยืนยันเปิดกล่อง (Open)</button>
+        <button type="button" class="ro-btn ro-btn-primary" id="btn-confirm-open-box" style="flex: 1; padding: 10px; font-weight: 700;">ยืนยันเปิดกล่อง (Open)</button>
         <button type="button" class="ro-btn ro-btn-secondary" id="btn-cancel-open-box" style="padding: 10px 18px; font-weight: 600;">ยกเลิก (Cancel)</button>
       </div>
     </div>
@@ -718,7 +720,7 @@
   <div id="unbox-modal" class="ro-modal-overlay hidden">
     <div class="ro-modal-window unbox-window">
       <div class="ro-modal-header unbox-header">
-        <span class="ro-modal-title">🎁 ยินดีด้วย! เปิดกล่องสมบัติสำเร็จ</span>
+        <span class="ro-modal-title"><img src="images/icons/giftbox.gif" class="modal-pixel-icon" alt="" />ยินดีด้วย! เปิดกล่องสมบัติสำเร็จ</span>
         <button type="button" class="ro-modal-close" id="btn-close-unbox" title="ปิด">✕</button>
       </div>
       <div class="ro-modal-body unbox-body">
@@ -733,12 +735,12 @@
           <span class="unbox-badge" id="unbox-badge-type">Weapon Lv.3</span>
           <span class="unbox-badge unbox-badge-stat" id="unbox-badge-stat">ATK: 120</span>
         </div>
-        <div class="unbox-item-price" id="unbox-item-price">💰 ราคาขาย: 25,000 z</div>
+        <div class="unbox-item-price" id="unbox-item-price"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" />ราคาขาย: 25,000 z</div>
         <p class="unbox-item-desc" id="unbox-item-desc">คำอธิบายไอเทม</p>
       </div>
       <div class="ro-modal-footer unbox-footer">
-        <button type="button" class="ro-btn ro-btn-primary" id="btn-unbox-again">🎁 เปิดอีกกล่อง (<span id="unbox-rem-count">0</span>)</button>
-        <button type="button" class="ro-btn ro-btn-secondary" id="btn-unbox-inventory">🎒 ดูในกระเป๋า</button>
+        <button type="button" class="ro-btn ro-btn-primary" id="btn-unbox-again">เปิดอีกกล่อง (<span id="unbox-rem-count">0</span>)</button>
+        <button type="button" class="ro-btn ro-btn-secondary" id="btn-unbox-inventory"><img src="images/icons/backpack.gif" class="btn-sub-pixel-icon" alt="" />ดูในกระเป๋า</button>
         <button type="button" class="ro-btn ro-btn-outline" id="btn-unbox-done">ตกลง (OK)</button>
       </div>
     </div>
@@ -751,18 +753,18 @@
   <div id="particles" class="particles-layer"></div>
 
   <!-- Scripts -->
-  <script src="js/audio.js?v=2.4"></script>
-  <script src="js/data.js?v=2.4"></script>
-  <script src="js/state.js?v=2.4"></script>
-  <script src="js/particles.js?v=2.4"></script>
-  <script src="js/router.js?v=2.4"></script>
-  <script src="js/landing.js?v=2.4"></script>
-  <script src="js/main-page.js?v=2.4"></script>
-  <script src="js/refine.js?v=2.4"></script>
-  <script src="js/inventory.js?v=2.4"></script>
-  <script src="js/shop.js?v=2.4"></script>
-  <script src="js/achievements.js?v=2.4"></script>
-  <script src="js/settings.js?v=2.4"></script>
-  <script src="js/app.js?v=2.4"></script>
+  <script src="js/audio.js?v=2.5"></script>
+  <script src="js/data.js?v=2.5"></script>
+  <script src="js/state.js?v=2.5"></script>
+  <script src="js/particles.js?v=2.5"></script>
+  <script src="js/router.js?v=2.5"></script>
+  <script src="js/landing.js?v=2.5"></script>
+  <script src="js/main-page.js?v=2.5"></script>
+  <script src="js/refine.js?v=2.5"></script>
+  <script src="js/inventory.js?v=2.5"></script>
+  <script src="js/shop.js?v=2.5"></script>
+  <script src="js/achievements.js?v=2.5"></script>
+  <script src="js/settings.js?v=2.5"></script>
+  <script src="js/app.js?v=2.5"></script>
 </body>
 </html>

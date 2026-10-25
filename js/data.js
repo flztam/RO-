@@ -1290,24 +1290,24 @@ function getTotalPlus10Count(d) {
 
 // ---- Achievements definition ----
 const ACHIEVEMENTS = [
-  { id: 'first_refine',    name: 'First Swing',      icon: '🔨', desc: 'เริ่มลงมือตีบวกอุปกรณ์ครั้งแรก', req: s => s.totalRefines >= 1,          threshold: 1, key: 'totalRefines' },
-  { id: 'first_success',  name: 'Shining Blade',    icon: '✨', desc: 'ตีบวกสำเร็จครั้งแรกในชีวิต', req: s => s.successCount >= 1,          threshold: 1, key: 'successCount' },
-  { id: 'refine10',       name: 'Dedicated Smith',  icon: '⚒️', desc: 'ตีบวกอุปกรณ์สะสมครบ 10 ครั้ง', req: s => s.totalRefines >= 10,         threshold: 10,key: 'totalRefines' },
-  { id: 'refine100',      name: 'Iron Will',        icon: '🏋️', desc: 'ช่างเหล็กผู้มุ่งมั่น ตีบวกครบ 100 ครั้ง', req: s => s.totalRefines >= 100,        threshold: 100,key:'totalRefines' },
-  { id: 'first_fail',     name: 'It Happens',       icon: '💥', desc: 'อุปกรณ์ล้มเหลวครั้งแรก (สัจธรรมของ RO)', req: s => s.failCount >= 1,             threshold: 1, key: 'failCount' },
-  { id: 'fail10',         name: 'Cursed Hammer',    icon: '😈', desc: 'ค้อนต้องคำสาป ล้มเหลวสะสม 10 ครั้ง', req: s => s.failCount >= 10,            threshold: 10,key: 'failCount' },
-  { id: 'reach_plus7',    name: '+7 Weapon Master',icon: '⭐', desc: 'ตีบวกอาวุธใดก็ได้ขึ้นถึงระดับ +7', req: s => s.maxRefineReached >= 7,      threshold: 7, key: 'maxRefineReached' },
-  { id: 'reach_plus10',   name: 'Legendary +10',    icon: '👑', desc: 'ทำสำเร็จ! ตีบวกอุปกรณ์ถึงระดับ +10 ระดับสูงสุด!', req: s => s.maxRefineReached >= 10,     threshold: 10,key: 'maxRefineReached' },
-  { id: 'hunt10',         name: 'Monster Slayer',   icon: '🗡️', desc: 'ออกล่ามอนสเตอร์สะสมครบ 10 รอบ', req: s => s.huntCount >= 10,            threshold: 10,key: 'huntCount' },
-  { id: 'zeny100k',       name: 'Merchant Prince',  icon: '💰', desc: 'ครอบครองเงินสะสมเกิน 100,000 Zeny', req: s => s.totalZenyEarned >= 100000,  threshold: 100000, key: 'totalZenyEarned' },
-  { id: 'buy50',          name: 'Shopping Spree',   icon: '🛒', desc: 'ซื้อแร่และอุปกรณ์จากร้านค้า 50 ชิ้น', req: s => s.totalBought >= 50,          threshold: 50,key: 'totalBought' },
-  { id: 'manual_success', name: 'Eagle Eye',        icon: '🎯', desc: 'ตีบวกสำเร็จด้วยโหมดกะจังหวะ (Manual) ครบ 5 ครั้ง', req: s => s.manualSuccess >= 5, threshold: 5, key: 'manualSuccess' },
+  { id: 'first_refine',    name: 'First Swing',      icon: 'images/icons/hammer.gif', desc: 'เริ่มลงมือตีบวกอุปกรณ์ครั้งแรก', req: s => s.totalRefines >= 1,          threshold: 1, key: 'totalRefines' },
+  { id: 'first_success',  name: 'Shining Blade',    icon: 'images/items/1101.gif', desc: 'ตีบวกสำเร็จครั้งแรกในชีวิต', req: s => s.successCount >= 1,          threshold: 1, key: 'successCount' },
+  { id: 'refine10',       name: 'Dedicated Smith',  icon: 'images/icons/anvil.gif', desc: 'ตีบวกอุปกรณ์สะสมครบ 10 ครั้ง', req: s => s.totalRefines >= 10,         threshold: 10,key: 'totalRefines' },
+  { id: 'refine100',      name: 'Iron Will',        icon: 'images/icons/golden_hammer.gif', desc: 'ช่างเหล็กผู้มุ่งมั่น ตีบวกครบ 100 ครั้ง', req: s => s.totalRefines >= 100,        threshold: 100,key:'totalRefines' },
+  { id: 'first_fail',     name: 'It Happens',       icon: 'images/icons/rough_ore.gif', desc: 'อุปกรณ์ล้มเหลวครั้งแรก (สัจธรรมของ RO)', req: s => s.failCount >= 1,             threshold: 1, key: 'failCount' },
+  { id: 'fail10',         name: 'Cursed Hammer',    icon: 'images/icons/settings_tool.gif', desc: 'ค้อนต้องคำสาป ล้มเหลวสะสม 10 ครั้ง', req: s => s.failCount >= 10,            threshold: 10,key: 'failCount' },
+  { id: 'reach_plus7',    name: '+7 Weapon Master',icon: 'images/icons/ore.gif', desc: 'ตีบวกอาวุธใดก็ได้ขึ้นถึงระดับ +7', req: s => s.maxRefineReached >= 7,      threshold: 7, key: 'maxRefineReached' },
+  { id: 'reach_plus10',   name: 'Legendary +10',    icon: 'images/icons/crown.gif', desc: 'ทำสำเร็จ! ตีบวกอุปกรณ์ถึงระดับ +10 ระดับสูงสุด!', req: s => s.maxRefineReached >= 10,     threshold: 10,key: 'maxRefineReached' },
+  { id: 'hunt10',         name: 'Monster Slayer',   icon: 'images/icons/sword.gif', desc: 'ออกล่ามอนสเตอร์สะสมครบ 10 รอบ', req: s => s.huntCount >= 10,            threshold: 10,key: 'huntCount' },
+  { id: 'zeny100k',       name: 'Merchant Prince',  icon: 'images/icons/zeny.gif', desc: 'ครอบครองเงินสะสมเกิน 100,000 Zeny', req: s => s.totalZenyEarned >= 100000,  threshold: 100000, key: 'totalZenyEarned' },
+  { id: 'buy50',          name: 'Shopping Spree',   icon: 'images/icons/shop_cart.gif', desc: 'ซื้อแร่และอุปกรณ์จากร้านค้า 50 ชิ้น', req: s => s.totalBought >= 50,          threshold: 50,key: 'totalBought' },
+  { id: 'manual_success', name: 'Eagle Eye',        icon: 'images/icons/cross_sword.gif', desc: 'ตีบวกสำเร็จด้วยโหมดกะจังหวะ (Manual) ครบ 5 ครั้ง', req: s => s.manualSuccess >= 5, threshold: 5, key: 'manualSuccess' },
 
   // New Equipment Tier & Milestone Achievements
   {
     id: 'master_w1_plus10',
     name: 'ช่างตีมีดฝึกหัด',
-    icon: '🗡️',
+    icon: 'images/items/1201.gif',
     desc: 'ตีบวกอาวุธ Lv.1 ถึงระดับ +10 ชิ้นแรก',
     req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 1),
     getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 1, 1),
@@ -1316,7 +1316,7 @@ const ACHIEVEMENTS = [
   {
     id: 'master_w2_plus10',
     name: 'ผู้เชี่ยวชาญคมดาบ',
-    icon: '⚔️',
+    icon: 'images/items/1107.gif',
     desc: 'ตีบวกอาวุธ Lv.2 ถึงระดับ +10 ชิ้นแรก',
     req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 2),
     getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 2, 1),
@@ -1325,7 +1325,7 @@ const ACHIEVEMENTS = [
   {
     id: 'master_w3_plus10',
     name: 'มาสเตอร์แห่งศาสตรา',
-    icon: '🔱',
+    icon: 'images/items/1124.gif',
     desc: 'ตีบวกอาวุธ Lv.3 ถึงระดับ +10 ชิ้นแรก',
     req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 3),
     getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 3, 1),
@@ -1334,7 +1334,7 @@ const ACHIEVEMENTS = [
   {
     id: 'master_w4_plus10',
     name: 'ตำนานแห่งศาสตราวุธ',
-    icon: '⚡',
+    icon: 'images/items/1164.gif',
     desc: 'ตีบวกอาวุธ Lv.4 ถึงระดับ +10 ชิ้นแรก',
     req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4),
     getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4, 1),
@@ -1343,7 +1343,7 @@ const ACHIEVEMENTS = [
   {
     id: 'master_god_weapon_plus10',
     name: 'ผู้พิชิตอาวุธเทพ',
-    icon: '🌟',
+    icon: 'images/items/1160.gif',
     desc: 'ตีบวกอาวุธเทพ Lv.4 ถึงระดับ +10 ชิ้นแรก',
     req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4 && (eq.isGod || eq.id === 'angra_manyu' || eq.id === 'gungnir' || eq.id === 'excalibur')),
     getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4 && (eq.isGod || eq.id === 'angra_manyu' || eq.id === 'gungnir' || eq.id === 'excalibur'), 1),
@@ -1352,7 +1352,7 @@ const ACHIEVEMENTS = [
   {
     id: 'master_shield_plus10',
     name: 'โล่สุดแกร่ง',
-    icon: '🛡️',
+    icon: 'images/icons/shield.gif',
     desc: 'ตีบวกโล่ ถึงระดับ +10 ชิ้นแรก',
     req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Armor' && eq.subClass === 'Shield'),
     getProgress: d => getPlus10Progress(d, eq => eq.type === 'Armor' && eq.subClass === 'Shield', 1),
@@ -1361,7 +1361,7 @@ const ACHIEVEMENTS = [
   {
     id: 'fullset_morroc_plus10',
     name: 'ฟูลเซ็ตเทพโมร็อค',
-    icon: '⚜️',
+    icon: 'images/icons/armor.gif',
     desc: 'เครื่องป้องกันระดับ +10 ครบทุกประเภท (เกราะ, โล่, ผ้าคลุม, รองเท้า, หมวก)',
     req: (s, d) => getArmorSubclassesPlus10Count(d) >= 5,
     getProgress: d => ({ current: getArmorSubclassesPlus10Count(d), threshold: 5 }),
@@ -1370,7 +1370,7 @@ const ACHIEVEMENTS = [
   {
     id: 'legendary_refiner_all_plus10',
     name: 'ช่างตีบวกในตำนาน',
-    icon: '👑',
+    icon: 'images/icons/crown.gif',
     desc: 'ตีบวกไอเทมทุกชนิดในเกมถึงระดับ +10',
     req: (s, d) => getTotalPlus10Count(d) >= EQUIPMENT.length,
     getProgress: d => ({ current: getTotalPlus10Count(d), threshold: EQUIPMENT.length }),

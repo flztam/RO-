@@ -203,6 +203,26 @@
   image-rendering: pixelated;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
+.refine-hero-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.refine-hero-lvl-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  line-height: 1.2;
+}
 
 /* Curved Soft Blue Ribbon Banner with Item Name */
 .refine-ribbon-banner {
@@ -816,6 +836,18 @@
   transform-origin: bottom right;
   animation: hammer-clang 0.6s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
   filter: drop-shadow(0 0 20px rgba(255, 179, 0, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.striking-hammer-img {
+  width: 80px;
+  height: 80px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  object-fit: contain;
 }
 
 @keyframes hammer-clang {

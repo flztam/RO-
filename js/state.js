@@ -153,6 +153,7 @@ const State = (() => {
       if (!item.instanceId) item.instanceId = _uid();
       return item;
     });
+    save();
   }
 
   function save() {
@@ -210,24 +211,48 @@ const State = (() => {
     return instance;
   }
 
-  function removeEquipment(instanceId) {
-    const idx = data.inventory.equipment.findIndex(e => e.instanceId === instanceId);
+  function removeEquipment(instanceId, fallbackItem) {
+    if (!data || !data.inventory || !data.inventory.equipment) return false;
+    let idx = -1;
+    if (instanceId) {
+      idx = data.inventory.equipment.findIndex(e => e.instanceId === instanceId);
+    }
+    if (idx === -1 && fallbackItem) {
+      idx = data.inventory.equipment.findIndex(e => e === fallbackItem || (fallbackItem.instanceId && e.instanceId === fallbackItem.instanceId) || (e.id === fallbackItem.id && e.level === fallbackItem.level) || e.id === fallbackItem.id);
+    }
     if (idx === -1) return false;
     data.inventory.equipment.splice(idx, 1);
     save();
     return true;
   }
 
-  function updateEquipmentLevel(instanceId, newLevel) {
-    const eq = data.inventory.equipment.find(e => e.instanceId === instanceId);
-    if (!eq) return;
-    eq.level = newLevel;
-    if (newLevel > data.stats.maxRefineReached) data.stats.maxRefineReached = newLevel;
-    if (newLevel >= 10) {
+  function updateEquipmentLevel(instanceId, newLevel, fallbackItem) {
+    if (!data || !data.inventory || !data.inventory.equipment) return null;
+    let eq = null;
+    if (instanceId) {
+      eq = data.inventory.equipment.find(e => e.instanceId === instanceId);
+    }
+    if (!eq && fallbackItem) {
+      eq = data.inventory.equipment.find(e => e === fallbackItem || (fallbackItem.instanceId && e.instanceId === fallbackItem.instanceId) || (e.id === fallbackItem.id && e.level === fallbackItem.level) || e.id === fallbackItem.id);
+    }
+    if (!eq && data.inventory.equipment.length > 0) {
+      eq = data.inventory.equipment[0];
+    }
+    if (eq) {
+      eq.level = newLevel;
+      if (!eq.instanceId) eq.instanceId = _uid();
+    }
+    if (fallbackItem) {
+      fallbackItem.level = newLevel;
+      if (eq && !fallbackItem.instanceId) fallbackItem.instanceId = eq.instanceId;
+    }
+    data.stats.maxRefineReached = Math.max(data.stats.maxRefineReached || 0, newLevel);
+    if (newLevel >= 10 && eq) {
       data.stats.plus10Items = data.stats.plus10Items || {};
       data.stats.plus10Items[eq.id] = true;
     }
     save();
+    return eq;
   }
 
   function addRefineLog(entry) {
@@ -341,7 +366,7 @@ const State = (() => {
     // Chance for Box or Enriched drop (25% chance)
     let specialDrop = null;
     if (Math.random() < 0.25) {
-      const specials = ['obb', 'ovb', 'enriched_o', 'enriched_e'];
+      const specials = ['obb', 'ovb', 'enriched_oridecon', 'enriched_elunium'];
       const spec = specials[Math.floor(Math.random() * specials.length)];
       addMaterial(spec, 1);
       specialDrop = MATERIALS.find(m => m.id === spec);

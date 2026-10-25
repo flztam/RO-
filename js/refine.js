@@ -334,7 +334,13 @@ const Refine = (() => {
     }
 
     // Verify item still exists in inventory
-    const liveItem = d.inventory.equipment.find(e => e.instanceId === selectedItem.instanceId);
+    let liveItem = null;
+    if (selectedItem.instanceId) {
+      liveItem = d.inventory.equipment.find(e => e.instanceId === selectedItem.instanceId);
+    }
+    if (!liveItem) {
+      liveItem = d.inventory.equipment.find(e => e === selectedItem || (e.id === selectedItem.id && e.level === selectedItem.level));
+    }
     if (!liveItem) {
       selectedItem = null;
       updateDisplay();
@@ -344,7 +350,7 @@ const Refine = (() => {
     selectedItem = liveItem;
 
     const eqDef = EQUIPMENT.find(e => e.id === selectedItem.id);
-    const lvl = selectedItem.level;
+    const lvl = selectedItem.level || 0;
     const safe = getSafeLevel(eqDef);
     const cost = getRefineCost(eqDef, lvl);
     const matId = getRequiredMaterial(eqDef, isEnriched);
@@ -356,13 +362,16 @@ const Refine = (() => {
     // Update center visual
     if (visual) {
       visual.innerHTML = `
-        <img src="${eqDef.icon}" class="refine-hero-img" alt="${eqDef.name}" onerror="this.src='https://file5s.ratemyserver.net/items/small/${eqDef.itemId}.gif'" />
+        <div class="refine-hero-wrap">
+          <img src="${eqDef.icon}" class="refine-hero-img" alt="${eqDef.name}" onerror="this.src='https://file5s.ratemyserver.net/items/small/${eqDef.itemId}.gif'" />
+          ${lvl > 0 ? `<span class="refine-hero-lvl-badge">+${lvl}</span>` : ''}
+        </div>
       `;
     }
 
     // Update ribbon banner
     if (ribbon) {
-      ribbon.textContent = `${eqDef.name}`;
+      ribbon.textContent = lvl > 0 ? `+${lvl} ${eqDef.name}` : eqDef.name;
     }
 
     // Compute stats
@@ -521,12 +530,17 @@ const Refine = (() => {
       d.stats.successCount = (d.stats.successCount || 0) + 1;
       if (isManual) d.stats.manualSuccess = (d.stats.manualSuccess || 0) + 1;
       const newLvl = oldLvl + 1;
-      State.updateEquipmentLevel(selectedItem.instanceId, newLvl);
+      selectedItem.level = newLvl;
+      const updated = State.updateEquipmentLevel(selectedItem.instanceId, newLvl, selectedItem);
+      if (updated && updated.instanceId) {
+        selectedItem.instanceId = updated.instanceId;
+      }
 
       Audio.play(newLvl >= 7 ? 'level-up' : 'success');
       Particles.successBurst(centerCoords.x, centerCoords.y);
       Particles.flash($itemVisual(), 'success');
       Particles.floatText(centerCoords.x - 30, centerCoords.y - 40, `+${newLvl} ✨`, '#4caf50');
+      showToast(`✨ อัพเกรดสำเร็จ! ${eqDef.name} กลายเป็น +${newLvl}!`);
 
       addLog({
         type: 'success',
@@ -538,7 +552,7 @@ const Refine = (() => {
 
       if (oldLvl >= safe) {
         d.stats.breakCount = (d.stats.breakCount || 0) + 1;
-        State.removeEquipment(selectedItem.instanceId);
+        State.removeEquipment(selectedItem.instanceId, selectedItem);
         Particles.failBurst(centerCoords.x, centerCoords.y);
         Particles.shake(document.body);
         Particles.floatText(centerCoords.x - 40, centerCoords.y - 40, '💔 แตกสลาย!', '#dc2626');

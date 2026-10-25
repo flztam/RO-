@@ -235,6 +235,17 @@
   line-height: 1;
 }
 
+.hud-btn-pixel-icon {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
 .ro-hud-btn .hud-btn-text {
   font-size: 0.68rem;
   font-weight: 700;
@@ -463,6 +474,25 @@
   font-size: 1.35rem;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
   flex-shrink: 0;
+}
+
+.ro-menu-pixel-icon {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+}
+
+@media (min-width: 841px) {
+  .ro-menu-pixel-icon {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 .ro-menu-info {

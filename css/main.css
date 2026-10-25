@@ -619,6 +619,109 @@ html, body {
 }
 
 /* ============================================================
+   AUTHENTIC RAGNAROK PIXEL ICONS
+   ============================================================ */
+.zeny-pixel-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  vertical-align: -2px;
+  display: inline-block;
+  margin-right: 3px;
+  object-fit: contain;
+}
+
+.title-pixel-icon {
+  width: 22px;
+  height: 22px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  vertical-align: -4px;
+  display: inline-block;
+  margin-right: 6px;
+  object-fit: contain;
+}
+
+.tab-pixel-icon {
+  width: 18px;
+  height: 18px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  vertical-align: -3px;
+  display: inline-block;
+  margin-right: 5px;
+  object-fit: contain;
+}
+
+.btn-sub-pixel-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  vertical-align: -2px;
+  display: inline-block;
+  margin-right: 4px;
+  object-fit: contain;
+}
+
+.win-pixel-icon {
+  width: 18px;
+  height: 18px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  vertical-align: -3px;
+  display: inline-block;
+  margin-right: 4px;
+  object-fit: contain;
+}
+
+.modal-pixel-icon {
+  width: 22px;
+  height: 22px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  vertical-align: -4px;
+  display: inline-block;
+  margin-right: 6px;
+  object-fit: contain;
+}
+
+.service-pixel-icon {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  object-fit: contain;
+}
+
+.pixel-achieve-icon {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  object-fit: contain;
+}
+
+.pixel-stat-icon {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+/* ============================================================
    MOBILE RESPONSIVENESS & TOUCH OPTIMIZATIONS
    ============================================================ */
 button, input, select, .ro-btn, .ro-hud-btn, .ro-dialog-option, .ro-menu-button {
