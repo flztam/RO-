@@ -5,7 +5,10 @@
 .morroc-bg {
   position: absolute;
   inset: 0;
-  background: url('../images/hollgrehenn-3d.jpg') no-repeat center 35%;
+  background-color: #0c1424;
+  background-image: url('../images/hollgrehenn-3d.jpg');
+  background-repeat: no-repeat;
+  background-position: center 32%;
   background-size: cover;
   z-index: 0;
   filter: contrast(1.04) brightness(0.96);
@@ -17,8 +20,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 50% 40% at 75% 55%, rgba(255, 230, 160, 0.12) 0%, transparent 70%),
-    linear-gradient(180deg, rgba(10, 18, 36, 0.45) 0%, rgba(10, 18, 36, 0.15) 30%, rgba(10, 18, 36, 0.6) 100%);
+    radial-gradient(ellipse 65% 55% at 50% 36%, rgba(255, 230, 160, 0.08) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(12, 20, 36, 0.45) 0%, rgba(12, 20, 36, 0.08) 25%, rgba(12, 20, 36, 0.75) 90%);
   pointer-events: none;
 }
 
@@ -386,34 +389,30 @@
   border-color: #275ff9;
 }
 
-/* Bottom Quick Action Menu Grid */
+/* Bottom Action Commands (Refine & Shop) */
 .ro-action-menu {
   align-self: center;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  width: min(800px, 96vw);
-}
-
-@media (max-width: 768px) {
-  .ro-action-menu {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: min(720px, 94vw);
+  margin-top: auto;
 }
 
 .ro-menu-button {
   font-family: var(--font-ro);
-  background: linear-gradient(180deg, #ffffff 0%, #eef4fc 40%, #c9daf1 50%, #d8e5f5 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #edf4fc 40%, #c9daf1 50%, #d8e5f5 100%);
   border: 1.5px solid #5b799f;
   border-radius: var(--radius-ro);
-  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 6px 16px rgba(10,20,40,0.35);
-  padding: 12px 14px;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 6px 18px rgba(10,20,40,0.35);
+  padding: 14px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   cursor: pointer;
   transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   text-align: left;
+  position: relative;
 }
 
 .ro-menu-button:hover {
@@ -430,25 +429,43 @@
 }
 
 .ro-menu-icon {
-  font-size: 2rem;
+  font-size: 2.1rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  flex-shrink: 0;
 }
 
 .ro-menu-info {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .ro-menu-title {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #10223d;
   text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+  letter-spacing: 0.2px;
 }
 
 .ro-menu-sub {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: #4c6482;
+  margin-top: 1px;
+}
+
+.ro-menu-arrow {
+  color: #275ff9;
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-left: auto;
+  opacity: 0.8;
+  transition: transform 0.15s;
+}
+
+.ro-menu-button:hover .ro-menu-arrow {
+  transform: translateX(3px);
+  opacity: 1;
 }
 
 /* ============================================================
@@ -456,51 +473,75 @@
    ============================================================ */
 @media (max-width: 640px) {
   .ro-hud-header {
-    padding: 6px 10px;
+    padding: 5px 8px;
+    gap: 6px;
   }
   .ro-basic-info-box {
-    min-width: 150px;
-    max-width: 175px;
+    min-width: 135px;
+    max-width: 150px;
+    flex-shrink: 0;
+  }
+  .ro-basic-info-header {
+    padding: 1px 5px;
+  }
+  .ro-basic-info-content {
+    padding: 3px 5px;
+    gap: 2px;
   }
   .ro-job-badge {
     display: none;
   }
   .ro-basic-info-row .ro-char-name {
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 130px;
+    max-width: 105px;
   }
-  .ro-stat-bar-text {
-    font-size: 7.5px;
-  }
-  .ro-basic-zeny-row {
-    font-size: 0.72rem;
-  }
-  .ro-hud-actions {
+  .ro-stat-row {
     gap: 4px;
   }
+  .ro-stat-label {
+    font-size: 0.62rem;
+    width: 15px;
+  }
+  .ro-stat-bar-track {
+    height: 9px;
+  }
+  .ro-stat-bar-text {
+    font-size: 7px;
+  }
+  .ro-basic-zeny-row {
+    font-size: 0.68rem;
+  }
+  .ro-hud-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
   .ro-hud-btn {
-    padding: 5px 8px;
-    font-size: 0.75rem;
+    padding: 5px 7px;
+    font-size: 0.82rem;
+    min-width: 32px;
+    justify-content: center;
   }
   .ro-hud-btn .hud-btn-text {
     display: none;
   }
-  .btn-hunt .hud-btn-text {
-    display: inline;
-    font-size: 0.72rem;
+  .btn-hunt.cooling::after {
+    font-size: 0.68rem;
   }
 
-  /* Center Hollgrehenn NPC in the middle of screen for mobile version */
+  /* Zoom out Hollgrehenn to see whole figure & anvil on mobile */
   .morroc-bg {
-    background-position: center 30% !important;
+    background-size: auto clamp(360px, 60vh, 520px) !important;
+    background-position: 35% clamp(55px, 16vh, 110px) !important;
   }
 
   .morroc-scene-area {
-    padding: 14px 12px;
-    gap: 12px;
+    padding: 12px 10px;
+    gap: 10px;
     justify-content: flex-end;
   }
 
@@ -511,25 +552,29 @@
 
   .ro-action-menu {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
     width: 100%;
     max-width: 440px;
     margin: 0 auto;
   }
   .ro-menu-button {
-    padding: 10px 12px;
-    gap: 10px;
+    padding: 10px 8px;
+    gap: 8px;
     background: linear-gradient(180deg, #ffffff 0%, #edf4fc 50%, #d8e5f5 100%);
     box-shadow: inset 1px 1px 0 #ffffff, 0 4px 14px rgba(0, 0, 0, 0.35);
   }
   .ro-menu-icon {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   .ro-menu-title {
-    font-size: 0.88rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
   }
   .ro-menu-sub {
-    font-size: 0.68rem;
+    font-size: 0.64rem;
     line-height: 1.15;
+  }
+  .ro-menu-arrow {
+    display: none;
   }
 }

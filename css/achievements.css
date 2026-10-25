@@ -32,8 +32,8 @@
 }
 
 .stat-card {
-  background: rgba(240, 244, 252, 0.95);
-  border: 1.5px solid #8fa2bf;
+  background: var(--ro-win-bg);
+  border: 1.5px solid var(--ro-win-border);
   border-radius: var(--radius-ro);
   padding: 12px;
   display: flex;
@@ -41,7 +41,7 @@
   align-items: center;
   gap: 4px;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: inset 1px 1px 0 #ffffff, 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .stat-icon { font-size: 1.6rem; }
@@ -61,7 +61,7 @@
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
-  border-bottom: 2px solid #3e51bd;
+  border-bottom: 2px solid #5b799f;
   padding-bottom: 6px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
@@ -76,14 +76,14 @@
 }
 
 .achieve-card {
-  background: rgba(240, 244, 252, 0.95);
-  border: 1.5px solid #8fa2bf;
+  background: var(--ro-win-bg);
+  border: 1.5px solid var(--ro-win-border);
   border-radius: var(--radius-ro);
   padding: 12px 14px;
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  box-shadow: inset 1px 1px 0 #ffffff, 0 2px 6px rgba(0,0,0,0.12);
   transition: all 0.2s;
 }
 

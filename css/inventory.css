@@ -32,11 +32,11 @@
   overflow-y: auto;
   align-content: start;
   flex: 1;
-  background: rgba(240, 244, 252, 0.95);
-  border: 2px solid #6b82a6;
+  background: var(--ro-win-bg);
+  border: 1.5px solid var(--ro-win-border);
   border-radius: var(--radius-ro);
   padding: 14px;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: var(--ro-win-shadow);
 }
 .ro-item-grid:not(.active) { display: none; }
 .ro-item-grid.active { display: grid; }

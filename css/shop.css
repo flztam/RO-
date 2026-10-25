@@ -30,10 +30,11 @@
   display: none;
   flex: 1;
   overflow-y: auto;
-  background: rgba(240, 244, 252, 0.95);
-  border: 2px solid #6b82a6;
+  background: var(--ro-win-bg);
+  border: 1.5px solid var(--ro-win-border);
   border-radius: var(--radius-ro);
   padding: 14px;
+  box-shadow: var(--ro-win-shadow);
 }
 .shop-panel.active {
   display: flex;
