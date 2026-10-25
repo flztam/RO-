@@ -40,6 +40,7 @@ const State = (() => {
         maxRefineReached: 0,
         huntCount: 0,
         totalZenyEarned: 10000,
+        maxZenyReached: 10000,
         totalBought: 0,
         manualSuccess: 0,
         boxesOpened: 0,
@@ -115,8 +116,11 @@ const State = (() => {
 
   function _migrate() {
     data.stats = data.stats || {};
-    ['totalRefines','successCount','failCount','breakCount','maxRefineReached','huntCount','totalZenyEarned','totalBought','manualSuccess','boxesOpened']
+    ['totalRefines','successCount','failCount','breakCount','maxRefineReached','huntCount','totalZenyEarned','totalBought','manualSuccess','boxesOpened','maxZenyReached']
       .forEach(k => { if (data.stats[k] === undefined) data.stats[k] = 0; });
+    if (!data.stats.maxZenyReached || data.stats.maxZenyReached < (data.zeny || 0)) {
+      data.stats.maxZenyReached = Math.max(data.zeny || 0, 10000);
+    }
     data.stats.plus10Items = data.stats.plus10Items || {};
     data.achievements = data.achievements || {};
     data.lastHunt = data.lastHunt || 0;
@@ -167,7 +171,12 @@ const State = (() => {
 
   function addZeny(amount) {
     data.zeny += amount;
-    if (amount > 0) data.stats.totalZenyEarned += amount;
+    if (amount > 0) {
+      data.stats.totalZenyEarned += amount;
+      if (data.zeny > (data.stats.maxZenyReached || 0)) {
+        data.stats.maxZenyReached = data.zeny;
+      }
+    }
     save();
   }
 
@@ -270,6 +279,28 @@ const State = (() => {
   // ---- Hunt Monster System ----
   const HUNT_COOLDOWN_MS = 2 * 60 * 60 * 1000; // 2 hours
 
+  function calculateHuntReward(peakZeny) {
+    const peak = Math.max(10000, peakZeny || 10000);
+    let base = 2000;
+    if (peak <= 100000) {
+      // 10k -> 2k, 100k -> 20k (20%)
+      base = Math.round(peak * 0.2);
+    } else if (peak <= 1000000) {
+      // 100k -> 20k, 1M -> 100k
+      base = Math.round(20000 + (peak - 100000) * (80000 / 900000));
+    } else {
+      // 1M+ -> capped at 100k
+      base = 100000;
+    }
+    return Math.min(100000, Math.max(2000, base));
+  }
+
+  function getExpectedHuntReward() {
+    if (!data) return 2000;
+    const peak = Math.max(data.zeny || 0, data.stats?.maxZenyReached || 0, 10000);
+    return calculateHuntReward(peak);
+  }
+
   function canHunt() {
     return Date.now() - data.lastHunt >= HUNT_COOLDOWN_MS;
   }
@@ -284,10 +315,14 @@ const State = (() => {
     data.lastHunt = Date.now();
     data.stats.huntCount++;
 
-    // Random zeny reward: 3,000 – 12,000z
-    const zenyGain = Math.floor(Math.random() * 9000) + 3000;
+    // User request: Scale with current user's max zeny reach (10k -> 2k, 100k -> 20k, 1M -> 100k, max 100k)
+    const peak = Math.max(data.zeny || 0, data.stats.maxZenyReached || 0, 10000);
+    const zenyGain = calculateHuntReward(peak);
     data.zeny += zenyGain;
     data.stats.totalZenyEarned += zenyGain;
+    if (data.zeny > (data.stats.maxZenyReached || 0)) {
+      data.stats.maxZenyReached = data.zeny;
+    }
 
     // Guaranteed Refine Material Drop (1 to 3 items)
     const possibleMats = ['phracon', 'emveretarcon', 'rough_oridecon', 'rough_elunium', 'oridecon', 'elunium'];
@@ -404,7 +439,7 @@ const State = (() => {
     addEquipment, removeEquipment, updateEquipmentLevel,
     addRefineLog,
     openBox, combineRoughStone,
-    canHunt, huntCooldownRemaining, doHunt, formatCooldown,
+    canHunt, huntCooldownRemaining, doHunt, formatCooldown, getExpectedHuntReward,
     exportSaveCode, importSaveCode,
     HUNT_COOLDOWN_MS,
   };

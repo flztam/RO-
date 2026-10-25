@@ -43,7 +43,8 @@ const MainPage = (() => {
       if (State.canHunt()) {
         btn.classList.remove('cooling');
         btn.removeAttribute('data-cd');
-        btn.title = 'Hunt Monsters (Ready!)';
+        const rew = State.getExpectedHuntReward();
+        btn.title = `ล่ามอนสเตอร์ (พร้อมลุย! ได้รับ +${rew.toLocaleString()} z)`;
         clearInterval(huntCdInterval);
         huntCdInterval = null;
       } else {
