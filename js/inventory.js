@@ -103,24 +103,45 @@ const Inventory = (() => {
       const useBtn = cell.querySelector('.btn-use-box');
       if (useBtn) {
         useBtn.addEventListener('click', (e) => {
+          e.preventDefault();
           e.stopPropagation();
-          openTreasureBox(def.id);
+          hideTooltip();
+          promptOpenBox(def.id);
         });
       }
 
       const combineBtn = cell.querySelector('.btn-combine-ore');
       if (combineBtn) {
         combineBtn.addEventListener('click', (e) => {
+          e.preventDefault();
           e.stopPropagation();
+          hideTooltip();
           combineRough(def.id);
         });
       }
 
-      cell.addEventListener('mouseenter', e => showMatTooltip(e, def, qty));
-      cell.addEventListener('mousemove', moveTooltip);
-      cell.addEventListener('mouseleave', hideTooltip);
-      cell.addEventListener('click', e => {
+      cell.addEventListener('mouseenter', e => {
+        if (window.matchMedia('(hover: none)').matches) return;
         showMatTooltip(e, def, qty);
+      });
+      cell.addEventListener('mousemove', e => {
+        if (window.matchMedia('(hover: none)').matches) return;
+        moveTooltip(e);
+      });
+      cell.addEventListener('mouseleave', e => {
+        if (window.matchMedia('(hover: none)').matches) return;
+        if (e.relatedTarget && $tooltip.contains(e.relatedTarget)) return;
+        hideTooltip();
+      });
+      cell.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        hideTooltip();
+        if (def.isUsable) {
+          promptOpenBox(def.id);
+        } else {
+          showMatTooltip(e, def, qty);
+        }
       });
       matGrid.appendChild(cell);
     });
@@ -128,6 +149,59 @@ const Inventory = (() => {
     if (!anyMat) {
       matGrid.innerHTML = '<div class="inv-empty">🪨 ไม่มีหินหรือกล่องสมบัติในตัว<br>ซื้อได้จากร้านค้า หรือได้จากการล่ามอนสเตอร์!</div>';
     }
+  }
+
+  let pendingBoxId = null;
+
+  function promptOpenBox(boxId) {
+    const boxDef = MATERIALS.find(m => m.id === boxId);
+    if (!boxDef) return;
+    const qty = State.getMaterial(boxId);
+    if (qty < 1) {
+      showNotification(`❌ ท่านไม่มี ${boxDef.name} ในตัว!`);
+      return;
+    }
+
+    pendingBoxId = boxId;
+    hideTooltip();
+
+    const modal = document.getElementById('unbox-confirm-modal');
+    if (!modal) {
+      openTreasureBox(boxId);
+      return;
+    }
+
+    const icon = document.getElementById('unbox-confirm-icon');
+    const name = document.getElementById('unbox-confirm-name');
+    const desc = document.getElementById('unbox-confirm-desc');
+    const qtyEl = document.getElementById('unbox-confirm-qty');
+
+    if (icon) {
+      icon.src = boxDef.icon;
+      icon.onerror = () => { icon.src = `https://file5s.ratemyserver.net/items/small/${boxDef.itemId}.gif`; };
+    }
+    if (name) name.textContent = boxDef.name;
+    if (desc) desc.textContent = boxDef.desc || 'กล่องสมบัติโบราณ เมื่อเปิดจะสุ่มได้รับอุปกรณ์สวมใส่ 1 ชิ้น';
+    if (qtyEl) qtyEl.textContent = qty;
+
+    modal.classList.remove('hidden');
+
+    const closeBtn = document.getElementById('btn-close-unbox-confirm');
+    const cancelBtn = document.getElementById('btn-cancel-open-box');
+    const confirmBtn = document.getElementById('btn-confirm-open-box');
+
+    const closeModal = () => modal.classList.add('hidden');
+    if (closeBtn) closeBtn.onclick = closeModal;
+    if (cancelBtn) cancelBtn.onclick = closeModal;
+    if (confirmBtn) {
+      confirmBtn.onclick = () => {
+        closeModal();
+        openTreasureBox(pendingBoxId);
+      };
+    }
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
   }
 
   function openTreasureBox(boxId) {
@@ -199,6 +273,9 @@ const Inventory = (() => {
     const closeModal = () => modal.classList.add('hidden');
     if (closeBtn) closeBtn.onclick = closeModal;
     if (doneBtn) doneBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
     if (invBtn) {
       invBtn.onclick = () => {
         closeModal();
@@ -326,7 +403,7 @@ const Inventory = (() => {
 
     $tooltip.querySelector('#btn-tooltip-open-box')?.addEventListener('click', (ev) => {
       ev.stopPropagation();
-      openTreasureBox(def.id);
+      promptOpenBox(def.id);
     });
 
     $tooltip.querySelector('#btn-tooltip-combine-ore')?.addEventListener('click', (ev) => {

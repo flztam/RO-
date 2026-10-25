@@ -10,14 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/landing.css" />
-  <link rel="stylesheet" href="css/main-page.css" />
-  <link rel="stylesheet" href="css/refine.css" />
-  <link rel="stylesheet" href="css/inventory.css" />
-  <link rel="stylesheet" href="css/shop.css" />
-  <link rel="stylesheet" href="css/achievements.css" />
-  <link rel="stylesheet" href="css/settings.css" />
+  <link rel="stylesheet" href="css/main.css?v=2.3" />
+  <link rel="stylesheet" href="css/landing.css?v=2.3" />
+  <link rel="stylesheet" href="css/main-page.css?v=2.3" />
+  <link rel="stylesheet" href="css/refine.css?v=2.3" />
+  <link rel="stylesheet" href="css/inventory.css?v=2.3" />
+  <link rel="stylesheet" href="css/shop.css?v=2.3" />
+  <link rel="stylesheet" href="css/achievements.css?v=2.3" />
+  <link rel="stylesheet" href="css/settings.css?v=2.3" />
 </head>
 <body>
 
@@ -650,6 +650,30 @@
     </div>
   </div>
 
+  <!-- Confirm Open Box Modal (OBB / OVB) -->
+  <div id="unbox-confirm-modal" class="ro-modal-overlay hidden">
+    <div class="ro-modal-window unbox-confirm-window" style="max-width: 400px; width: 92vw;">
+      <div class="ro-modal-header">
+        <span class="ro-modal-title">🎁 เปิดกล่องสมบัติ (Open Treasure Box)</span>
+        <button type="button" class="ro-modal-close" id="btn-close-unbox-confirm" title="ปิด">✕</button>
+      </div>
+      <div class="ro-modal-body" style="text-align: center; padding: 20px 18px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+        <div style="width: 58px; height: 58px; display: flex; align-items: center; justify-content: center; background: #e0f2fe; border: 1.5px solid #7dd3fc; border-radius: 12px; box-shadow: 0 4px 12px rgba(125,211,252,0.4);">
+          <img id="unbox-confirm-icon" src="" style="width: 38px; height: 38px; image-rendering: pixelated;" />
+        </div>
+        <h3 id="unbox-confirm-name" style="font-size: 1.15rem; font-weight: 700; color: #10223d; margin: 4px 0 0;">Old Blue Box</h3>
+        <p id="unbox-confirm-desc" style="font-size: 0.84rem; color: #475569; line-height: 1.45; margin: 0;">กล่องสมบัติโบราณ เมื่อเปิดจะสุ่มได้รับอุปกรณ์สวมใส่ 1 ชิ้น</p>
+        <div style="background: #f1f5fa; border: 1px solid #cbd5e1; border-radius: 20px; padding: 4px 14px; font-size: 0.86rem; font-weight: 700; color: #b45309; margin-top: 4px;">
+          จำนวนที่มีในตัว: <span id="unbox-confirm-qty">1</span> ชิ้น
+        </div>
+      </div>
+      <div class="ro-modal-footer" style="display: flex; gap: 10px; justify-content: center; padding: 12px 16px;">
+        <button type="button" class="ro-btn ro-btn-primary" id="btn-confirm-open-box" style="flex: 1; padding: 10px; font-weight: 700;">🎁 ยืนยันเปิดกล่อง (Open)</button>
+        <button type="button" class="ro-btn ro-btn-secondary" id="btn-cancel-open-box" style="padding: 10px 18px; font-weight: 600;">ยกเลิก (Cancel)</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Treasure Box Unboxing Modal (OBB / OVB) -->
   <div id="unbox-modal" class="ro-modal-overlay hidden">
     <div class="ro-modal-window unbox-window">
@@ -687,18 +711,18 @@
   <div id="particles" class="particles-layer"></div>
 
   <!-- Scripts -->
-  <script src="js/audio.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/state.js"></script>
-  <script src="js/particles.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/landing.js"></script>
-  <script src="js/main-page.js"></script>
-  <script src="js/refine.js"></script>
-  <script src="js/inventory.js"></script>
-  <script src="js/shop.js"></script>
-  <script src="js/achievements.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/audio.js?v=2.3"></script>
+  <script src="js/data.js?v=2.3"></script>
+  <script src="js/state.js?v=2.3"></script>
+  <script src="js/particles.js?v=2.3"></script>
+  <script src="js/router.js?v=2.3"></script>
+  <script src="js/landing.js?v=2.3"></script>
+  <script src="js/main-page.js?v=2.3"></script>
+  <script src="js/refine.js?v=2.3"></script>
+  <script src="js/inventory.js?v=2.3"></script>
+  <script src="js/shop.js?v=2.3"></script>
+  <script src="js/achievements.js?v=2.3"></script>
+  <script src="js/settings.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
 </body>
 </html>

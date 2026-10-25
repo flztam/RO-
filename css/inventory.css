@@ -323,7 +323,7 @@
     overflow-y: auto;
     pointer-events: auto !important;
     box-shadow: 0 10px 35px rgba(0,0,0,0.7), 0 0 0 100vmax rgba(0,0,0,0.55) !important;
-    z-index: 9999 !important;
+    z-index: 9500 !important;
     padding: 14px 16px;
   }
   .tooltip-close-btn {

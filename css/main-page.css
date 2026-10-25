@@ -8,10 +8,17 @@
   background-color: #0c1424;
   background-image: url('../images/hollgrehenn-3d.jpg');
   background-repeat: no-repeat;
-  background-position: center 32%;
-  background-size: cover;
+  background-position: 35% clamp(45px, 13vh, 85px);
+  background-size: auto clamp(310px, 52vh, 440px);
   z-index: 0;
   filter: contrast(1.04) brightness(0.96);
+}
+
+@media (min-width: 900px) {
+  .morroc-bg {
+    background-position: center 30%;
+    background-size: cover;
+  }
 }
 
 /* Subtle atmospheric lighting overlay */
@@ -32,9 +39,10 @@
   position: relative;
   z-index: 10;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 18px;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 6px 12px;
   background: linear-gradient(180deg, rgba(220, 232, 248, 0.95) 0%, rgba(185, 210, 240, 0.92) 100%);
   border-bottom: 2px solid #5b799f;
   box-shadow: 0 4px 16px rgba(0,0,0,0.4);
@@ -51,7 +59,10 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-width: 220px;
+  width: 155px;
+  min-width: 125px;
+  max-width: 175px;
+  flex-shrink: 0;
 }
 
 .ro-basic-info-header {
@@ -194,23 +205,24 @@
 }
 
 .ro-hud-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   align-items: stretch;
-  gap: 8px;
-  margin-left: 14px;
+  gap: 5px;
   flex: 1;
-  max-width: 540px;
-  justify-content: flex-end;
+  min-width: 0;
+  margin: 0;
 }
 
 .ro-hud-btn {
   font-family: var(--font-ro);
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 6px 14px;
-  font-size: 0.84rem;
+  gap: 2px;
+  padding: 4px 2px;
+  font-size: 0.76rem;
   font-weight: 700;
   background: linear-gradient(180deg, #ffffff 0%, #d8e2f0 100%);
   color: #1a2f4c;
@@ -219,9 +231,22 @@
   cursor: pointer;
   box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #b3c7e0, 0 2px 4px rgba(0,0,0,0.25);
   transition: all 0.15s;
-  flex: 1;
-  max-width: 130px;
-  height: 48px;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 48px;
+}
+
+.ro-hud-btn .hud-btn-icon {
+  font-size: 1.32rem;
+  line-height: 1;
+}
+
+.ro-hud-btn .hud-btn-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .ro-hud-btn:hover {
@@ -283,15 +308,16 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 24px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  gap: 16px;
+  justify-content: flex-end;
+  padding: 8px 12px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+  overflow: hidden;
+  gap: 8px;
 }
 
 /* Authentic Ragnarok NPC Dialogue Box (as in classic RO) */
 .ro-npc-dialog {
+  display: none !important;
   align-self: flex-start;
   max-width: 440px;
   width: 100%;
@@ -300,7 +326,6 @@
   border-radius: var(--radius-ro);
   box-shadow: var(--ro-win-shadow);
   padding: 0;
-  display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: dialog-pop 0.35s ease-out;
@@ -397,14 +422,15 @@
   border-color: #275ff9;
 }
 
-/* Bottom Action Commands (Refine & Shop) */
+/* Bottom Action Commands (Refine & Shop) - Compact Mobile First */
 .ro-action-menu {
   align-self: center;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  width: min(720px, 94vw);
-  margin-top: auto;
+  gap: 8px;
+  width: min(440px, 96vw);
+  margin: 0 auto;
+  flex-shrink: 0;
 }
 
 .ro-menu-button {
@@ -412,11 +438,15 @@
   background: linear-gradient(180deg, #ffffff 0%, #edf4fc 40%, #c9daf1 50%, #d8e5f5 100%);
   border: 1.5px solid #5b799f;
   border-radius: var(--radius-ro);
-  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 6px 18px rgba(10,20,40,0.35);
-  padding: 14px 18px;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 4px 12px rgba(10,20,40,0.3);
+  padding: 4px 10px;
+  height: 44px;
+  min-height: 44px;
+  max-height: 46px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 8px;
   cursor: pointer;
   transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   text-align: left;
@@ -424,10 +454,10 @@
 }
 
 .ro-menu-button:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: #2e6be6;
   background: linear-gradient(180deg, #ffffff 0%, #f6faff 40%, #d9e7fa 50%, #e6effb 100%);
-  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 10px 22px rgba(46,107,230,0.35);
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 8px 16px rgba(46,107,230,0.3);
 }
 
 .ro-menu-button:active {
@@ -437,58 +467,99 @@
 }
 
 .ro-menu-icon {
-  font-size: 2.1rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  font-size: 1.35rem;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
   flex-shrink: 0;
 }
 
 .ro-menu-info {
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 
 .ro-menu-title {
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: #10223d;
   text-shadow: 0 1px 0 rgba(255,255,255,0.7);
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 
 .ro-menu-sub {
-  font-size: 0.74rem;
-  color: #4c6482;
-  margin-top: 1px;
+  display: none !important;
 }
 
 .ro-menu-arrow {
-  color: #275ff9;
-  font-size: 0.85rem;
-  font-weight: 800;
-  margin-left: auto;
-  opacity: 0.8;
-  transition: transform 0.15s;
-}
-
-.ro-menu-button:hover .ro-menu-arrow {
-  transform: translateX(3px);
-  opacity: 1;
+  display: none !important;
 }
 
 /* ============================================================
-   MOBILE RESPONSIVENESS FOR MAIN PAGE
+   RESPONSIVE BREAKPOINTS
    ============================================================ */
-@media (max-width: 640px) {
-  .ro-hud-header {
-    padding: 4px 6px;
-    gap: 6px;
-    align-items: stretch;
+
+/* Large screens: Expand dialog, button subtitles and layout */
+@media (min-width: 841px) {
+  .morroc-scene-area {
+    padding: 20px 24px;
+    justify-content: space-between;
+  }
+  .ro-npc-dialog {
+    display: flex !important;
+  }
+  .ro-action-menu {
+    width: min(680px, 92vw);
+    gap: 16px;
+  }
+  .ro-menu-button {
+    height: 58px;
+    min-height: 58px;
+    max-height: 60px;
+    padding: 10px 18px;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+  .ro-menu-icon {
+    font-size: 2rem;
+  }
+  .ro-menu-title {
+    font-size: 1rem;
+  }
+  .ro-menu-sub {
+    display: block !important;
+    font-size: 0.74rem;
+    color: #4c6482;
+    margin-top: 2px;
+  }
+  .ro-menu-arrow {
+    display: block !important;
+    color: #275ff9;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-left: auto;
+    opacity: 0.8;
   }
   .ro-basic-info-box {
-    min-width: 124px;
-    max-width: 132px;
-    flex-shrink: 0;
+    width: 210px;
+    max-width: 240px;
+  }
+  .ro-job-badge {
+    display: inline-block;
+  }
+  .ro-hud-actions {
+    max-width: 600px;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .ro-hud-header {
+    padding: 4px 6px;
+    gap: 5px;
+  }
+  .ro-basic-info-box {
+    width: 130px;
+    min-width: 115px;
   }
   .ro-basic-info-header {
     padding: 1px 5px;
@@ -502,13 +573,7 @@
   }
   .ro-basic-info-row .ro-char-name {
     font-size: 0.72rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 90px;
-  }
-  .ro-stat-row {
-    gap: 3px;
+    max-width: 80px;
   }
   .ro-stat-label {
     font-size: 0.6rem;
@@ -522,102 +587,18 @@
   }
   .ro-basic-zeny-row {
     font-size: 0.65rem;
-    padding-top: 1px;
-  }
-
-  /* User request: Buttons for inventory, hunt, achievement, and setting bigger & fill space right to basic info */
-  .ro-hud-actions {
-    flex: 1;
-    margin-left: 2px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-    align-items: stretch;
   }
   .ro-hud-btn {
-    width: 100%;
-    height: 100%;
-    min-height: 48px;
-    padding: 4px 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    border-radius: 4px;
-    box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #b3c7e0, 0 1px 3px rgba(0,0,0,0.2);
+    min-height: 44px;
+    padding: 2px 1px;
   }
   .ro-hud-btn .hud-btn-icon {
-    font-size: 1.28rem;
-    line-height: 1;
+    font-size: 1.2rem;
   }
   .ro-hud-btn .hud-btn-text {
-    display: block !important;
     font-size: 0.62rem;
-    font-weight: 700;
-    line-height: 1;
-    white-space: nowrap;
-    letter-spacing: -0.2px;
   }
   .btn-hunt.cooling::after {
-    font-size: 0.62rem;
-    font-weight: 800;
-  }
-
-  /* Zoom out Hollgrehenn to see whole figure & anvil on mobile */
-  .morroc-bg {
-    background-size: auto clamp(310px, 52vh, 440px) !important;
-    background-position: 35% clamp(45px, 13vh, 85px) !important;
-  }
-
-  .morroc-scene-area {
-    padding: 6px 10px;
-    padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
-    gap: 6px;
-    justify-content: flex-end;
-    overflow: hidden;
-  }
-
-  /* User request: In mobile version, remove duplicate NPC text box in the middle */
-  .ro-npc-dialog {
-    display: none !important;
-  }
-
-  /* User request: refinement and shop adjusted properly to fit mobile screen without overflowing */
-  .ro-action-menu {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    width: 100%;
-    max-width: 380px;
-    margin: 0 auto;
-    flex-shrink: 0;
-  }
-  .ro-menu-button {
-    height: 44px;
-    min-height: 44px;
-    max-height: 46px;
-    padding: 4px 10px;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(180deg, #ffffff 0%, #edf4fc 50%, #d8e5f5 100%);
-    box-shadow: inset 1px 1px 0 #ffffff, 0 3px 10px rgba(0, 0, 0, 0.35);
-    border-radius: 6px;
-  }
-  .ro-menu-icon {
-    font-size: 1.35rem;
-    flex-shrink: 0;
-  }
-  .ro-menu-title {
-    font-size: 0.86rem;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .ro-menu-sub {
-    display: none !important;
-  }
-  .ro-menu-arrow {
-    display: none !important;
+    font-size: 0.6rem;
   }
 }
