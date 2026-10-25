@@ -509,12 +509,19 @@ const Refine = (() => {
       strikeIcon.innerHTML = `<img src="${eqDef.icon}" style="width:48px;height:48px;" onerror="this.src='https://file5s.ratemyserver.net/items/small/${eqDef.itemId}.gif'" />`;
     }
     const strikeOverlay = $strikeOverlay();
-    if (strikeOverlay) strikeOverlay.classList.remove('hidden');
+    if (strikeOverlay) {
+      strikeOverlay.classList.remove('hidden', 'fade-out');
+    }
 
-    // Play iconic RO blacksmith hammer sound
+    // Play iconic RO blacksmith hammer sound and wait until strikes finish
     await Audio.playRefine();
 
-    if (strikeOverlay) strikeOverlay.classList.add('hidden');
+    if (strikeOverlay) {
+      strikeOverlay.classList.add('fade-out');
+      await new Promise(r => setTimeout(r, 120));
+      strikeOverlay.classList.add('hidden');
+      strikeOverlay.classList.remove('fade-out');
+    }
     const center = getBtnCenter($doBtn());
     applyRefineResult(success, isManual, center);
   }

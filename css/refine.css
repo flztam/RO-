@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 20px 16px 28px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   gap: 20px;
@@ -32,6 +32,7 @@
   gap: 12px;
   max-width: 440px;
   width: 100%;
+  margin-top: 8px;
 }
 
 .refine-modal-card {
@@ -819,9 +820,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: ro-fade-in 0.25s ease;
+  animation: ro-fade-in 0.2s ease;
+  transition: opacity 0.15s ease-out;
 }
 .striking-overlay.hidden { display: none; }
+.striking-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .striking-content {
   display: flex;
@@ -829,6 +835,7 @@
   align-items: center;
   gap: 16px;
   position: relative;
+  transform: translateY(24px);
 }
 
 .striking-hammer {

@@ -67,7 +67,7 @@ const Audio = (() => {
 
   /**
    * Play the iconic RO blacksmith hammer sound
-   * Returns a promise that resolves when the sound completes (or ~2.4s fallback)
+   * Returns a promise that resolves right when the hammer strikes conclude (~2.15s)
    */
   function playRefine() {
     return new Promise((resolve) => {
@@ -78,9 +78,17 @@ const Audio = (() => {
 
       initAudio();
       let resolved = false;
+      let timer = null;
+
       const done = () => {
         if (!resolved) {
           resolved = true;
+          if (timer) clearTimeout(timer);
+          if (refineAudio) {
+            refineAudio.onended = null;
+            refineAudio.onerror = null;
+            refineAudio.ontimeupdate = null;
+          }
           resolve();
         }
       };
@@ -91,23 +99,31 @@ const Audio = (() => {
           refineAudio.currentTime = 0;
           refineAudio.onended = done;
           refineAudio.onerror = done;
+
+          // End popup screen right as the 3rd hammer strike concludes (2.15s)
+          refineAudio.ontimeupdate = () => {
+            if (refineAudio.currentTime >= 2.15) {
+              done();
+            }
+          };
+
           const p = refineAudio.play();
           if (p && p.catch) {
             p.catch((err) => {
               console.warn('HTML5 audio play failed, using procedural fallback', err);
               _playProceduralHammer();
-              setTimeout(done, 2000);
+              timer = setTimeout(done, 1600);
             });
           }
-          // Safety timeout in case onended doesn't fire
-          setTimeout(done, 3000);
+          // Exact fallback timeout synchronized with the sound effect
+          timer = setTimeout(done, 2200);
         } else {
           _playProceduralHammer();
-          setTimeout(done, 2000);
+          timer = setTimeout(done, 1600);
         }
       } catch (err) {
         _playProceduralHammer();
-        setTimeout(done, 2000);
+        timer = setTimeout(done, 1600);
       }
     });
   }
