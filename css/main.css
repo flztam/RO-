@@ -4,38 +4,38 @@
    ============================================================ */
 
 :root {
-  /* Ragnarok Online Theme Colors */
-  --ro-blue-primary:   #275ff9;
+  /* Ragnarok Online Authentic Basic Skin Theme */
+  --ro-blue-primary:   #2e6be6;
   --ro-blue-dark:      #1a3da8;
   --ro-blue-header:    #3e51bd;
   --ro-blue-light:     #eef4ff;
   --ro-blue-hover:     #3872ff;
   --ro-navy:           #142242;
   
-  --ro-win-bg:         rgba(240, 244, 252, 0.94);
-  --ro-win-dark:       rgba(20, 28, 48, 0.88);
-  --ro-win-border:     #6b82a6;
-  --ro-win-border-dark:#34435e;
-  --ro-win-shadow:     0 8px 30px rgba(8, 16, 36, 0.65), 0 2px 6px rgba(0,0,0,0.3);
+  --ro-win-bg:         rgba(246, 250, 255, 0.96);
+  --ro-win-dark:       rgba(18, 26, 44, 0.92);
+  --ro-win-border:     #5b799f;
+  --ro-win-border-dark:#2a3d58;
+  --ro-win-shadow:     inset 1px 1px 0 #ffffff, inset -1px -1px 0 #b3c7e0, 0 8px 28px rgba(10, 20, 40, 0.5);
 
   --ro-gold:           #f7b500;
   --ro-gold-light:     #ffe082;
-  --ro-zeny:           #ffb300;
+  --ro-zeny:           #f59e0b;
   
   --ro-success:        #28a745;
   --ro-danger:         #dc3545;
   --ro-danger-dark:    #a71d2a;
   --ro-warning:        #ff9800;
   
-  --ro-text-dark:      #1c2536;
-  --ro-text-dim:       #5d6b82;
+  --ro-text-dark:      #112340;
+  --ro-text-dim:       #4c6482;
   --ro-text-light:     #f4f7fc;
 
   /* Typography */
   --font-ro:           'Kanit', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
   
-  --radius-ro:         6px;
-  --radius-sm:         4px;
+  --radius-ro:         4px;
+  --radius-sm:         3px;
 }
 
 *, *::before, *::after {
@@ -84,11 +84,11 @@ html, body {
 }
 
 /* ============================================================
-   RAGNAROK ONLINE WINDOW SKIN (RO-WINDOW)
+   RAGNAROK ONLINE CLASSIC "BASIC SKIN" WINDOW (RO-WINDOW)
    ============================================================ */
 .ro-window {
   background: var(--ro-win-bg);
-  border: 2px solid var(--ro-win-border);
+  border: 1.5px solid var(--ro-win-border);
   border-radius: var(--radius-ro);
   box-shadow: var(--ro-win-shadow);
   display: flex;
@@ -99,160 +99,178 @@ html, body {
 }
 
 .ro-win-header {
-  background: linear-gradient(180deg, #467bd6 0%, #2e59a8 100%);
-  color: #ffffff;
-  padding: 6px 12px;
+  background: linear-gradient(180deg, #dce8f8 0%, #c4daf2 45%, #a9c5ea 55%, #b9d2f0 100%);
+  color: #112340;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid #1a3da8;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+  gap: 6px;
+  border-bottom: 1px solid #728fad;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
 }
 
 .ro-win-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
   flex: 1;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  color: #10223d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .ro-win-icon {
-  font-size: 1rem;
+  font-size: 0.95rem;
+  color: #275ff9;
+  line-height: 1;
 }
 
 .ro-win-controls {
   display: flex;
-  gap: 4px;
+  gap: 3px;
 }
 
 .ro-win-btn-mini {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(180deg, #ffffff 0%, #c4d2e8 100%);
-  border: 1px solid #4a638b;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #d8e5f5 100%);
+  border: 1px solid #6b89ae;
   border-radius: 2px;
-  color: #223;
-  font-size: 11px;
-  font-weight: 700;
+  color: #1a2d48;
+  font-size: 10px;
+  font-weight: 800;
   line-height: 1;
   cursor: pointer;
-  box-shadow: inset 1px 1px 0 #fff;
+  box-shadow: inset 1px 1px 0 #ffffff;
+  transition: all 0.1s ease;
 }
 .ro-win-btn-mini:hover {
-  background: linear-gradient(180deg, #eef4ff 0%, #9cb8e8 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #bcd2ee 100%);
+  border-color: #3b5f88;
 }
 .ro-win-btn-mini.ro-close:hover {
-  background: linear-gradient(180deg, #ff8a8a 0%, #d32f2f 100%);
-  color: #fff;
+  background: linear-gradient(180deg, #ffcdd2 0%, #e53935 100%);
+  color: #ffffff;
+  border-color: #8e1515;
 }
 
 .ro-win-body {
-  padding: 16px;
+  padding: 14px;
   flex: 1;
 }
 
 .ro-win-statusbar {
-  background: #d8e2f0;
-  border-top: 1px solid #b4c4dc;
+  background: #dce7f5;
+  border-top: 1px solid #afc4de;
   padding: 4px 10px;
   display: flex;
   justify-content: space-between;
   font-size: 0.72rem;
-  color: var(--ro-text-dim);
+  font-weight: 600;
+  color: #3a5270;
 }
 
 /* ============================================================
-   RAGNAROK ONLINE BUTTONS
+   RAGNAROK ONLINE AUTHENTIC BUTTONS
    ============================================================ */
 .ro-btn {
   font-family: var(--font-ro);
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  padding: 8px 18px;
-  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 3px;
+  padding: 7px 16px;
+  font-size: 0.88rem;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
   outline: none;
   text-decoration: none;
+  border: 1px solid #5a779f;
+  background: linear-gradient(180deg, #ffffff 0%, #eef4fc 45%, #c8daf0 55%, #d5e3f5 100%);
+  color: #142846;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #b4c7de, 0 1px 2px rgba(0,0,0,0.12);
+}
+.ro-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 45%, #d6e5f8 55%, #e2eefb 100%);
+  border-color: #3b608a;
+  color: #0b1f3a;
+  transform: translateY(-1px);
+}
+.ro-btn:active:not(:disabled) {
+  background: linear-gradient(180deg, #b8ceea 0%, #c9dcf2 100%);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.32), inset -1px -1px 0 #ffffff;
+  transform: translateY(1px);
+}
+.ro-btn:disabled {
+  background: #cbd8e8;
+  border-color: #9cb1cb;
+  color: #7b92ad;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.75;
 }
 
 /* Primary RO Blue Button */
 .ro-btn-primary {
-  background: linear-gradient(180deg, #467bd6 0%, #275ff9 60%, #1a4cd2 100%);
+  background: linear-gradient(180deg, #5b8dee 0%, #356df1 50%, #2056df 100%);
   color: #ffffff;
-  border: 1px solid #143794;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 2px 4px rgba(26,61,168,0.3);
+  border: 1px solid #163ba3;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.45), 0 2px 4px rgba(22, 59, 163, 0.3);
 }
 .ro-btn-primary:hover:not(:disabled) {
-  background: linear-gradient(180deg, #5c8eee 0%, #3a70ff 60%, #2055e8 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 3px 8px rgba(39,95,249,0.5);
-  transform: translateY(-1px);
+  background: linear-gradient(180deg, #6c9df4 0%, #4679f4 50%, #2960ea 100%);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.55), 0 3px 6px rgba(22, 59, 163, 0.45);
 }
 .ro-btn-primary:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-}
-.ro-btn-primary:disabled {
-  background: #a4b4cc;
-  border-color: #8c9cb0;
-  color: #edf2f9;
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.7;
+  background: linear-gradient(180deg, #1846b8 0%, #295ee0 100%);
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.45);
 }
 
 /* Standard RO Light Button */
 .ro-btn-secondary {
-  background: linear-gradient(180deg, #ffffff 0%, #e2e8f4 50%, #ccd7e9 100%);
-  color: #21334f;
-  border: 1px solid #7c90af;
-  box-shadow: inset 1px 1px 0 #fff, 0 1px 2px rgba(0,0,0,0.1);
-}
-.ro-btn-secondary:hover {
-  background: linear-gradient(180deg, #f5f9ff 0%, #d3e2fa 50%, #b2c9ee 100%);
-  border-color: #4a75b8;
-  color: #123472;
+  background: linear-gradient(180deg, #ffffff 0%, #eef4fc 45%, #c8daf0 55%, #d5e3f5 100%);
+  color: #142846;
+  border: 1px solid #5a779f;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #b4c7de, 0 1px 2px rgba(0,0,0,0.12);
 }
 
 /* Danger Button */
 .ro-btn-danger {
-  background: linear-gradient(180deg, #e53935 0%, #c62828 100%);
-  color: #fff;
-  border: 1px solid #8e1515;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  background: linear-gradient(180deg, #ef5350 0%, #d32f2f 50%, #b71c1c 100%);
+  color: #ffffff;
+  border: 1px solid #7f1212;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.6);
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.35), 0 2px 4px rgba(127,18,18,0.3);
 }
-.ro-btn-danger:hover {
-  background: linear-gradient(180deg, #f44336 0%, #d32f2f 100%);
-  box-shadow: 0 2px 8px rgba(229,57,53,0.4);
+.ro-btn-danger:hover:not(:disabled) {
+  background: linear-gradient(180deg, #f44336 0%, #e53935 50%, #c62828 100%);
 }
 
 /* Back Button */
 .ro-btn-back {
-  background: linear-gradient(180deg, #ffffff 0%, #dde5f2 100%);
-  color: #1a3da8;
-  border: 1px solid #7c91b2;
-  border-radius: var(--radius-sm);
-  padding: 6px 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background: linear-gradient(180deg, #ffffff 0%, #eef4fc 45%, #c8daf0 55%, #d5e3f5 100%);
+  color: #122846;
+  border: 1px solid #5a779f;
+  border-radius: 3px;
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  transition: all 0.15s;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #b4c7de, 0 1px 2px rgba(0,0,0,0.12);
+  transition: all 0.12s;
 }
 .ro-btn-back:hover {
-  background: #eef4ff;
-  border-color: var(--ro-blue-primary);
+  background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 45%, #d6e5f8 55%, #e2eefb 100%);
+  border-color: #275ff9;
+  color: #0b1f3a;
 }
 
 /* RO Standard Textarea */
@@ -284,11 +302,11 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  background: linear-gradient(180deg, #2b437c 0%, #1b2a52 100%);
-  border-bottom: 2px solid #3e5cb0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-  color: #ffffff;
+  padding: 8px 18px;
+  background: linear-gradient(180deg, #dce8f8 0%, #c4daf2 45%, #a9c5ea 55%, #b9d2f0 100%);
+  border-bottom: 1.5px solid #5b799f;
+  box-shadow: 0 2px 10px rgba(10, 20, 40, 0.35), inset 0 1px 0 rgba(255,255,255,0.95);
+  color: #10223d;
 }
 
 .ro-sub-title {
@@ -298,28 +316,31 @@ html, body {
 }
 
 .title-main {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  letter-spacing: 0.5px;
+  color: #10223d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.3px;
 }
 
 .title-sub {
-  font-size: 0.75rem;
-  color: #9cb8e8;
-  font-weight: 400;
+  font-size: 0.74rem;
+  color: #3f5878;
+  font-weight: 500;
 }
 
 .zeny-pill {
-  background: rgba(0,0,0,0.35);
-  border: 1px solid #f7b500;
-  border-radius: 20px;
-  padding: 5px 14px;
-  font-size: 0.88rem;
+  background: linear-gradient(180deg, #ffffff 0%, #edf3fb 100%);
+  border: 1px solid #6b88ae;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 0.86rem;
   font-weight: 700;
-  color: #ffe082;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+  color: #b45309;
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #c2d4ea, 0 1px 3px rgba(0,0,0,0.12);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* ============================================================
@@ -327,36 +348,41 @@ html, body {
    ============================================================ */
 .ro-tab-bar {
   display: flex;
-  gap: 4px;
-  border-bottom: 2px solid #3e51bd;
-  padding-bottom: 2px;
+  gap: 3px;
+  border-bottom: 2px solid #5b799f;
+  padding-bottom: 0;
 }
 
 .ro-tab-btn {
   font-family: var(--font-ro);
-  padding: 8px 18px;
-  background: linear-gradient(180deg, #dde4f0 0%, #b8c8df 100%);
-  color: #344768;
-  border: 1px solid #7d91b0;
+  padding: 7px 16px;
+  background: linear-gradient(180deg, #dde7f5 0%, #b8cde8 100%);
+  color: #2b4260;
+  border: 1px solid #728fad;
   border-bottom: none;
-  border-radius: 6px 6px 0 0;
+  border-radius: 4px 4px 0 0;
   cursor: pointer;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 600;
-  transition: all 0.15s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: all 0.12s;
+  position: relative;
+  bottom: -2px;
 }
 
 .ro-tab-btn.active {
-  background: linear-gradient(180deg, #467bd6 0%, #275ff9 100%);
-  color: #ffffff;
-  border-color: #275ff9;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+  background: #f6faff;
+  color: #0b1e38;
+  border: 1.5px solid #5b799f;
+  border-bottom: 2px solid #f6faff;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 #ffffff;
+  z-index: 2;
 }
 
 .ro-tab-btn:hover:not(.active) {
-  background: #eef3fb;
-  color: #123472;
+  background: linear-gradient(180deg, #eaf1fb 0%, #c9dbf2 100%);
+  color: #122f56;
 }
 
 /* ============================================================

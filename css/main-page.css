@@ -5,7 +5,7 @@
 .morroc-bg {
   position: absolute;
   inset: 0;
-  background: url('../Data/Main.jpeg') no-repeat center center;
+  background: url('../images/hollgrehenn-3d.jpg') no-repeat center 35%;
   background-size: cover;
   z-index: 0;
   filter: contrast(1.04) brightness(0.96);
@@ -18,7 +18,7 @@
   inset: 0;
   background:
     radial-gradient(ellipse 50% 40% at 75% 55%, rgba(255, 230, 160, 0.12) 0%, transparent 70%),
-    linear-gradient(180deg, rgba(10, 18, 36, 0.55) 0%, rgba(10, 18, 36, 0.2) 30%, rgba(10, 18, 36, 0.65) 100%);
+    linear-gradient(180deg, rgba(10, 18, 36, 0.45) 0%, rgba(10, 18, 36, 0.15) 30%, rgba(10, 18, 36, 0.6) 100%);
   pointer-events: none;
 }
 
@@ -32,53 +32,162 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 18px;
-  background: linear-gradient(180deg, rgba(28, 44, 80, 0.95) 0%, rgba(16, 26, 52, 0.92) 100%);
-  border-bottom: 2px solid #3e51bd;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+  background: linear-gradient(180deg, rgba(220, 232, 248, 0.95) 0%, rgba(185, 210, 240, 0.92) 100%);
+  border-bottom: 2px solid #5b799f;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   backdrop-filter: blur(8px);
 }
 
-.ro-char-info {
+/* Authentic Ragnarok Online Basic Info Window */
+.ro-basic-info-box {
+  background: var(--ro-win-bg);
+  border: 1.5px solid var(--ro-win-border);
+  border-radius: var(--radius-ro);
+  box-shadow: var(--ro-win-shadow);
+  padding: 0;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  padding: 4px 12px;
+  flex-direction: column;
+  min-width: 220px;
 }
 
-.ro-char-avatar {
-  font-size: 1.4rem;
-  background: linear-gradient(180deg, #3e51bd 0%, #1a2c66 100%);
-  border: 1px solid #7d96d8;
-  border-radius: 4px;
-  width: 32px;
-  height: 32px;
+.ro-basic-info-header {
+  background: linear-gradient(180deg, #dce8f8 0%, #c4daf2 45%, #a9c5ea 55%, #b9d2f0 100%);
+  color: #112340;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #728fad;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+.ro-basic-info-icon {
+  font-size: 0.82rem;
+  color: #275ff9;
+  line-height: 1;
+}
+
+.ro-basic-info-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #10223d;
+  flex: 1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.3px;
+}
+
+.ro-basic-info-content {
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(246, 250, 255, 0.94);
+}
+
+.ro-basic-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ro-basic-info-row .ro-char-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f1d33;
+  text-shadow: none;
+}
+
+.ro-job-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #2b4975;
+  background: #dce7f5;
+  border: 1px solid #9fb5d1;
+  border-radius: 3px;
+  padding: 1px 6px;
+}
+
+.ro-stat-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 1px 0;
+}
+
+.ro-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ro-stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #253a56;
+  width: 18px;
+}
+
+.ro-stat-bar-track {
+  flex: 1;
+  position: relative;
+  height: 11px;
+  background: #0f1924;
+  border: 1px solid #486180;
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.ro-stat-bar-fill {
+  height: 100%;
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+.ro-stat-bar-fill.hp {
+  background: linear-gradient(180deg, #3bf577 0%, #0db848 50%, #078733 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.ro-stat-bar-fill.sp {
+  background: linear-gradient(180deg, #63afff 0%, #257bf4 50%, #1555c2 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.ro-stat-bar-text {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.ro-char-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.ro-char-name {
-  font-weight: 700;
+  font-size: 8.5px;
+  font-weight: 800;
   color: #ffffff;
-  font-size: 0.95rem;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  text-shadow: 0 1px 1px #000, 0 0 2px #000;
+  letter-spacing: 0.3px;
 }
 
-.ro-char-zeny {
-  font-size: 0.85rem;
-  color: #ffd54f;
-  font-weight: 700;
+.ro-basic-zeny-row {
   display: flex;
   align-items: center;
-  gap: 3px;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #1a2f4c;
+  padding-top: 2px;
+  border-top: 1px dotted #b8cbe0;
+}
+
+.ro-zeny-label {
+  font-weight: 700;
+  color: #3b5373;
+}
+
+.ro-zeny-value {
+  font-weight: 700;
+  color: #d97706;
 }
 
 .ro-hud-actions {
@@ -170,20 +279,20 @@
   gap: 16px;
 }
 
-/* Authentic Ragnarok NPC Dialogue Box (as in Data/Upgrading01.webp) */
+/* Authentic Ragnarok NPC Dialogue Box (as in classic RO) */
 .ro-npc-dialog {
   align-self: flex-start;
   max-width: 440px;
   width: 100%;
-  background: #ffffff;
-  border: 2px solid #5d7499;
-  border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 0 0 1px #cbd5e1;
-  padding: 12px 16px;
+  background: var(--ro-win-bg);
+  border: 1.5px solid var(--ro-win-border);
+  border-radius: var(--radius-ro);
+  box-shadow: var(--ro-win-shadow);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  animation: dialog-pop 0.4s ease-out;
+  overflow: hidden;
+  animation: dialog-pop 0.35s ease-out;
 }
 
 @keyframes dialog-pop {
@@ -192,20 +301,24 @@
 }
 
 .ro-npc-header {
-  border-bottom: 1.5px solid #275ff9;
-  padding-bottom: 4px;
+  background: linear-gradient(180deg, #dce8f8 0%, #c4daf2 45%, #a9c5ea 55%, #b9d2f0 100%);
+  border-bottom: 1px solid #728fad;
+  padding: 4px 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
 }
 
 .ro-npc-name {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  color: #1a3da8;
+  color: #10223d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .ro-npc-message {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   line-height: 1.55;
-  color: #2b3950;
+  color: #1a2f4c;
+  padding: 12px 14px 6px;
   min-height: 44px;
 }
 
@@ -213,33 +326,35 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-top: 4px;
-  border-top: 1px dashed #cbd5e1;
-  padding-top: 8px;
+  margin: 0 12px;
+  border-top: 1px dotted #a8bfd8;
+  padding: 8px 0;
 }
 
 .ro-dialog-option {
   font-family: var(--font-ro);
   text-align: left;
-  background: #f1f5fa;
-  border: 1px solid #c0d0e6;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #ffffff 0%, #edf4fc 100%);
+  border: 1px solid #7c96ba;
+  border-radius: 3px;
   padding: 6px 12px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  color: #1e3a6a;
+  color: #142846;
   cursor: pointer;
-  transition: all 0.15s;
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #c2d4ea;
+  transition: all 0.12s;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .ro-dialog-option:hover {
-  background: #e0ecfd;
+  background: linear-gradient(180deg, #f4f8ff 0%, #dbe8fa 100%);
   border-color: #275ff9;
-  color: #0b2f79;
-  transform: translateX(3px);
+  color: #0b224e;
+  transform: translateX(4px);
+  box-shadow: inset 1px 1px 0 #fff, 0 2px 4px rgba(39,95,249,0.2);
 }
 
 .opt-bullet {
@@ -250,8 +365,9 @@
 .ro-npc-footer {
   display: flex;
   justify-content: flex-end;
-  border-top: 1px solid #e2e8f0;
-  padding-top: 6px;
+  border-top: 1px solid #c9daee;
+  background: #e9f1fa;
+  padding: 6px 12px;
 }
 
 .ro-btn-close-dialog {
@@ -287,28 +403,30 @@
 
 .ro-menu-button {
   font-family: var(--font-ro);
-  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(228, 236, 248, 0.95) 100%);
-  border: 2px solid #5d759d;
-  border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4), inset 0 1px 0 #fff;
+  background: linear-gradient(180deg, #ffffff 0%, #eef4fc 40%, #c9daf1 50%, #d8e5f5 100%);
+  border: 1.5px solid #5b799f;
+  border-radius: var(--radius-ro);
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 6px 16px rgba(10,20,40,0.35);
   padding: 12px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   text-align: left;
 }
 
 .ro-menu-button:hover {
-  transform: translateY(-4px);
-  border-color: #275ff9;
-  background: linear-gradient(180deg, #ffffff 0%, #dbe7fc 100%);
-  box-shadow: 0 10px 24px rgba(39,95,249,0.3), inset 0 1px 0 #fff;
+  transform: translateY(-3px);
+  border-color: #2e6be6;
+  background: linear-gradient(180deg, #ffffff 0%, #f6faff 40%, #d9e7fa 50%, #e6effb 100%);
+  box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #a9bed7, 0 10px 22px rgba(46,107,230,0.35);
 }
 
 .ro-menu-button:active {
-  transform: translateY(-1px);
+  transform: translateY(1px);
+  background: linear-gradient(180deg, #b9cee8 0%, #cadbf2 100%);
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .ro-menu-icon {
@@ -324,12 +442,13 @@
 .ro-menu-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1a3da8;
+  color: #10223d;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
 }
 
 .ro-menu-sub {
   font-size: 0.72rem;
-  color: #556885;
+  color: #4c6482;
 }
 
 /* ============================================================
@@ -339,20 +458,25 @@
   .ro-hud-header {
     padding: 6px 10px;
   }
-  .ro-char-info {
-    padding: 3px 8px;
-    gap: 6px;
+  .ro-basic-info-box {
+    min-width: 150px;
+    max-width: 175px;
   }
-  .ro-char-avatar {
-    width: 26px;
-    height: 26px;
-    font-size: 1.1rem;
+  .ro-job-badge {
+    display: none;
   }
-  .ro-char-name {
-    font-size: 0.82rem;
+  .ro-basic-info-row .ro-char-name {
+    font-size: 0.76rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
   }
-  .ro-char-zeny {
-    font-size: 0.74rem;
+  .ro-stat-bar-text {
+    font-size: 7.5px;
+  }
+  .ro-basic-zeny-row {
+    font-size: 0.72rem;
   }
   .ro-hud-actions {
     gap: 4px;
@@ -371,7 +495,7 @@
 
   /* Center Hollgrehenn NPC in the middle of screen for mobile version */
   .morroc-bg {
-    background-position: calc(100% - 16px) 38% !important;
+    background-position: center 30% !important;
   }
 
   .morroc-scene-area {
@@ -395,8 +519,8 @@
   .ro-menu-button {
     padding: 10px 12px;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(180deg, #ffffff 0%, #edf4fc 50%, #d8e5f5 100%);
+    box-shadow: inset 1px 1px 0 #ffffff, 0 4px 14px rgba(0, 0, 0, 0.35);
   }
   .ro-menu-icon {
     font-size: 1.6rem;

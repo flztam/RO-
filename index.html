@@ -99,11 +99,37 @@
     
     <!-- Top RO HUD Bar -->
     <header class="ro-hud-header">
-      <div class="ro-char-info">
-        <div class="ro-char-avatar">🗡️</div>
-        <div class="ro-char-text">
-          <div class="ro-char-name" id="player-name-display">Novice Smith</div>
-          <div class="ro-char-zeny"><span class="zeny-icon">💰</span> <span id="zeny-count">0</span> Zeny</div>
+      <div class="ro-char-info ro-basic-info-box">
+        <div class="ro-basic-info-header">
+          <span class="ro-basic-info-icon">⊝</span>
+          <span class="ro-basic-info-title">Basic Info</span>
+          <span class="ro-win-btn-mini">_</span>
+        </div>
+        <div class="ro-basic-info-content">
+          <div class="ro-basic-info-row">
+            <span class="ro-char-name" id="player-name-display">Novice Smith</span>
+            <span class="ro-job-badge">Blacksmith</span>
+          </div>
+          <div class="ro-stat-bar-group">
+            <div class="ro-stat-row">
+              <span class="ro-stat-label">HP</span>
+              <div class="ro-stat-bar-track">
+                <div class="ro-stat-bar-fill hp" style="width: 100%;"></div>
+                <span class="ro-stat-bar-text">3742 / 3742</span>
+              </div>
+            </div>
+            <div class="ro-stat-row">
+              <span class="ro-stat-label">SP</span>
+              <div class="ro-stat-bar-track">
+                <div class="ro-stat-bar-fill sp" style="width: 100%;"></div>
+                <span class="ro-stat-bar-text">181 / 181</span>
+              </div>
+            </div>
+          </div>
+          <div class="ro-basic-zeny-row">
+            <span class="ro-zeny-label">Zeny :</span>
+            <span class="ro-zeny-value"><span id="zeny-count">0</span> z</span>
+          </div>
         </div>
       </div>
       
