@@ -66,6 +66,15 @@ const Refine = (() => {
     }
     closeMinigame();
     bindEvents();
+
+    // Auto-select first equipment if none selected or if selected is missing
+    const d = State.get();
+    if (d && d.inventory && d.inventory.equipment && d.inventory.equipment.length > 0) {
+      if (!selectedItem || !d.inventory.equipment.some(e => e === selectedItem || (e.instanceId && e.instanceId === selectedItem.instanceId))) {
+        selectedItem = d.inventory.equipment[0];
+      }
+    }
+
     renderDrawer();
     updateDisplay();
     updateLog();
@@ -474,25 +483,54 @@ const Refine = (() => {
     }
   }
 
+  function getBtnCenter(btn) {
+    if (btn && typeof btn.getBoundingClientRect === 'function') {
+      const rect = btn.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        return {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        };
+      }
+    }
+    return {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2
+    };
+  }
+
   // ---- NPC Refine Execution ----
   async function doNpcRefine() {
     const d = State.get();
     if (!d || !selectedItem) return;
+
+    const doBtn = $doBtn();
+    if (doBtn) {
+      if (doBtn.disabled) return;
+      doBtn.disabled = true;
+    }
+
     const eqDef = EQUIPMENT.find(e => e.id === selectedItem.id);
     const lvl = selectedItem.level;
     const matId = getRequiredMaterial(eqDef, isEnriched);
     const cost = getRefineCost(eqDef, lvl);
 
-    if (!State.removeMaterial(matId, 1)) return;
+    if (!State.removeMaterial(matId, 1)) {
+      if (doBtn) doBtn.disabled = false;
+      return;
+    }
     if (!State.spendZeny(cost)) {
       State.addMaterial(matId, 1);
+      if (doBtn) doBtn.disabled = false;
       return;
     }
 
     d.stats.totalRefines = (d.stats.totalRefines || 0) + 1;
     State.save();
     updateZeny();
-    MainPage.updateZeny();
+    if (typeof MainPage !== 'undefined' && MainPage.updateZeny) {
+      MainPage.updateZeny();
+    }
 
     const rate = getSuccessRate(eqDef, lvl, isEnriched);
     const roll = Math.random();
@@ -503,6 +541,9 @@ const Refine = (() => {
 
   // ---- Refine Animation (Hammering overlay + authentic RO Sound) ----
   async function performRefinementAnimation(success, isManual) {
+    const doBtn = $doBtn();
+    if (doBtn) doBtn.disabled = true;
+
     const eqDef = EQUIPMENT.find(e => e.id === selectedItem?.id);
     const strikeIcon = $strikeIcon();
     if (strikeIcon && eqDef) {
@@ -514,7 +555,11 @@ const Refine = (() => {
     }
 
     // Play iconic RO blacksmith hammer sound and wait until strikes finish
-    await Audio.playRefine();
+    try {
+      await Audio.playRefine();
+    } catch (e) {
+      console.warn('Audio playRefine error:', e);
+    }
 
     if (strikeOverlay) {
       strikeOverlay.classList.add('fade-out');
@@ -522,16 +567,19 @@ const Refine = (() => {
       strikeOverlay.classList.add('hidden');
       strikeOverlay.classList.remove('fade-out');
     }
-    const center = getBtnCenter($doBtn());
+    const center = getBtnCenter(doBtn);
     applyRefineResult(success, isManual, center);
   }
 
   // ---- Apply Result ----
   function applyRefineResult(success, isManual, centerCoords) {
     const d = State.get();
+    if (!d || !selectedItem) return;
     const eqDef = EQUIPMENT.find(e => e.id === selectedItem.id);
+    if (!eqDef) return;
     const oldLvl = selectedItem.level;
     const safe = getSafeLevel(eqDef);
+    const coords = (centerCoords && typeof centerCoords.x === 'number') ? centerCoords : getBtnCenter($doBtn());
 
     if (success) {
       d.stats.successCount = (d.stats.successCount || 0) + 1;
@@ -544,9 +592,13 @@ const Refine = (() => {
       }
 
       Audio.play(newLvl >= 7 ? 'level-up' : 'success');
-      Particles.successBurst(centerCoords.x, centerCoords.y);
-      Particles.flash($itemVisual(), 'success');
-      Particles.floatText(centerCoords.x - 30, centerCoords.y - 40, `+${newLvl} ✨`, '#4caf50');
+      try {
+        Particles.successBurst(coords.x, coords.y);
+        if ($itemVisual()) Particles.flash($itemVisual(), 'success');
+        Particles.floatText(coords.x - 30, coords.y - 40, `+${newLvl} ✨`, '#4caf50');
+      } catch (e) {
+        console.warn('Particles visual error:', e);
+      }
       showToast(`✨ อัพเกรดสำเร็จ! ${eqDef.name} กลายเป็น +${newLvl}!`);
 
       addLog({
@@ -560,18 +612,28 @@ const Refine = (() => {
       if (oldLvl >= safe) {
         d.stats.breakCount = (d.stats.breakCount || 0) + 1;
         State.removeEquipment(selectedItem.instanceId, selectedItem);
-        Particles.failBurst(centerCoords.x, centerCoords.y);
-        Particles.shake(document.body);
-        Particles.floatText(centerCoords.x - 40, centerCoords.y - 40, '💔 แตกสลาย!', '#dc2626');
+        try {
+          Particles.failBurst(coords.x, coords.y);
+          Particles.shake(document.body);
+          Particles.floatText(coords.x - 40, coords.y - 40, '💔 แตกสลาย!', '#dc2626');
+        } catch (e) {
+          console.warn('Particles visual error:', e);
+        }
+        showToast(`💔 อุปกรณ์แตกสลาย! ${eqDef.name} ที่ระดับ +${oldLvl}`);
         addLog({
           type: 'break',
           text: `💔 เสียหาย! ${eqDef.name} แตกสลายเป็นชิ้นเล็กชิ้นน้อยที่ระดับ +${oldLvl}!`,
         });
         selectedItem = null;
       } else {
-        Particles.failBurst(centerCoords.x, centerCoords.y);
-        Particles.flash($itemVisual(), 'fail');
-        Particles.floatText(centerCoords.x - 30, centerCoords.y - 40, '❌ ล้มเหลว!', '#dc2626');
+        try {
+          Particles.failBurst(coords.x, coords.y);
+          if ($itemVisual()) Particles.flash($itemVisual(), 'fail');
+          Particles.floatText(coords.x - 30, coords.y - 40, '❌ ล้มเหลว!', '#dc2626');
+        } catch (e) {
+          console.warn('Particles visual error:', e);
+        }
+        showToast(`❌ ตีบวกล้มเหลว! ${eqDef.name} (คงอยู่ที่ +${oldLvl})`);
         addLog({
           type: 'fail',
           text: `❌ การอัพเกรดล้มเหลว! ${eqDef.name} (คงอยู่ที่ +${oldLvl})`,
@@ -586,7 +648,9 @@ const Refine = (() => {
     updateDisplay();
     renderDrawer();
     updateZeny();
-    MainPage.updateZeny();
+    if (typeof MainPage !== 'undefined' && MainPage.updateZeny) {
+      MainPage.updateZeny();
+    }
   }
 
   // ---- Refine Log ----

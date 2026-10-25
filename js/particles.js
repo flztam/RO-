@@ -2,11 +2,13 @@
  * particles.js – Particle and visual effect system
  */
 const Particles = (() => {
-  const container = document.getElementById('particles');
+  const getContainer = () => document.getElementById('particles') || document.body;
 
   function burst(x, y, color, count = 12) {
     const d = State.get();
     if (d && !d.settings.particles) return;
+    const parent = getContainer();
+    if (!parent) return;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
@@ -23,7 +25,7 @@ const Particles = (() => {
         animation-duration: ${0.8 + Math.random() * 0.6}s;
         animation-delay: ${Math.random() * 0.1}s;
       `;
-      container.appendChild(p);
+      parent.appendChild(p);
       p.addEventListener('animationend', () => p.remove());
     }
   }
@@ -43,11 +45,15 @@ const Particles = (() => {
     el.className = 'float-result';
     el.textContent = text;
     el.style.cssText = `left:${x}px; top:${y}px; color:${color};`;
-    document.body.appendChild(el);
-    el.addEventListener('animationend', () => el.remove());
+    const target = document.body || document.documentElement;
+    if (target) {
+      target.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
   }
 
   function shake(el) {
+    if (!el) return;
     const d = State.get();
     if (d && !d.settings.shake) return;
     el.classList.remove('shake');
@@ -57,6 +63,7 @@ const Particles = (() => {
   }
 
   function flash(el, type) {
+    if (!el) return;
     el.classList.remove('success-flash', 'fail-flash');
     void el.offsetWidth;
     el.classList.add(type === 'success' ? 'success-flash' : 'fail-flash');

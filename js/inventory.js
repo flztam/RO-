@@ -349,12 +349,21 @@ const Inventory = (() => {
           <span class="${safeClass}">ปลอดภัยถึง +${safe}</span>
         </div>
         <div class="tooltip-desc">${eqDef.desc}</div>
+        <div class="tooltip-action-row">
+          <button type="button" class="btn-tooltip-action" id="btn-tooltip-refine-item"><img src="images/icons/anvil.gif" class="btn-sub-pixel-icon" alt="" /> ตีบวกอุปกรณ์นี้ (Refine)</button>
+        </div>
       </div>
     `;
     $tooltip.classList.add('visible');
     $tooltip.querySelector('#btn-close-tooltip')?.addEventListener('click', (ev) => {
       ev.stopPropagation();
       hideTooltip();
+    });
+    $tooltip.querySelector('#btn-tooltip-refine-item')?.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      hideTooltip();
+      Refine.selectItem(item);
+      Router.go('page-refine');
     });
     moveTooltip(e);
   }

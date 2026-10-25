@@ -159,10 +159,9 @@ const State = (() => {
   function save() {
     if (!currentUser || !data) return;
     const accounts = getAccounts();
-    if (accounts[currentUser]) {
-      accounts[currentUser].data = data;
-      saveAccounts(accounts);
-    }
+    accounts[currentUser] = accounts[currentUser] || { username: data.username || currentUser, password: '123' };
+    accounts[currentUser].data = data;
+    saveAccounts(accounts);
   }
 
   // ---- Accessors ----
@@ -233,7 +232,7 @@ const State = (() => {
       eq = data.inventory.equipment.find(e => e.instanceId === instanceId);
     }
     if (!eq && fallbackItem) {
-      eq = data.inventory.equipment.find(e => e === fallbackItem || (fallbackItem.instanceId && e.instanceId === fallbackItem.instanceId) || (e.id === fallbackItem.id && e.level === fallbackItem.level) || e.id === fallbackItem.id);
+      eq = data.inventory.equipment.find(e => e === fallbackItem || (fallbackItem.instanceId && e.instanceId === fallbackItem.instanceId) || e.id === fallbackItem.id);
     }
     if (!eq && data.inventory.equipment.length > 0) {
       eq = data.inventory.equipment[0];
@@ -366,7 +365,7 @@ const State = (() => {
     // Chance for Box or Enriched drop (25% chance)
     let specialDrop = null;
     if (Math.random() < 0.25) {
-      const specials = ['obb', 'ovb', 'enriched_oridecon', 'enriched_elunium'];
+      const specials = ['obb', 'ovb', 'enriched_o', 'enriched_e'];
       const spec = specials[Math.floor(Math.random() * specials.length)];
       addMaterial(spec, 1);
       specialDrop = MATERIALS.find(m => m.id === spec);
