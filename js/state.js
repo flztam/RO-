@@ -15,7 +15,7 @@ const State = (() => {
     return {
       username,
       zeny: 10000,
-      settings: { sfx: true, music: false, shake: true, particles: true },
+      settings: { sfx: true, music: true, shake: true, particles: true },
       inventory: {
         equipment: [
           { id: 'knife',        instanceId: _uid(), level: 0 },
@@ -125,7 +125,7 @@ const State = (() => {
     data.achievements = data.achievements || {};
     data.lastHunt = data.lastHunt || 0;
     data.refineLog = data.refineLog || [];
-    data.settings = data.settings || { sfx: true, music: false, shake: true, particles: true };
+    data.settings = data.settings || { sfx: true, music: true, shake: true, particles: true };
     data.inventory = data.inventory || {};
     data.inventory.materials = data.inventory.materials || {};
     data.inventory.equipment = data.inventory.equipment || [];

@@ -359,6 +359,34 @@
 /* Pill 2: Material Stone */
 .refine-pill.pill-material {
   gap: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+.refine-pill.pill-material:hover {
+  border-color: #2563eb;
+  background: #f0f7ff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+}
+.refine-pill.pill-material.is-empty {
+  border-color: #fca5a5;
+  background: #fff5f5;
+  animation: pulse-border 2s infinite;
+}
+@keyframes pulse-border {
+  0%, 100% { border-color: #f87171; }
+  50% { border-color: #ef4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
+}
+.pill-mat-buy-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 2px;
+  letter-spacing: 0.2px;
 }
 .pill-mat-icon {
   width: 22px;
@@ -369,6 +397,9 @@
   font-weight: 700;
   font-size: 0.88rem;
   color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 .pill-mat-text.insufficient {
   color: #dc2626 !important;

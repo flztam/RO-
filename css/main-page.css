@@ -8,17 +8,10 @@
   background-color: #0c1424;
   background-image: url('../images/hollgrehenn-3d.jpg');
   background-repeat: no-repeat;
-  background-position: 35% clamp(45px, 13vh, 85px);
-  background-size: auto clamp(310px, 52vh, 440px);
+  background-position: center 30%;
+  background-size: cover;
   z-index: 0;
   filter: contrast(1.04) brightness(0.96);
-}
-
-@media (min-width: 900px) {
-  .morroc-bg {
-    background-position: center 30%;
-    background-size: cover;
-  }
 }
 
 /* Subtle atmospheric lighting overlay */

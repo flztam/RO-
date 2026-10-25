@@ -11,6 +11,7 @@ const Settings = (() => {
     document.getElementById('toggle-shake').checked    = s.shake;
     document.getElementById('toggle-particles').checked= s.particles;
     Audio.setEnabled(s.sfx);
+    Audio.setMusicEnabled(s.music);
   }
 
   function init() {
@@ -24,6 +25,7 @@ const Settings = (() => {
     document.getElementById('toggle-music').addEventListener('change', e => {
       const d = State.get(); if (!d) return;
       d.settings.music = e.target.checked;
+      Audio.setMusicEnabled(e.target.checked);
       State.save();
     });
 

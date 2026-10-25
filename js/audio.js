@@ -5,8 +5,10 @@
 const Audio = (() => {
   let ctx = null;
   let enabled = true;
+  let musicEnabled = true;
   let refineAudio = null;
   let failAudio = null;
+  let bgmAudio = null;
 
   function initAudio() {
     try {
@@ -20,6 +22,40 @@ const Audio = (() => {
       }
     } catch (e) {
       console.warn('Audio preloading error:', e);
+    }
+  }
+
+  function initBgm() {
+    try {
+      if (!bgmAudio) {
+        bgmAudio = new window.Audio('Data/Sound/bgm.mp3');
+        bgmAudio.loop = true;
+        bgmAudio.volume = 0.4;
+        bgmAudio.preload = 'auto';
+      }
+    } catch (e) {
+      console.warn('BGM initialization error:', e);
+    }
+  }
+
+  function playBgm() {
+    if (!musicEnabled) return;
+    initBgm();
+    try {
+      if (bgmAudio && bgmAudio.paused) {
+        const p = bgmAudio.play();
+        if (p && p.catch) {
+          p.catch(err => {
+            console.log('BGM waiting for user gesture', err);
+          });
+        }
+      }
+    } catch (e) {}
+  }
+
+  function pauseBgm() {
+    if (bgmAudio) {
+      bgmAudio.pause();
     }
   }
 
@@ -173,16 +209,23 @@ const Audio = (() => {
     });
   }
 
-  // Pre-initialize on first user interaction
-  document.addEventListener('click', () => {
+  // Pre-initialize and trigger BGM on first user interaction
+  function onFirstUserGesture() {
     initAudio();
+    initBgm();
     if (ctx && ctx.state === 'suspended') ctx.resume();
-  }, { once: true });
+    if (musicEnabled) playBgm();
+  }
+
+  document.addEventListener('click', onFirstUserGesture, { once: true });
+  document.addEventListener('touchstart', onFirstUserGesture, { once: true });
 
   return {
     play,
     playRefine,
     playFail,
+    playBgm,
+    pauseBgm,
     setEnabled(v) {
       enabled = v;
       if (!v) {
@@ -191,5 +234,14 @@ const Audio = (() => {
       }
     },
     isEnabled() { return enabled; },
+    setMusicEnabled(v) {
+      musicEnabled = v;
+      if (v) {
+        playBgm();
+      } else {
+        pauseBgm();
+      }
+    },
+    isMusicEnabled() { return musicEnabled; },
   };
 })();

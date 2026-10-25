@@ -22,6 +22,11 @@ const Landing = (() => {
       err.textContent = '';
       const result = State.signIn(user, pass);
       if (result.ok) {
+        const d = State.get();
+        if (d && d.settings) {
+          Audio.setEnabled(d.settings.sfx !== false);
+          Audio.setMusicEnabled(d.settings.music !== false);
+        }
         MainPage.refresh();
         Router.go('page-main');
       } else {
@@ -48,6 +53,11 @@ const Landing = (() => {
       const result = State.register(user, pass);
       if (result.ok) {
         State.signIn(user, pass);
+        const d = State.get();
+        if (d && d.settings) {
+          Audio.setEnabled(d.settings.sfx !== false);
+          Audio.setMusicEnabled(d.settings.music !== false);
+        }
         MainPage.refresh();
         Router.go('page-main');
       } else {

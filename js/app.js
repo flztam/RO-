@@ -22,6 +22,11 @@
 
   // Attempt auto-login
   if (State.autoLogin()) {
+    const d = State.get();
+    if (d && d.settings) {
+      Audio.setEnabled(d.settings.sfx !== false);
+      Audio.setMusicEnabled(d.settings.music !== false);
+    }
     MainPage.refresh();
     Router.go('page-main');
   } else {

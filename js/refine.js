@@ -134,6 +134,11 @@ const Refine = (() => {
       Audio.play('click');
     });
 
+    // Material Pill Fast Buy
+    document.getElementById('pill-material-box')?.addEventListener('click', () => {
+      openFastBuyOreModal();
+    });
+
     // Manual Minigame Toggle Button
     const manualBtn = document.getElementById('btn-toggle-manual');
     if (manualBtn) {
@@ -394,13 +399,27 @@ const Refine = (() => {
     }
 
     // Material Pill
+    const pillMatBox = document.getElementById('pill-material-box');
     if ($pillMatIcon() && matDef) {
       $pillMatIcon().src = matDef.icon;
       $pillMatIcon().onerror = () => { $pillMatIcon().src = `https://file5s.ratemyserver.net/items/small/${matDef.itemId}.gif`; };
     }
     if ($matCount()) {
-      $matCount().textContent = `${matHave}/1`;
-      $matCount().className = 'pill-mat-text' + (matHave < 1 ? ' insufficient' : '');
+      if (matHave < 1) {
+        $matCount().innerHTML = `${matHave}/1 <span class="pill-mat-buy-tag">+ซื้อ</span>`;
+        $matCount().className = 'pill-mat-text insufficient';
+        if (pillMatBox) {
+          pillMatBox.classList.add('is-empty');
+          pillMatBox.title = `ไม่มี ${matDef.name}! คลิกเพื่อซื้อแร่ทันที (1 ชิ้น หรือ 10 ชิ้น)`;
+        }
+      } else {
+        $matCount().textContent = `${matHave}/1`;
+        $matCount().className = 'pill-mat-text';
+        if (pillMatBox) {
+          pillMatBox.classList.remove('is-empty');
+          pillMatBox.title = `มี ${matDef.name} ${matHave} ชิ้น (คลิกเพื่อซื้อเพิ่ม 1 หรือ 10 ชิ้น)`;
+        }
+      }
     }
 
     // Zeny Pill
@@ -754,11 +773,111 @@ const Refine = (() => {
     }
   }
 
-  function getBtnCenter(btn) {
-    if (!btn) return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const r = btn.getBoundingClientRect();
-    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  function showToast(text) {
+    const toast = document.getElementById('hunt-toast');
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
-  return { open, close, selectItem: (it) => { selectedItem = it; updateDisplay(); } };
+  function openFastBuyOreModal() {
+    if (!selectedItem) {
+      showToast('กรุณาเลือกอุปกรณ์ที่จะตีบวกก่อนซื้อแร่');
+      toggleDrawer(true);
+      return;
+    }
+
+    const eqDef = EQUIPMENT.find(e => e.id === selectedItem.id);
+    if (!eqDef) return;
+
+    const matId = getRequiredMaterial(eqDef, isEnriched);
+    const matDef = MATERIALS.find(m => m.id === matId);
+    if (!matDef) return;
+
+    const modal = document.getElementById('fast-buy-ore-modal');
+    if (!modal) return;
+
+    const icon = document.getElementById('fast-buy-icon');
+    const name = document.getElementById('fast-buy-name');
+    const desc = document.getElementById('fast-buy-desc');
+    const unitPrice = document.getElementById('fast-buy-unit-price');
+    const owned = document.getElementById('fast-buy-owned');
+    const btnBuy1 = document.getElementById('btn-fast-buy-1');
+    const btnBuy10 = document.getElementById('btn-fast-buy-10');
+    const cost1 = document.getElementById('fast-buy-cost-1');
+    const cost10 = document.getElementById('fast-buy-cost-10');
+    const closeBtn = document.getElementById('btn-close-fast-buy');
+    const cancelBtn = document.getElementById('btn-cancel-fast-buy');
+
+    const price = matDef.buyPrice || 1000;
+    const price10 = price * 10;
+
+    if (icon) {
+      icon.src = matDef.icon;
+      icon.onerror = () => { icon.src = `https://file5s.ratemyserver.net/items/small/${matDef.itemId}.gif`; };
+    }
+    if (name) name.textContent = matDef.name;
+    if (desc) desc.textContent = matDef.desc || '';
+    if (unitPrice) unitPrice.textContent = `${price.toLocaleString()} z`;
+    if (cost1) cost1.textContent = `${price.toLocaleString()} z`;
+    if (cost10) cost10.textContent = `${price10.toLocaleString()} z`;
+
+    const refreshModalStatus = () => {
+      const d = State.get();
+      const z = d ? d.zeny : 0;
+      const count = State.getMaterial(matId);
+      if (owned) owned.textContent = `${count.toLocaleString()} ชิ้น`;
+      if (btnBuy1) {
+        btnBuy1.disabled = z < price;
+        btnBuy1.style.opacity = z < price ? '0.5' : '1';
+      }
+      if (btnBuy10) {
+        btnBuy10.disabled = z < price10;
+        btnBuy10.style.opacity = z < price10 ? '0.5' : '1';
+      }
+    };
+
+    refreshModalStatus();
+
+    const closeModal = () => modal.classList.add('hidden');
+    if (closeBtn) closeBtn.onclick = closeModal;
+    if (cancelBtn) cancelBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    const handleBuy = (qty) => {
+      const totalCost = price * qty;
+      const d = State.get();
+      if (!d || d.zeny < totalCost) {
+        showToast('❌ เงิน Zeny ไม่เพียงพอสำหรับซื้อแร่นี้!');
+        Audio.play('fail');
+        return;
+      }
+
+      if (State.spendZeny(totalCost)) {
+        State.addMaterial(matId, qty);
+        Audio.play('buy');
+        showToast(`✨ ซื้อ ${matDef.name} x${qty} สำเร็จ! (-${totalCost.toLocaleString()} z)`);
+        updateDisplay();
+        updateZeny();
+        refreshModalStatus();
+        if (typeof Achievements !== 'undefined' && Achievements.check) {
+          Achievements.check();
+        }
+      }
+    };
+
+    if (btnBuy1) {
+      btnBuy1.onclick = () => handleBuy(1);
+    }
+    if (btnBuy10) {
+      btnBuy10.onclick = () => handleBuy(10);
+    }
+
+    modal.classList.remove('hidden');
+  }
+
+  return { open, close, selectItem: (it) => { selectedItem = it; updateDisplay(); }, openFastBuy: openFastBuyOreModal };
 })();
