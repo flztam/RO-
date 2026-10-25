@@ -628,6 +628,7 @@ const EQUIPMENT = [
     icon: 'images/items/1413.gif',
     type: 'Weapon',
     weaponLevel: 4,
+    isGod: true,
     subClass: 'Spear',
     baseAtk: 120,
     slots: 0,
@@ -644,6 +645,7 @@ const EQUIPMENT = [
     icon: 'images/items/1128.gif',
     type: 'Weapon',
     weaponLevel: 4,
+    isGod: true,
     subClass: 'One-handed Sword',
     baseAtk: 150,
     slots: 0,
@@ -660,6 +662,7 @@ const EQUIPMENT = [
     icon: 'images/items/1599.gif',
     type: 'Weapon',
     weaponLevel: 4,
+    isGod: true,
     subClass: 'Mace',
     baseAtk: 200,
     slots: 0,
@@ -1211,6 +1214,80 @@ function calculateRefinedSellPrice(item, level = 0) {
   return Math.round(baseSell * totalMult);
 }
 
+// ---- Achievement Helper Functions ----
+function hasPlus10Matching(d, filterFn) {
+  if (!d) return false;
+  const plus10Items = d.stats?.plus10Items || {};
+  for (const itemId in plus10Items) {
+    if (plus10Items[itemId]) {
+      const def = EQUIPMENT.find(e => e.id === itemId);
+      if (def && filterFn(def)) return true;
+    }
+  }
+  const liveEquips = d.inventory?.equipment || [];
+  return liveEquips.some(eq => {
+    if ((eq.level || 0) < 10) return false;
+    const def = EQUIPMENT.find(e => e.id === eq.id);
+    return def && filterFn(def);
+  });
+}
+
+function getPlus10Progress(d, filterFn, target = 1) {
+  return {
+    current: hasPlus10Matching(d, filterFn) ? target : 0,
+    threshold: target
+  };
+}
+
+function getArmorSubclassesPlus10Count(d) {
+  if (!d) return 0;
+  const requiredSubclasses = ['Armor', 'Shield', 'Garment', 'Footgear', 'Headgear'];
+  const matched = new Set();
+  const plus10Items = d.stats?.plus10Items || {};
+
+  for (const itemId in plus10Items) {
+    if (plus10Items[itemId]) {
+      const def = EQUIPMENT.find(e => e.id === itemId);
+      if (def && def.type === 'Armor' && requiredSubclasses.includes(def.subClass)) {
+        matched.add(def.subClass);
+      }
+    }
+  }
+
+  const liveEquips = d.inventory?.equipment || [];
+  liveEquips.forEach(eq => {
+    if ((eq.level || 0) >= 10) {
+      const def = EQUIPMENT.find(e => e.id === eq.id);
+      if (def && def.type === 'Armor' && requiredSubclasses.includes(def.subClass)) {
+        matched.add(def.subClass);
+      }
+    }
+  });
+
+  return matched.size;
+}
+
+function getTotalPlus10Count(d) {
+  if (!d) return 0;
+  const uniquePlus10 = new Set();
+  const plus10Items = d.stats?.plus10Items || {};
+
+  for (const itemId in plus10Items) {
+    if (plus10Items[itemId]) {
+      uniquePlus10.add(itemId);
+    }
+  }
+
+  const liveEquips = d.inventory?.equipment || [];
+  liveEquips.forEach(eq => {
+    if ((eq.level || 0) >= 10) {
+      uniquePlus10.add(eq.id);
+    }
+  });
+
+  return uniquePlus10.size;
+}
+
 // ---- Achievements definition ----
 const ACHIEVEMENTS = [
   { id: 'first_refine',    name: 'First Swing',      icon: '🔨', desc: 'เริ่มลงมือตีบวกอุปกรณ์ครั้งแรก', req: s => s.totalRefines >= 1,          threshold: 1, key: 'totalRefines' },
@@ -1225,6 +1302,80 @@ const ACHIEVEMENTS = [
   { id: 'zeny100k',       name: 'Merchant Prince',  icon: '💰', desc: 'ครอบครองเงินสะสมเกิน 100,000 Zeny', req: s => s.totalZenyEarned >= 100000,  threshold: 100000, key: 'totalZenyEarned' },
   { id: 'buy50',          name: 'Shopping Spree',   icon: '🛒', desc: 'ซื้อแร่และอุปกรณ์จากร้านค้า 50 ชิ้น', req: s => s.totalBought >= 50,          threshold: 50,key: 'totalBought' },
   { id: 'manual_success', name: 'Eagle Eye',        icon: '🎯', desc: 'ตีบวกสำเร็จด้วยโหมดกะจังหวะ (Manual) ครบ 5 ครั้ง', req: s => s.manualSuccess >= 5, threshold: 5, key: 'manualSuccess' },
+
+  // New Equipment Tier & Milestone Achievements
+  {
+    id: 'master_w1_plus10',
+    name: 'ช่างตีมีดฝึกหัด',
+    icon: '🗡️',
+    desc: 'ตีบวกอาวุธ Lv.1 ถึงระดับ +10 ชิ้นแรก',
+    req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 1),
+    getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 1, 1),
+    threshold: 1
+  },
+  {
+    id: 'master_w2_plus10',
+    name: 'ผู้เชี่ยวชาญคมดาบ',
+    icon: '⚔️',
+    desc: 'ตีบวกอาวุธ Lv.2 ถึงระดับ +10 ชิ้นแรก',
+    req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 2),
+    getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 2, 1),
+    threshold: 1
+  },
+  {
+    id: 'master_w3_plus10',
+    name: 'มาสเตอร์แห่งศาสตรา',
+    icon: '🔱',
+    desc: 'ตีบวกอาวุธ Lv.3 ถึงระดับ +10 ชิ้นแรก',
+    req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 3),
+    getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 3, 1),
+    threshold: 1
+  },
+  {
+    id: 'master_w4_plus10',
+    name: 'ตำนานแห่งศาสตราวุธ',
+    icon: '⚡',
+    desc: 'ตีบวกอาวุธ Lv.4 ถึงระดับ +10 ชิ้นแรก',
+    req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4),
+    getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4, 1),
+    threshold: 1
+  },
+  {
+    id: 'master_god_weapon_plus10',
+    name: 'ผู้พิชิตอาวุธเทพ',
+    icon: '🌟',
+    desc: 'ตีบวกอาวุธเทพ Lv.4 ถึงระดับ +10 ชิ้นแรก',
+    req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4 && (eq.isGod || eq.id === 'angra_manyu' || eq.id === 'gungnir' || eq.id === 'excalibur')),
+    getProgress: d => getPlus10Progress(d, eq => eq.type === 'Weapon' && eq.weaponLevel === 4 && (eq.isGod || eq.id === 'angra_manyu' || eq.id === 'gungnir' || eq.id === 'excalibur'), 1),
+    threshold: 1
+  },
+  {
+    id: 'master_shield_plus10',
+    name: 'โล่สุดแกร่ง',
+    icon: '🛡️',
+    desc: 'ตีบวกโล่ ถึงระดับ +10 ชิ้นแรก',
+    req: (s, d) => hasPlus10Matching(d, eq => eq.type === 'Armor' && eq.subClass === 'Shield'),
+    getProgress: d => getPlus10Progress(d, eq => eq.type === 'Armor' && eq.subClass === 'Shield', 1),
+    threshold: 1
+  },
+  {
+    id: 'fullset_morroc_plus10',
+    name: 'ฟูลเซ็ตเทพโมร็อค',
+    icon: '⚜️',
+    desc: 'เครื่องป้องกันระดับ +10 ครบทุกประเภท (เกราะ, โล่, ผ้าคลุม, รองเท้า, หมวก)',
+    req: (s, d) => getArmorSubclassesPlus10Count(d) >= 5,
+    getProgress: d => ({ current: getArmorSubclassesPlus10Count(d), threshold: 5 }),
+    threshold: 5
+  },
+  {
+    id: 'legendary_refiner_all_plus10',
+    name: 'ช่างตีบวกในตำนาน',
+    icon: '👑',
+    desc: 'ตีบวกไอเทมทุกชนิดในเกมถึงระดับ +10',
+    req: (s, d) => getTotalPlus10Count(d) >= EQUIPMENT.length,
+    getProgress: d => ({ current: getTotalPlus10Count(d), threshold: EQUIPMENT.length }),
+    threshold: 56
+  },
 ];
 
 // ---- NPC speech pool (Official RO Hollgrehenn dialogue) ----

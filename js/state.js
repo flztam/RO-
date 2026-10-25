@@ -117,6 +117,7 @@ const State = (() => {
     data.stats = data.stats || {};
     ['totalRefines','successCount','failCount','breakCount','maxRefineReached','huntCount','totalZenyEarned','totalBought','manualSuccess','boxesOpened']
       .forEach(k => { if (data.stats[k] === undefined) data.stats[k] = 0; });
+    data.stats.plus10Items = data.stats.plus10Items || {};
     data.achievements = data.achievements || {};
     data.lastHunt = data.lastHunt || 0;
     data.refineLog = data.refineLog || [];
@@ -124,6 +125,13 @@ const State = (() => {
     data.inventory = data.inventory || {};
     data.inventory.materials = data.inventory.materials || {};
     data.inventory.equipment = data.inventory.equipment || [];
+
+    // Auto-populate plus10Items from current inventory if any
+    data.inventory.equipment.forEach(item => {
+      if (item && item.level >= 10) {
+        data.stats.plus10Items[item.id] = true;
+      }
+    });
 
     // Migrate any legacy item IDs from earlier versions
     const legacyMap = {
@@ -206,6 +214,10 @@ const State = (() => {
     if (!eq) return;
     eq.level = newLevel;
     if (newLevel > data.stats.maxRefineReached) data.stats.maxRefineReached = newLevel;
+    if (newLevel >= 10) {
+      data.stats.plus10Items = data.stats.plus10Items || {};
+      data.stats.plus10Items[eq.id] = true;
+    }
     save();
   }
 
