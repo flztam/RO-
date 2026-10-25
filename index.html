@@ -136,13 +136,13 @@
       <div class="ro-hud-actions">
         <!-- Inventory Button -->
         <button class="ro-hud-btn" id="btn-inventory" title="กระเป๋าสัมภาระ (Inventory) - ตรวจสอบไอเทมและอุปกรณ์">
-          <img src="images/icons/backpack.gif" class="hud-btn-pixel-icon" alt="Bag" />
+          <img src="images/icons/bag_bronze_coins.gif" class="hud-btn-pixel-icon" alt="Bag" />
           <span class="hud-btn-text">สัมภาระ</span>
         </button>
 
         <!-- Achievement Button -->
         <button class="ro-hud-btn" id="btn-achievements" title="เกียรติยศและความสำเร็จ (Achievements)">
-          <img src="images/icons/crown.gif" class="hud-btn-pixel-icon" alt="Achievements" />
+          <img src="images/icons/emperium.gif" class="hud-btn-pixel-icon" alt="Achievements" />
           <span class="hud-btn-text">เกียรติยศ</span>
         </button>
 
@@ -154,7 +154,7 @@
 
         <!-- Settings Button -->
         <button class="ro-hud-btn" id="btn-settings-main" title="ตั้งค่าระบบ &amp; ออกจากระบบ">
-          <img src="images/icons/settings_tool.gif" class="hud-btn-pixel-icon" alt="Settings" />
+          <img src="images/icons/vesper_core.gif" class="hud-btn-pixel-icon" alt="Settings" />
           <span class="hud-btn-text">ตั้งค่า</span>
         </button>
       </div>
@@ -172,16 +172,16 @@
         </div>
         <div class="ro-npc-options">
           <button class="ro-dialog-option" id="dialog-opt-refine">
-            <span class="opt-bullet">▶</span> ข้าต้องการตีบวกอุปกรณ์ (Item Refine)
+            <span class="opt-bullet">▶</span> <img src="images/icons/anvil.gif" class="btn-sub-pixel-icon" alt="" /> ข้าต้องการตีบวกอุปกรณ์ (Item Refine)
           </button>
           <button class="ro-dialog-option" id="dialog-opt-inventory">
-            <span class="opt-bullet">▶</span> ตรวจสอบสัมภาระ (Inventory)
+            <span class="opt-bullet">▶</span> <img src="images/icons/bag_bronze_coins.gif" class="btn-sub-pixel-icon" alt="" /> ตรวจสอบสัมภาระ (Inventory)
           </button>
           <button class="ro-dialog-option" id="dialog-opt-shop">
-            <span class="opt-bullet">▶</span> ซื้อ-ขายวัตถุดิบและอุปกรณ์ (Shop)
+            <span class="opt-bullet">▶</span> <img src="images/icons/overcharge.gif" class="btn-sub-pixel-icon" alt="" /> ซื้อ-ขายวัตถุดิบและอุปกรณ์ (Shop)
           </button>
           <button class="ro-dialog-option" id="dialog-opt-achievements">
-            <span class="opt-bullet">▶</span> ดูเกียรติยศและสถิติ (Achievements)
+            <span class="opt-bullet">▶</span> <img src="images/icons/emperium.gif" class="btn-sub-pixel-icon" alt="" /> ดูเกียรติยศและสถิติ (Achievements)
           </button>
         </div>
         <div class="ro-npc-footer">
@@ -192,7 +192,7 @@
       <!-- Quick Action Menu (Refine & Shop) -->
       <div class="ro-action-menu">
         <button class="ro-menu-button ro-menu-button-refine" id="btn-refine">
-          <img src="images/icons/golden_hammer.gif" class="ro-menu-pixel-icon" alt="Refine" />
+          <img src="images/icons/anvil.gif" class="ro-menu-pixel-icon" alt="Refine" />
           <div class="ro-menu-info">
             <span class="ro-menu-title">ตีบวก (Refine)</span>
             <span class="ro-menu-sub">อัพเกรดอาวุธ &amp; ชุดเกราะ</span>
@@ -200,7 +200,7 @@
           <span class="ro-menu-arrow">▶</span>
         </button>
         <button class="ro-menu-button ro-menu-button-shop" id="btn-shop">
-          <img src="images/icons/shop_cart.gif" class="ro-menu-pixel-icon" alt="Shop" />
+          <img src="images/icons/overcharge.gif" class="ro-menu-pixel-icon" alt="Shop" />
           <div class="ro-menu-info">
             <span class="ro-menu-title">ร้านค้า (Shop)</span>
             <span class="ro-menu-sub">ซื้อแร่ &bull; ขายอุปกรณ์ &bull; หลอมแร่</span>
@@ -217,7 +217,7 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-refine">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main"><img src="images/icons/hammer.gif" class="title-pixel-icon" alt="" />New Upgrade · ระบบอัพเกรดอุปกรณ์</span>
+        <span class="title-main"><img src="images/icons/anvil.gif" class="title-pixel-icon" alt="" />New Upgrade · ระบบอัพเกรดอุปกรณ์</span>
         <span class="title-sub">Ragnarok Online Refinement System</span>
       </div>
       <div class="zeny-pill"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" /><span id="refine-zeny">0</span> z</div>
@@ -246,7 +246,7 @@
       <!-- Equipment Selection Drawer (Collapsible & Mobile Responsive) -->
       <aside class="refine-equip-drawer" id="refine-equip-drawer">
         <div class="drawer-header">
-          <span class="drawer-title"><img src="images/icons/backpack.gif" class="btn-sub-pixel-icon" alt="" />เลือกอุปกรณ์ในตัว (Bag)</span>
+          <span class="drawer-title"><img src="images/icons/bag_bronze_coins.gif" class="btn-sub-pixel-icon" alt="" />เลือกอุปกรณ์ในตัว (Bag)</span>
           <button type="button" class="btn-drawer-close" id="btn-close-drawer" title="ปิด">✕</button>
         </div>
         <div class="drawer-filter-bar">
@@ -406,7 +406,7 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-inventory">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main"><img src="images/icons/backpack.gif" class="title-pixel-icon" alt="" />กระเป๋าสัมภาระ (Item Inventory)</span>
+        <span class="title-main"><img src="images/icons/bag_bronze_coins.gif" class="title-pixel-icon" alt="" />กระเป๋าสัมภาระ (Item Inventory)</span>
         <span class="title-sub">Ragnarok Online Item Bag</span>
       </div>
       <div class="zeny-pill"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" /><span id="inv-zeny">0</span> z</div>
@@ -428,7 +428,7 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-shop">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main"><img src="images/icons/shop_cart.gif" class="title-pixel-icon" alt="" />ร้านค้ามิดการ์ด (Midgard Shop)</span>
+        <span class="title-main"><img src="images/icons/overcharge.gif" class="title-pixel-icon" alt="" />ร้านค้ามิดการ์ด (Midgard Shop)</span>
         <span class="title-sub">Blacksmith Supply &amp; Equipment</span>
       </div>
       <div class="zeny-pill"><img src="images/icons/zeny.gif" class="zeny-pixel-icon" alt="z" /><span id="shop-zeny">0</span> z</div>
@@ -440,7 +440,7 @@
         <button class="ro-tab-btn" data-shop-tab="wep-high"><img src="images/icons/cross_sword.gif" class="tab-pixel-icon" alt="" />อาวุธ Lv.3 - 4</button>
         <button class="ro-tab-btn" data-shop-tab="armors"><img src="images/icons/shield.gif" class="tab-pixel-icon" alt="" />ชุดเกราะ &amp; โล่</button>
         <button class="ro-tab-btn" data-shop-tab="refinery"><img src="images/icons/anvil.gif" class="tab-pixel-icon" alt="" />โรงหลอมแร่</button>
-        <button class="ro-tab-btn" data-shop-tab="sell"><img src="images/icons/zeny.gif" class="tab-pixel-icon" alt="" />ขายไอเทม</button>
+        <button class="ro-tab-btn" data-shop-tab="sell"><img src="images/icons/ancient_gold_coin.gif" class="tab-pixel-icon" alt="" />ขายไอเทม</button>
       </div>
       <!-- Panel 1: Materials & Boxes -->
       <div id="shop-mats" class="shop-panel active">
@@ -477,7 +477,7 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-achievements">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main"><img src="images/icons/crown.gif" class="title-pixel-icon" alt="" />สถิติและเกียรติยศ (Achievements &amp; Stats)</span>
+        <span class="title-main"><img src="images/icons/emperium.gif" class="title-pixel-icon" alt="" />สถิติและเกียรติยศ (Achievements &amp; Stats)</span>
         <span class="title-sub">Records of Smithing Legend</span>
       </div>
     </header>
@@ -494,14 +494,14 @@
     <header class="ro-sub-header">
       <button class="ro-btn-back" id="back-from-settings">◀ กลับ (Back)</button>
       <div class="ro-sub-title">
-        <span class="title-main"><img src="images/icons/settings_tool.gif" class="title-pixel-icon" alt="" />ตั้งค่าระบบ (System Settings)</span>
+        <span class="title-main"><img src="images/icons/vesper_core.gif" class="title-pixel-icon" alt="" />ตั้งค่าระบบ (System Settings)</span>
         <span class="title-sub">Audio &amp; Game Preferences</span>
       </div>
     </header>
     <div class="settings-content">
       <div class="ro-window setting-window">
         <div class="ro-win-header">
-          <span class="ro-win-icon"><img src="images/icons/megaphone.gif" class="win-pixel-icon" alt="" /></span>
+          <span class="ro-win-icon"><img src="images/icons/vesper_core.gif" class="win-pixel-icon" alt="" /></span>
           <span class="ro-win-title">Audio &amp; Display Options</span>
         </div>
         <div class="ro-win-body">
@@ -612,14 +612,14 @@
   <div id="shop-service-modal" class="ro-modal-overlay hidden">
     <div class="ro-modal-window shop-service-window">
       <div class="ro-modal-header">
-        <span class="ro-modal-title"><img src="images/icons/shop_cart.gif" class="modal-pixel-icon" alt="" />ร้านค้ามิดการ์ด (Midgard Blacksmith)</span>
+        <span class="ro-modal-title"><img src="images/icons/overcharge.gif" class="modal-pixel-icon" alt="" />ร้านค้ามิดการ์ด (Midgard Blacksmith)</span>
         <button type="button" class="ro-modal-close" id="btn-close-shop-service" title="ปิด">✕</button>
       </div>
       <div class="ro-modal-body">
         <p class="service-intro">ยินดีต้อนรับสู่ร้านค้ามิดการ์ด ท่านต้องการให้ข้าช่วยเหลือสิ่งใด?</p>
         <div class="shop-services-grid">
           <button type="button" class="service-choice-card" id="srv-opt-buy">
-            <div class="service-icon-wrap buy-icon"><img src="images/icons/shop_cart.gif" class="service-pixel-icon" alt="Buy" /></div>
+            <div class="service-icon-wrap buy-icon"><img src="images/icons/overcharge.gif" class="service-pixel-icon" alt="Buy" /></div>
             <div class="service-info">
               <div class="service-title">ซื้อไอเทม &amp; วัตถุดิบ (Buy Items)</div>
               <div class="service-desc">ซื้อหินตีบวก, อาวุธ Lv.1 - 4, ชุดเกราะ และกล่องสุ่ม OBB / OVB</div>
@@ -628,7 +628,7 @@
           </button>
 
           <button type="button" class="service-choice-card" id="srv-opt-sell">
-            <div class="service-icon-wrap sell-icon"><img src="images/icons/zeny.gif" class="service-pixel-icon" alt="Sell" /></div>
+            <div class="service-icon-wrap sell-icon"><img src="images/icons/ancient_gold_coin.gif" class="service-pixel-icon" alt="Sell" /></div>
             <div class="service-info">
               <div class="service-title">ขายอุปกรณ์ (Sell Equipment)</div>
               <div class="service-desc">ขายอุปกรณ์ที่ไม่ใช้ หรือขายไอเทมบวกสูงเพื่อรับเงิน Zeny จำนวนมหาศาล</div>
@@ -753,18 +753,18 @@
   <div id="particles" class="particles-layer"></div>
 
   <!-- Scripts -->
-  <script src="js/audio.js?v=2.7"></script>
-  <script src="js/data.js?v=2.7"></script>
-  <script src="js/state.js?v=2.7"></script>
-  <script src="js/particles.js?v=2.7"></script>
-  <script src="js/router.js?v=2.7"></script>
-  <script src="js/landing.js?v=2.7"></script>
-  <script src="js/main-page.js?v=2.7"></script>
-  <script src="js/refine.js?v=2.7"></script>
-  <script src="js/inventory.js?v=2.7"></script>
-  <script src="js/shop.js?v=2.7"></script>
-  <script src="js/achievements.js?v=2.7"></script>
-  <script src="js/settings.js?v=2.7"></script>
-  <script src="js/app.js?v=2.7"></script>
+  <script src="js/audio.js?v=2.8"></script>
+  <script src="js/data.js?v=2.8"></script>
+  <script src="js/state.js?v=2.8"></script>
+  <script src="js/particles.js?v=2.8"></script>
+  <script src="js/router.js?v=2.8"></script>
+  <script src="js/landing.js?v=2.8"></script>
+  <script src="js/main-page.js?v=2.8"></script>
+  <script src="js/refine.js?v=2.8"></script>
+  <script src="js/inventory.js?v=2.8"></script>
+  <script src="js/shop.js?v=2.8"></script>
+  <script src="js/achievements.js?v=2.8"></script>
+  <script src="js/settings.js?v=2.8"></script>
+  <script src="js/app.js?v=2.8"></script>
 </body>
 </html>

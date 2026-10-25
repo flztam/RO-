@@ -1297,10 +1297,10 @@ const ACHIEVEMENTS = [
   { id: 'first_fail',     name: 'It Happens',       icon: 'images/icons/rough_ore.gif', desc: 'อุปกรณ์ล้มเหลวครั้งแรก (สัจธรรมของ RO)', req: s => s.failCount >= 1,             threshold: 1, key: 'failCount' },
   { id: 'fail10',         name: 'Cursed Hammer',    icon: 'images/icons/settings_tool.gif', desc: 'ค้อนต้องคำสาป ล้มเหลวสะสม 10 ครั้ง', req: s => s.failCount >= 10,            threshold: 10,key: 'failCount' },
   { id: 'reach_plus7',    name: '+7 Weapon Master',icon: 'images/icons/ore.gif', desc: 'ตีบวกอาวุธใดก็ได้ขึ้นถึงระดับ +7', req: s => s.maxRefineReached >= 7,      threshold: 7, key: 'maxRefineReached' },
-  { id: 'reach_plus10',   name: 'Legendary +10',    icon: 'images/icons/crown.gif', desc: 'ทำสำเร็จ! ตีบวกอุปกรณ์ถึงระดับ +10 ระดับสูงสุด!', req: s => s.maxRefineReached >= 10,     threshold: 10,key: 'maxRefineReached' },
+  { id: 'reach_plus10',   name: 'Legendary +10',    icon: 'images/icons/emperium.gif', desc: 'ทำสำเร็จ! ตีบวกอุปกรณ์ถึงระดับ +10 ระดับสูงสุด!', req: s => s.maxRefineReached >= 10,     threshold: 10,key: 'maxRefineReached' },
   { id: 'hunt10',         name: 'Monster Slayer',   icon: 'images/icons/sword.gif', desc: 'ออกล่ามอนสเตอร์สะสมครบ 10 รอบ', req: s => s.huntCount >= 10,            threshold: 10,key: 'huntCount' },
   { id: 'zeny100k',       name: 'Merchant Prince',  icon: 'images/icons/zeny.gif', desc: 'ครอบครองเงินสะสมเกิน 100,000 Zeny', req: s => s.totalZenyEarned >= 100000,  threshold: 100000, key: 'totalZenyEarned' },
-  { id: 'buy50',          name: 'Shopping Spree',   icon: 'images/icons/shop_cart.gif', desc: 'ซื้อแร่และอุปกรณ์จากร้านค้า 50 ชิ้น', req: s => s.totalBought >= 50,          threshold: 50,key: 'totalBought' },
+  { id: 'buy50',          name: 'Shopping Spree',   icon: 'images/icons/overcharge.gif', desc: 'ซื้อแร่และอุปกรณ์จากร้านค้า 50 ชิ้น', req: s => s.totalBought >= 50,          threshold: 50,key: 'totalBought' },
   { id: 'manual_success', name: 'Eagle Eye',        icon: 'images/icons/cross_sword.gif', desc: 'ตีบวกสำเร็จด้วยโหมดกะจังหวะ (Manual) ครบ 5 ครั้ง', req: s => s.manualSuccess >= 5, threshold: 5, key: 'manualSuccess' },
 
   // New Equipment Tier & Milestone Achievements
@@ -1370,7 +1370,7 @@ const ACHIEVEMENTS = [
   {
     id: 'legendary_refiner_all_plus10',
     name: 'ช่างตีบวกในตำนาน',
-    icon: 'images/icons/crown.gif',
+    icon: 'images/icons/emperium.gif',
     desc: 'ตีบวกไอเทมทุกชนิดในเกมถึงระดับ +10',
     req: (s, d) => getTotalPlus10Count(d) >= EQUIPMENT.length,
     getProgress: d => ({ current: getTotalPlus10Count(d), threshold: EQUIPMENT.length }),
